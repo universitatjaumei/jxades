@@ -28,6 +28,7 @@ public class DataObjectFormatDetails extends XAdESStructure
                 xmlSignaturePrefix);
 
         Element description = createElement("Description");
+        description.setPrefix(xadesPrefix);
         description.setTextContent(dataObjectFormat.getDescription());
 
         ObjectIdentifier objectIdentifier = dataObjectFormat.getObjectIdentifier();
@@ -39,13 +40,17 @@ public class DataObjectFormatDetails extends XAdESStructure
         }
 
         Element mimetype = createElement("MimeType");
+        mimetype.setPrefix(xadesPrefix);
         mimetype.setTextContent(dataObjectFormat.getMimeType());
 
         Element encoding = createElement("Encoding");
+        encoding.setPrefix(xadesPrefix);
         encoding.setTextContent(dataObjectFormat.getEncoding());
+        
         // TODO: must ensure that there is an ObjectReference attribute, otherwise an Exception
         // should be raised
-        setAttribute("ObjectReference", dataObjectFormat.getObjectReference());
+        setAttributeNS(xadesNamespace, "ObjectReference", dataObjectFormat.getObjectReference());
+        
         getNode().appendChild(description);
         getNode().appendChild(mimetype);
         getNode().appendChild(encoding);
