@@ -105,18 +105,38 @@ get the explicit notices from a notices file.
  */
 public interface SignaturePolicyIdentifier
 {
-    public boolean isImplied();
-    public void setImplied(boolean implied);
+    boolean isImplied();
+    void setImplied(boolean implied);
     
-    public String getIdentifier();
-    public void setIdentifier(String identifier) throws IOException, NoSuchAlgorithmException;
+    String getIdentifier();
     
-    public String getHashBase64();
-    public void setHashBase64(String hashBase64);
+    
+    /** Sets the SigPolicyId element values.
+     * @param identifier Policy identifier, usually an URL pointing the computer processable XML policy definition file
+     * @param hashBase64 Hash of the policy (Base64 encoded) pointed by the <code>identifier</i> parameter. May be null, but only if the 
+     *                   <code>identifier</i> is an URL universally accessible
+     * @param hashAlgorithm Algorithm used for the calculation of the hash on the <code>hashBase64</code> parameter.
+     *                      Ignored when <code>hashBase64</code> is null, but mandatory when it's not
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     */
+    void setIdentifier(String identifier, String hashBase64, String hashAlgorithm) throws IOException, NoSuchAlgorithmException;
+    
+    void setIdentifier(String identifier) throws IOException, NoSuchAlgorithmException;
+    
+    
+    String getHashBase64();
+    String getHashAlgorithm();
+    
 
-    public String getDescription();
-    public void setDescription(String description);
+    String getDescription();
+    void setDescription(String description);
 
-    public String getQualifier();
+    String getQualifier();
+    
+    /** Sets the policy qualifier, wich must be an URL pointing to the human-readable document (usually a PDF)
+     * describing the policy.
+     * @param qualifier URL to the policy human-readable description document
+     */
     public void setQualifier(String qualifier);
 }

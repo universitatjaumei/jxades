@@ -1,6 +1,5 @@
 package net.java.xades.security.xml.XAdES;
 
-import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.XMLSignature;
 
 import org.w3c.dom.Element;
@@ -26,54 +25,50 @@ public class SignaturePolicyIdentifierDetails extends XAdESStructure
             SignaturePolicyIdentifier signaturePolicyIdentifier, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(signedSignatureProperties, "SignaturePolicyIdentifier", xadesPrefix, xadesNamespace,
+        super(signedSignatureProperties, "SignaturePolicyIdentifier", xadesPrefix, xadesNamespace, //$NON-NLS-1$
                 xmlSignaturePrefix);
 
         // TODO: check if when the policy is implied other attributes are not mandatory.
         if (signaturePolicyIdentifier.isImplied())
         {
-            Element implied = createElement("SignaturePolicyImplied");
+            Element implied = createElement("SignaturePolicyImplied"); //$NON-NLS-1$
             getNode().appendChild(implied);
         }
         else
         {
-            Element signaturePolicyId = createElement("SignaturePolicyId");
+            final Element signaturePolicyId = createElement("SignaturePolicyId"); //$NON-NLS-1$
 
-            Element identifier = createElement("Identifier");
-            identifier.appendChild(getDocument().createTextNode(
-                    signaturePolicyIdentifier.getIdentifier()));
+            final Element identifier = createElement("Identifier"); //$NON-NLS-1$
+            identifier.appendChild(getDocument().createTextNode(signaturePolicyIdentifier.getIdentifier()));
 
-            Element description = createElement("Description");
-            description.appendChild(getDocument().createTextNode(
-                    signaturePolicyIdentifier.getDescription()));
+            final Element description = createElement("Description"); //$NON-NLS-1$
+            description.appendChild(getDocument().createTextNode(signaturePolicyIdentifier.getDescription()));
 
-            Element sigPolicyId = createElement("SigPolicyId");
+            final Element sigPolicyId = createElement("SigPolicyId"); //$NON-NLS-1$
             sigPolicyId.appendChild(identifier);
             sigPolicyId.appendChild(description);
             signaturePolicyId.appendChild(sigPolicyId);
 
-            Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
-                    "DigestMethod");
-            digestMethod.setAttribute("Algorithm", DigestMethod.SHA1);
+            final Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestMethod"); //$NON-NLS-1$
+            digestMethod.setAttribute("Algorithm", signaturePolicyIdentifier.getHashAlgorithm()); //$NON-NLS-1$
 
-            Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
-                    "DigestValue");
+            final Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestValue"); //$NON-NLS-1$
             digestValue.setTextContent(signaturePolicyIdentifier.getHashBase64());
 
-            Element sigPolicyHash = createElement("SigPolicyHash");
+            final Element sigPolicyHash = createElement("SigPolicyHash"); //$NON-NLS-1$
             sigPolicyHash.appendChild(digestMethod);
             sigPolicyHash.appendChild(digestValue);
             signaturePolicyId.appendChild(sigPolicyHash);
 
             if (signaturePolicyIdentifier.getQualifier() != null)
             {
-                Element spURI = createElement("SPURI");
+                Element spURI = createElement("SPURI"); //$NON-NLS-1$
                 spURI.setTextContent(signaturePolicyIdentifier.getQualifier());
 
-                Element sigPolicyQualifier = createElement("SigPolicyQualifier");
+                Element sigPolicyQualifier = createElement("SigPolicyQualifier"); //$NON-NLS-1$
                 sigPolicyQualifier.appendChild(spURI);
 
-                Element sigPolicyQualifiers = createElement("SigPolicyQualifiers");
+                Element sigPolicyQualifiers = createElement("SigPolicyQualifiers"); //$NON-NLS-1$
                 sigPolicyQualifiers.appendChild(sigPolicyQualifier);
                 signaturePolicyId.appendChild(sigPolicyQualifiers);
                 // getNode().appendChild(sigPolicyQualifiers);

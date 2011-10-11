@@ -8,53 +8,63 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.xml.crypto.dsig.DigestMethod;
+
 import net.java.xades.util.Base64;
 
 public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
 {    
     private boolean implied;
-    private URL identifier;
+    private String sigPolicyId;
     private String description;
-    private String qualifier;
-    private String hashBase64;
+    private String sigPolicyQualifierSPURI;
+    private String sigPolicyHashBase64;
+    private String sigPolicyHashHashAlgorithm;
     
-    public SignaturePolicyIdentifierImpl(boolean implied)
+    public SignaturePolicyIdentifierImpl(final boolean implied)
     {
         this.implied = implied;
     }
 
-    public byte[] inputStreamToByteArray(InputStream in) throws IOException
+    private byte[] inputStreamToByteArray(InputStream in) throws IOException
     {
-        byte[] buffer = new byte[2048];
+        final byte[] buffer = new byte[2048];
         int length = 0;
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         while ((length = in.read(buffer)) >= 0)
         {
             baos.write(buffer, 0, length);
         }
-
         return baos.toByteArray();
     }
     
-    public void setIdentifier(String identifier) throws IOException, NoSuchAlgorithmException
+    public void setIdentifier(final String identifier) throws IOException, NoSuchAlgorithmException
     {
-        this.identifier = new URL(identifier);
-        URLConnection conn = this.identifier.openConnection();
-        
-        byte[] data = inputStreamToByteArray(conn.getInputStream());
-        
-        MessageDigest md = MessageDigest.getInstance("SHA1");
-        md.update(data);
-        byte[] hash = md.digest();
-
-        this.hashBase64 = Base64.encodeBytes(hash);        
+        setIdentifier(identifier, null, null);
+    }
+    
+    public void setIdentifier(final String identifier, final String hashBase64, final String hashAlgorithm) throws IOException, NoSuchAlgorithmException
+    {
+        if (hashBase64 == null || "".equals(hashBase64) || hashAlgorithm == null || "".equals(hashAlgorithm)) //$NON-NLS-1$ //$NON-NLS-2$
+        {
+            final URLConnection conn = new URL(identifier).openConnection();
+            final byte[] data = inputStreamToByteArray(conn.getInputStream());
+            final MessageDigest md = MessageDigest.getInstance("SHA1"); //$NON-NLS-1$
+            md.update(data);
+            this.sigPolicyHashBase64 = Base64.encodeBytes(md.digest()); 
+            this.sigPolicyHashHashAlgorithm = DigestMethod.SHA1;
+        }
+        else
+        {
+            this.sigPolicyHashBase64 = hashBase64; 
+            this.sigPolicyHashHashAlgorithm = hashAlgorithm;
+        }
+        this.sigPolicyId = identifier;
     }
     
     public boolean isImplied()
     {
-        return implied;
+        return this.implied;
     }
 
     public void setImplied(boolean implied)
@@ -64,29 +74,18 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
 
     public String getIdentifier()
     {
-        return identifier.toString();
-    }
-
-    public void setIdentifier(URL identifier)
-    {
-        this.identifier = identifier;
+        return this.sigPolicyId;
     }
 
     public String getHashBase64()
     {
-        return hashBase64;
-    }
-
-    public void setHashBase64(String hashBase64)
-    {
-        this.hashBase64 = hashBase64;
+        return this.sigPolicyHashBase64;
     }
 
     public String getDescription()
     {
-        return description;
+        return this.description;
     }
-
 
     public void setDescription(String description)
     {
@@ -95,11 +94,15 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
     
     public String getQualifier()
     {
-        return qualifier;
+        return this.sigPolicyQualifierSPURI;
     }
 
     public void setQualifier(String qualifier)
     {
-        this.qualifier = qualifier;        
+        this.sigPolicyQualifierSPURI = qualifier;        
+    }
+
+    public String getHashAlgorithm() {
+        return this.sigPolicyHashHashAlgorithm;
     }    
 }
