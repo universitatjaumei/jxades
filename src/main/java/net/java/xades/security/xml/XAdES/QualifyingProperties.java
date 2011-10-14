@@ -66,11 +66,11 @@ public class QualifyingProperties extends XAdESStructure
 
     public UnsignedProperties getUnsignedProperties()
     {
-        if (unsignedProperties == null)
-        {
-            unsignedProperties = new UnsignedProperties(this, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix);
-        }
+//        if (unsignedProperties == null)
+//        {
+//            unsignedProperties = new UnsignedProperties(this, xadesPrefix, xadesNamespace,
+//                    xmlSignaturePrefix);
+//        }
 
         return unsignedProperties;
     }

@@ -111,9 +111,9 @@ public class XMLAdvancedSignature
             throw new IllegalArgumentException("XAdES parameter can not be NULL.");
         }
 
-        baseElement = xades.getBaseElement();
+        this.baseElement = xades.getBaseElement();
 
-        if (baseElement == null)
+        if (this.baseElement == null)
         {
             throw new IllegalArgumentException("Root/Base XML Element can not be NULL.");
         }
@@ -137,7 +137,7 @@ public class XMLAdvancedSignature
 
     public Element getBaseElement()
     {
-        return baseElement;
+        return this.baseElement;
     }
 
     public void setXadesNamespace(String xadesNamespace)
@@ -155,7 +155,7 @@ public class XMLAdvancedSignature
 
         if (WrappedKeyStorePlace.SIGNING_CERTIFICATE_PROPERTY.equals(getWrappedKeyStorePlace()))
         {
-            xades.setSigningCertificate(certificate);
+            this.xades.setSigningCertificate(certificate);
         }
         else
         {
@@ -165,7 +165,7 @@ public class XMLAdvancedSignature
              */
         }
 
-        XMLObject xadesObject = marshalXMLSignature(xadesNamespace, signatureIdPrefix,
+        XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace, signatureIdPrefix,
                 referencesIdList, tsaURL);
         addXMLObject(xadesObject);
 
@@ -186,11 +186,11 @@ public class XMLAdvancedSignature
         this.signature = fac.newXMLSignature(si, newKeyInfo(certificate, keyInfoId),
                 getXMLObjects(), signatureId, signatureValueId);
 
-        this.signContext = new DOMSignContext(privateKey, baseElement);
-        this.signContext.putNamespacePrefix(XMLSignature.XMLNS, xades.getXmlSignaturePrefix());
-        this.signContext.putNamespacePrefix(xadesNamespace, xades.getXadesPrefix());
+        this.signContext = new DOMSignContext(privateKey, this.baseElement);
+        this.signContext.putNamespacePrefix(XMLSignature.XMLNS, this.xades.getXmlSignaturePrefix());
+        this.signContext.putNamespacePrefix(this.xadesNamespace, this.xades.getXadesPrefix());
 
-        this.signature.sign(signContext);
+        this.signature.sign(this.signContext);
 
         enrichUnsignedProperties(tsaURL);
     }
@@ -206,13 +206,13 @@ public class XMLAdvancedSignature
                     "Can not find Signature. You must call sign method firs to generate it");
         }
 
-        if (xades instanceof TimestampXAdESImpl)
+        if (this.xades instanceof TimestampXAdESImpl)
         {
             //
             // SignatureTimeStamp
             //            
 
-            NodeList unsignedProperties = this.baseElement.getElementsByTagNameNS(xadesNamespace,
+            NodeList unsignedProperties = this.baseElement.getElementsByTagNameNS(this.xadesNamespace,
                     "UnsignedSignatureProperties");
             NodeList signatureValue = this.baseElement.getElementsByTagNameNS(XMLSignature.XMLNS,
                     "SignatureValue");
@@ -237,15 +237,15 @@ public class XMLAdvancedSignature
 
                 // Append new SignatureTimeStamp node to UnsignedSignatureProperties
                 Element encapsulatedTimeStamp = this.baseElement.getOwnerDocument()
-                        .createElementNS(xadesNamespace, "EncapsulatedTimeStamp");
-                encapsulatedTimeStamp.setPrefix(xades.getXadesPrefix());
+                        .createElementNS(this.xadesNamespace, "EncapsulatedTimeStamp");
+                encapsulatedTimeStamp.setPrefix(this.xades.getXadesPrefix());
                 encapsulatedTimeStamp.setTextContent(Base64.encode(timestampData));
 
                 Element signatureTimestamp = this.baseElement.getOwnerDocument().createElementNS(
-                        xadesNamespace, "SignatureTimeStamp");
-                signatureTimestamp.setPrefix(xades.getXadesPrefix());
+                        this.xadesNamespace, "SignatureTimeStamp");
+                signatureTimestamp.setPrefix(this.xades.getXadesPrefix());
                 signatureTimestamp.appendChild(encapsulatedTimeStamp);
-                signatureTimestamp.setAttributeNS(xadesNamespace, "Id", "TS1-SignatureTimeStamp");
+                signatureTimestamp.setAttributeNS(this.xadesNamespace, "Id", "TS1-SignatureTimeStamp");
 
                 unsignedProperties.item(0).appendChild(signatureTimestamp);
             }
@@ -281,12 +281,12 @@ public class XMLAdvancedSignature
 
     public XmlWrappedKeyInfo getXmlWrappedKeyInfo()
     {
-        return wrappedKeyInfo;
+        return this.wrappedKeyInfo;
     }
 
     public List<XMLObject> getXMLObjects()
     {
-        return xmlObjects;
+        return this.xmlObjects;
     }
 
     public void setXmlWrappedKeyInfo(XmlWrappedKeyInfo wrappedKeyInfo)
@@ -296,7 +296,7 @@ public class XMLAdvancedSignature
 
     protected List<XMLSignatureElement> getXMLSignatureElements()
     {
-        NodeList nl = baseElement.getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
+        NodeList nl = this.baseElement.getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
         int size = nl.getLength();
         ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
         for (int i = 0; i < size; i++)
@@ -324,11 +324,11 @@ public class XMLAdvancedSignature
 
     protected XMLSignatureFactory getXMLSignatureFactory()
     {
-        if (xmlSignatureFactory == null)
+        if (this.xmlSignatureFactory == null)
         {
-            xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
+            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
         }
-        return xmlSignatureFactory;
+        return this.xmlSignatureFactory;
     }
 
     protected Reference getReference(String uri) throws GeneralSecurityException
@@ -397,11 +397,11 @@ public class XMLAdvancedSignature
 
     protected DigestMethod getDigestMethod() throws GeneralSecurityException
     {
-        if (digestMethod == null)
+        if (this.digestMethod == null)
         {
-            digestMethod = getXMLSignatureFactory().newDigestMethod(DigestMethod.SHA1, null);
+            this.digestMethod = getXMLSignatureFactory().newDigestMethod(DigestMethod.SHA1, null);
         }
-        return digestMethod;
+        return this.digestMethod;
     }
 
     public void setDigestMethod(String method) throws GeneralSecurityException
@@ -460,42 +460,42 @@ public class XMLAdvancedSignature
 
     protected String getDefaultXMLObjectId()
     {
-        return defaultXMLObjectId;
+        return this.defaultXMLObjectId;
     }
 
     protected String getDefaultXMLObjectMimeType()
     {
-        return defaultXMLObjectMimeType;
+        return this.defaultXMLObjectMimeType;
     }
 
     protected String getDefaultXMLObjectEncoding()
     {
-        return defaultXMLObjectEncoding;
+        return this.defaultXMLObjectEncoding;
     }
 
     public XMLObject addXMLObject(XMLObject xmlObject)
     {
-        xmlObjects.add(xmlObject);
+        this.xmlObjects.add(xmlObject);
         return xmlObject;
     }
 
     private List<QualifyingPropertiesReference> qualifyingPropertiesReferences;
-    private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
+//    private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
 
     protected QualifyingProperties marshalQualifyingProperties(String xmlNamespace,
             String signatureIdPrefix, List referencesIdList, String tsaURL)
             throws GeneralSecurityException, MarshalException
     {
         QualifyingProperties qp;
-        qp = new QualifyingProperties(getBaseElement(), signatureIdPrefix, xades.getXadesPrefix(),
-                xmlNamespace, xades.getXmlSignaturePrefix());
+        qp = new QualifyingProperties(getBaseElement(), signatureIdPrefix, this.xades.getXadesPrefix(),
+                xmlNamespace, this.xades.getXmlSignaturePrefix());
 
-        xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList, tsaURL);
+        this.xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList, tsaURL);
 
         SignedProperties sp = qp.getSignedProperties();
-        UnsignedProperties up = qp.getUnsignedProperties();
-        UnsignedSignatureProperties usp = qp.getUnsignedProperties()
-                .getUnsignedSignatureProperties();
+//        UnsignedProperties up = qp.getUnsignedProperties();
+//        UnsignedSignatureProperties usp = qp.getUnsignedProperties()
+//                .getUnsignedSignatureProperties();
 
         List transforms = null;
         String spId = sp.getId();
@@ -522,12 +522,12 @@ public class XMLAdvancedSignature
 
     public List<QualifyingPropertiesReference> getQualifyingPropertiesReferences()
     {
-        if (qualifyingPropertiesReferences == null)
+        if (this.qualifyingPropertiesReferences == null)
         {
-            qualifyingPropertiesReferences = new ArrayList<QualifyingPropertiesReference>();
+            this.qualifyingPropertiesReferences = new ArrayList<QualifyingPropertiesReference>();
         }
 
-        return qualifyingPropertiesReferences;
+        return this.qualifyingPropertiesReferences;
     }
 
     public void setQualifyingPropertiesReferences(List<QualifyingPropertiesReference> refs)
