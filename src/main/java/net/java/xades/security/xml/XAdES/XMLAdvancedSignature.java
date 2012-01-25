@@ -60,7 +60,7 @@ public class XMLAdvancedSignature
     public static final String XADES_v132 = "http://uri.etsi.org/01903/v1.3.2#";
     public static final String XADES_v141 = "http://uri.etsi.org/01903/v1.4.1#";
     
-    public static final String SIGNED_PROPERTIES_REFERENCE_TYPE = "http://uri.etsi.org/01903#SignedProperties";
+    public String signedPropertiesTypeUrl = "http://uri.etsi.org/01903#SignedProperties";
 
     public static final String ELEMENT_SIGNATURE = "Signature";
     public static final String ELEMENT_SIGNATURE_VALUE = "SignatureValue";
@@ -144,6 +144,11 @@ public class XMLAdvancedSignature
     {
         this.xadesNamespace = xadesNamespace;
     }
+    
+    public void setSignedPropertiesTypeUrl(String signedPropertiesTypeUrl) 
+    {
+    	this.signedPropertiesTypeUrl = signedPropertiesTypeUrl;
+    }
 
     public void sign(X509Certificate certificate, PrivateKey privateKey, String signatureMethod,
             List refsIdList, String signatureIdPrefix, String tsaURL) throws MarshalException,
@@ -165,7 +170,8 @@ public class XMLAdvancedSignature
              */
         }
 
-        XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace, signatureIdPrefix,
+        XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace, 
+        		this.signedPropertiesTypeUrl, signatureIdPrefix,
                 referencesIdList, tsaURL);
         addXMLObject(xadesObject);
 
@@ -483,7 +489,8 @@ public class XMLAdvancedSignature
 //    private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
 
     protected QualifyingProperties marshalQualifyingProperties(String xmlNamespace,
-            String signatureIdPrefix, List referencesIdList, String tsaURL)
+            String signedPropertiesTypeUrl, String signatureIdPrefix, List referencesIdList, 
+            String tsaURL)
             throws GeneralSecurityException, MarshalException
     {
         QualifyingProperties qp;
@@ -499,18 +506,19 @@ public class XMLAdvancedSignature
 
         List transforms = null;
         String spId = sp.getId();
-        Reference spReference = getReference(spId, transforms, SIGNED_PROPERTIES_REFERENCE_TYPE);
+        Reference spReference = getReference(spId, transforms, this.signedPropertiesTypeUrl);
         referencesIdList.add(spReference);
 
         return qp;
     }
 
-    protected XMLObject marshalXMLSignature(String xadesNamespace, String signatureIdPrefix,
+    protected XMLObject marshalXMLSignature(String xadesNamespace, 
+    		String signedPropertiesTypeUrl, String signatureIdPrefix,
             List referencesIdList, String tsaURL) throws GeneralSecurityException, MarshalException
     {
         QualifyingProperties qp;
-        qp = marshalQualifyingProperties(xadesNamespace, signatureIdPrefix, referencesIdList,
-                tsaURL);
+        qp = marshalQualifyingProperties(xadesNamespace, signedPropertiesTypeUrl,
+        		signatureIdPrefix, referencesIdList, tsaURL);
 
         List<QualifyingPropertiesReference> qpr = getQualifyingPropertiesReferences();
         ArrayList<XMLStructure> content = new ArrayList<XMLStructure>(qpr.size() + 1);
