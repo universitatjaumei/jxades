@@ -24,7 +24,7 @@ public class ObjectIdentifierDetails extends XAdESStructure
 
         Element identifier = createElement("Identifier");
         identifier.setTextContent(objectIdentifier.getIdentifier());
-        identifier.setAttribute("Qualifier", objectIdentifier.getQualifier());
+        identifier.setAttributeNS(xadesNamespace, "Qualifier", objectIdentifier.getQualifier());
         getNode().appendChild(identifier);
 
         Element description = createElement("Description");

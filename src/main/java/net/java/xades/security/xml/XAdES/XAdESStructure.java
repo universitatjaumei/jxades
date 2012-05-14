@@ -77,7 +77,7 @@ public class XAdESStructure extends DOMStructure
 
     protected void setAttribute(String name, String value) throws DOMException
     {
-        getElement().setAttribute(name, value);
+        getElement().setAttributeNS(null, name, value);
     }
 
     protected void setAttributeNS(String namespaceURI, String qualifiedName, String value)

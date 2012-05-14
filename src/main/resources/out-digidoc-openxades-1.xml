@@ -49,97 +49,97 @@ cmFzPjc8L29icmFzPjxkaXJlY2Npb24+OTg8L2RpcmVjY2lvbj48aWRpb21hTm90aWZpY2FjaW9u
 PmVzPC9pZGlvbWFOb3RpZmljYWNpb24+PC9FbGVtZW50PjwvT3BlbmNpdGllcz4NCg==</DataFile>
 <DataFile ContentType="DETATCHED" DigestType="sha1" DigestValue="HY+e3mIjo0ZlHqVoZ40zSODsjbM=" Filename="OCTmp3097057313574620889.odt" Id="D1" MimeType="application/vnd.oasis.opendocument.text" Size="71665" xmlns="http://www.sk.ee/DigiDoc/v1.3.0#"/>
 <DataFile ContentType="DETATCHED" DigestType="sha1" DigestValue="J15W/v8Tj8mdZEki3M+xQM/wnVo=" Filename="iniciaLicenciaObraMenor.zip" Id="D2" MimeType="application/zip" Size="54617" xmlns="http://www.sk.ee/DigiDoc/v1.3.0#"/>
-<dsign:Signature Id="S0-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#"><dsign:SignedInfo><dsign:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><dsign:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsign:Reference URI="#D0"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>hI/ugh4o9ll2WDNUmiLac28wjMU=</dsign:DigestValue></dsign:Reference><dsign:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#S0-SignedProperties"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>EeVQyIf167iU9G4KkTJ/7K9RSfc=</dsign:DigestValue></dsign:Reference><dsign:Reference URI="#S0-KeyInfo"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>x/9xySwFj3YtjiJTUvDpXljPc2k=</dsign:DigestValue></dsign:Reference></dsign:SignedInfo><dsign:SignatureValue Id="S0-SignatureValue">Wljs/+aOUh5tmRaU5TMbPGJFAPQEfhfb9x5VVKnJxiZoJbuMQcLMuoQ8CGF+i5JIUy54m1S1M4lI
-C0O00R9j7SaXfwpO7J6OVzhvO58AAb3ILQQQ2ES5T2CwQAPX8SpsF7lgtF+SBncublc+DdroXx7o
-sRNsRk9B+RyJGBqc3Gc=</dsign:SignatureValue><dsign:KeyInfo Id="S0-KeyInfo"><dsign:KeyValue><dsign:RSAKeyValue><dsign:Modulus>t+yNJbnZcbATSsRnD/IuR2m+cZbi4pAetmBe9o0T9cYKdxhoNez2gYs85u9m4Ki6jDy8Eb82Jauz
-oyD6cf8ZAWFfsD2md64+00G1PYqY3WWgKKdAK25e5mRVFf02NnSzvaXDeHHtDIMgu/1qJkwqMg4Z
-/60pt8F8bHJuwMRCuUE=</dsign:Modulus><dsign:Exponent>AQAB</dsign:Exponent></dsign:RSAKeyValue></dsign:KeyValue><dsign:X509Data><dsign:X509Certificate>MIIGJDCCBQygAwIBAgIIe2Fl/JX7qSMwDQYJKoZIhvcNAQEFBQAwUjERMA8GA1UEAxMIQUNDVi1D
+<dsign:Signature Id="S0-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#"><dsign:SignedInfo><dsign:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><dsign:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsign:Reference URI="#D0"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>hI/ugh4o9ll2WDNUmiLac28wjMU=</dsign:DigestValue></dsign:Reference><dsign:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#S0-SignedProperties"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>KU1UvvA6WKG4SacGLjqBH0jy7iM=</dsign:DigestValue></dsign:Reference><dsign:Reference URI="#S0-KeyInfo"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>3zxywPjhD6RWsHaULdyJudZReMI=</dsign:DigestValue></dsign:Reference></dsign:SignedInfo><dsign:SignatureValue Id="S0-SignatureValue">W1/IDNM4Dp2mq9cvJeALHQNdCq/ezd/IZjWAm8BpdVL0hnGFclCYlMx5RjkfpaCeMqGYMxZS2FB+
+e5JU2AW/qjG970D6yqATGyRMl2h9A3km8ua9QXCy4BJnV+7hG4cPtR0aBKvJC97Zp2VCDBLFjz4F
+v80tl7gIYNM8CrpDMjg=</dsign:SignatureValue><dsign:KeyInfo Id="S0-KeyInfo"><dsign:KeyValue><dsign:RSAKeyValue><dsign:Modulus>qUcUC/+x9H1X6tKhEeiC8351ltzl3w+I0uBM90HTci5NACjGkR2hLYyt+uqo8xlMIJLaRmk/Grq3
+boW0o5Bgxfliq+537wZhTEfFOfGqbeh2sdTNNOVzfW1S+nb06pBnzsdzo0j83v2gfp+RDpvTCdfY
+dseojMlSutR31e58K1s=</dsign:Modulus><dsign:Exponent>AQAB</dsign:Exponent></dsign:RSAKeyValue></dsign:KeyValue><dsign:X509Data><dsign:X509Certificate>MIIGJTCCBQ2gAwIBAgIINGpLhs2UWw4wDQYJKoZIhvcNAQEFBQAwUjERMA8GA1UEAxMIQUNDVi1D
 QTIxDzANBgNVBAsTBlBLSUdWQTEfMB0GA1UEChMWR2VuZXJhbGl0YXQgVmFsZW5jaWFuYTELMAkG
-A1UEBhMCRVMwHhcNMTEwNDEyMDcwMzQ0WhcNMTQwNDExMDcxMzQ0WjCBtzExMC8GA1UEAxMoUklD
+A1UEBhMCRVMwHhcNMDgwNDA4MDkzODUyWhcNMTEwNDA4MDk0ODUyWjCBtzExMC8GA1UEAxMoUklD
 QVJETyBCT1JJTExPIERPTUVORUNIIC0gTklGOjUyOTQ1ODEzQzESMBAGA1UEBRMJNTI5NDU4MTND
 MRAwDgYDVQQqEwdSSUNBUkRPMRkwFwYDVQQEExBCT1JJTExPIERPTUVORUNIMRMwEQYDVQQLEwpD
 aXVkYWRhbm9zMR8wHQYDVQQKExZHZW5lcmFsaXRhdCBWYWxlbmNpYW5hMQswCQYDVQQGEwJFUzCB
-nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAt+yNJbnZcbATSsRnD/IuR2m+cZbi4pAetmBe9o0T
-9cYKdxhoNez2gYs85u9m4Ki6jDy8Eb82JauzoyD6cf8ZAWFfsD2md64+00G1PYqY3WWgKKdAK25e
-5mRVFf02NnSzvaXDeHHtDIMgu/1qJkwqMg4Z/60pt8F8bHJuwMRCuUECAwEAAaOCAxowggMWMAwG
+nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAqUcUC/+x9H1X6tKhEeiC8351ltzl3w+I0uBM90HT
+ci5NACjGkR2hLYyt+uqo8xlMIJLaRmk/Grq3boW0o5Bgxfliq+537wZhTEfFOfGqbeh2sdTNNOVz
+fW1S+nb06pBnzsdzo0j83v2gfp+RDpvTCdfYdseojMlSutR31e58K1sCAwEAAaOCAxswggMXMAwG
 A1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
-BDAdBgNVHQ4EFgQUoiri2TiSaFvtReM4ab27hd4g/NQwHwYDVR0jBBgwFoAUs3jtBaV5QTrC9MBS
-KP9jQz+/44EwZgYDVR0RBF8wXYEZcmljYXJkby5ib3JpbGxvQHNpLnVqaS5lc6RAMD4xITAfBgNV
-BAMMGFJJQ0FSRE98Qk9SSUxMT3xET01FTkVDSDEZMBcGCgmSJomT8ixkAQETCTUyOTQ1ODEzQzCC
-AbwGA1UdIASCAbMwggGvMIIBqwYLKwYBBAG/VQMHBAAwggGaMIIBZAYIKwYBBQUHAgIwggFWHoIB
-UgBDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIAByAGUAYwBvAG4AbwBjAGkAZABvACAAcABhAHIAYQAg
-AEMAaQB1AGQAYQBkAGEAbgBvACAAZQB4AHAAZQBkAGkAZABvACAAcABvAHIAIABsAGEAIABBAHUA
-dABvAHIAaQB0AGEAdAAgAGQAZQAgAEMAZQByAHQAaQBmAGkAYwBhAGMAaQDzACAAZABlACAAbABh
-ACAAQwBvAG0AdQBuAGkAdABhAHQAIABWAGEAbABlAG4AYwBpAGEAbgBhACAAKABQAGwALgAgAE0A
-YQBuAGkAcwBlAHMAIAAxAC4AIABDAEkARgAgAFMANAA2ADEAMQAwADAAMQBBACkALgAgAEMAUABT
-ACAAeQAgAEMAUAAgAGUAbgAgAGgAdAB0AHAAOgAvAC8AdwB3AHcALgBhAGMAYwB2AC4AZQBzMDAG
-CCsGAQUFBwIBFiRodHRwOi8vd3d3LmFjY3YuZXMvbGVnaXNsYWNpb25fYy5odG0wOwYDVR0fBDQw
-MjAwoC6gLIYqaHR0cDovL3d3dy5hY2N2LmVzL2dlc3RjZXJ0L2NpdWRhZGFub3MuY3JsMDIGCCsG
-AQUFBwEBBCYwJDAiBggrBgEFBQcwAYYWaHR0cDovL29jc3AucGtpLmd2YS5lczANBgkqhkiG9w0B
-AQUFAAOCAQEAXj2Yx0tnC2m1daQxtViHCv/KYmI/4Bj+6WDS36sp+IsL1AOWJJ6r0jOqoCe4hlAu
-/1eossO74xDHJVQB76fYd2SoYumB1GiMuVUd0vTXp+bWVXIMyeS/tV8J4wSLKkvnwDyqyOkBatus
-wr5c6ho4kl8gq2KqbrD5KLrCCOtdGgHMXJUXNY44okz4XFIOng3MqKOumV+6zbW9ANV7ARnhHrbh
-KuZGg6pwc0mio89IJsw6SKaRkb+MT0PsEGtjF2i/9V1m0oJ98YdvUSVRpU7FRMFXK6zfVIuz9h99
-HXT+whJUXdRvjzRavHHoAqqgPSl7BASQt8GDMr/q7uVvlSUBUw==</dsign:X509Certificate><dsign:X509SubjectName>C=ES, O=Generalitat Valenciana, OU=Ciudadanos, OID.2.5.4.4=BORILLO DOMENECH, OID.2.5.4.42=RICARDO, OID.2.5.4.5=52945813C, CN=RICARDO BORILLO DOMENECH - NIF:52945813C</dsign:X509SubjectName><dsign:X509IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>8890499274928531747</dsign:X509SerialNumber></dsign:X509IssuerSerial></dsign:X509Data></dsign:KeyInfo><dsign:Object><xades:QualifyingProperties Id="S0-QualifyingProperties" Target="#S0-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="S0-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2011-10-14T13:37:18+02:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>N0BsHe9/0WlwiwCId/1v9Dsjx+E=</dsign:DigestValue></xades:CertDigest><xades:IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>8890499274928531747</dsign:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyImplied/></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></dsign:Object></dsign:Signature><dsign:Signature Id="S1-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#"><dsign:SignedInfo><dsign:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><dsign:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsign:Reference URI="#D1"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>iUVxWIEsCeOyiARhigib0JfgAtw=</dsign:DigestValue></dsign:Reference><dsign:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#S1-SignedProperties"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>UJ+MLainJq0iSI60O9Bjd4wNToQ=</dsign:DigestValue></dsign:Reference><dsign:Reference URI="#S1-KeyInfo"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>0sc+/nTjtBa/jTYgTqm6wguUWpg=</dsign:DigestValue></dsign:Reference></dsign:SignedInfo><dsign:SignatureValue Id="S1-SignatureValue">Td1p9/2PQnLfdAdqN5kkUuYV4B1/YjN0AKK6I5h+9of0xLFy/VlgwZY0B0qo4a3va/767X7DtO3i
-vCg1CPNLIK3+cjenUjHeVQF7ZkNG0SQNufWoFNOwJfHwsRwZiyMJQJ6oyaycYXU/E2B3sKFei6rs
-yAPrbP9vS8nnUuFCD5U=</dsign:SignatureValue><dsign:KeyInfo Id="S1-KeyInfo"><dsign:KeyValue><dsign:RSAKeyValue><dsign:Modulus>t+yNJbnZcbATSsRnD/IuR2m+cZbi4pAetmBe9o0T9cYKdxhoNez2gYs85u9m4Ki6jDy8Eb82Jauz
-oyD6cf8ZAWFfsD2md64+00G1PYqY3WWgKKdAK25e5mRVFf02NnSzvaXDeHHtDIMgu/1qJkwqMg4Z
-/60pt8F8bHJuwMRCuUE=</dsign:Modulus><dsign:Exponent>AQAB</dsign:Exponent></dsign:RSAKeyValue></dsign:KeyValue><dsign:X509Data><dsign:X509Certificate>MIIGJDCCBQygAwIBAgIIe2Fl/JX7qSMwDQYJKoZIhvcNAQEFBQAwUjERMA8GA1UEAxMIQUNDVi1D
+BDAdBgNVHQ4EFgQUsEgTXpwFH2RRjwMeJfzrPFf2OqUwHwYDVR0jBBgwFoAUs3jtBaV5QTrC9MBS
+KP9jQz+/44EwZwYDVR0RBGAwXoEZcmljYXJkby5ib3JpbGxvQHNpLnVqaS5lc6RBMD8xIjAgBgNV
+BAMMGVJpY2FyZG98Qm9yaWxsb3xEb23DqW5lY2gxGTAXBgoJkiaJk/IsZAEBEwk1Mjk0NTgxM0Mw
+ggG8BgNVHSAEggGzMIIBrzCCAasGCysGAQQBv1UDBwQAMIIBmjCCAWQGCCsGAQUFBwICMIIBVh6C
+AVIAQwBlAHIAdABpAGYAaQBjAGEAZABvACAAcgBlAGMAbwBuAG8AYwBpAGQAbwAgAHAAYQByAGEA
+IABDAGkAdQBkAGEAZABhAG4AbwAgAGUAeABwAGUAZABpAGQAbwAgAHAAbwByACAAbABhACAAQQB1
+AHQAbwByAGkAdABhAHQAIABkAGUAIABDAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wAgAGQAZQAgAGwA
+YQAgAEMAbwBtAHUAbgBpAHQAYQB0ACAAVgBhAGwAZQBuAGMAaQBhAG4AYQAgACgAUABsAC4AIABN
+AGEAbgBpAHMAZQBzACAAMQAuACAAQwBJAEYAIABTADQANgAxADEAMAAwADEAQQApAC4AIABDAFAA
+UwAgAHkAIABDAFAAIABlAG4AIABoAHQAdABwADoALwAvAHcAdwB3AC4AYQBjAGMAdgAuAGUAczAw
+BggrBgEFBQcCARYkaHR0cDovL3d3dy5hY2N2LmVzL2xlZ2lzbGFjaW9uX2MuaHRtMDsGA1UdHwQ0
+MDIwMKAuoCyGKmh0dHA6Ly93d3cuYWNjdi5lcy9nZXN0Y2VydC9jaXVkYWRhbm9zLmNybDAyBggr
+BgEFBQcBAQQmMCQwIgYIKwYBBQUHMAGGFmh0dHA6Ly9vY3NwLnBraS5ndmEuZXMwDQYJKoZIhvcN
+AQEFBQADggEBACQ3z614j/RXliIZAas63pwDn2SWDTOAHvQYCMnYAUjqTqOujHPLQXAiQMwhajur
+LkN474FcLkb2A3GmxQF8MaDnl6JU7LZQiyocZZNACc1LuqqOTXG/xmx7bJ6/1tHmmd9Pgs99jIZQ
+5wd6EMEkVM3EUXLKO6kIXFv4Zl1bo+ccKTlrBKvnThNbYCF7Cgh8oB1N7iSOpgkUj4Dt7hHamhWl
+8voGX/n9ZTNrtC5kG45QVgKD5m1eaUSuR0y2d33op4Jvsh2Kdp135ViQUUELwBCHbddIm5oomvgx
+cLY6/0i1kxuxu4jtsrrpzaWUoTgFpYRgoy7/Awu7lPxNxZ897cQ=</dsign:X509Certificate><dsign:X509SubjectName>C=ES, O=Generalitat Valenciana, OU=Ciudadanos, OID.2.5.4.4=BORILLO DOMENECH, OID.2.5.4.42=RICARDO, OID.2.5.4.5=52945813C, CN=RICARDO BORILLO DOMENECH - NIF:52945813C</dsign:X509SubjectName><dsign:X509IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>3776914279850334990</dsign:X509SerialNumber></dsign:X509IssuerSerial></dsign:X509Data></dsign:KeyInfo><dsign:Object><xades:QualifyingProperties Id="S0-QualifyingProperties" Target="#S0-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="S0-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2012-05-14T15:12:56+02:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>lRDWkx0DfmfPkjn3fK3Sk5lM3H4=</dsign:DigestValue></xades:CertDigest><xades:IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>3776914279850334990</dsign:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyImplied/></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></dsign:Object></dsign:Signature><dsign:Signature Id="S1-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#"><dsign:SignedInfo><dsign:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><dsign:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsign:Reference URI="#D1"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>iUVxWIEsCeOyiARhigib0JfgAtw=</dsign:DigestValue></dsign:Reference><dsign:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#S1-SignedProperties"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>d1OCM2VjgYwaqP52C5eLN9VrIDM=</dsign:DigestValue></dsign:Reference><dsign:Reference URI="#S1-KeyInfo"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>ff741l0xc3SWqv8CFlrtebYWqH4=</dsign:DigestValue></dsign:Reference></dsign:SignedInfo><dsign:SignatureValue Id="S1-SignatureValue">mbgqaNVZa1w/T6Be2V/uW+naQx5Pul96Hhtso+LFOeLnqwiGHoWlhlNtw+P9rqzDRZqzG0Hfy22G
+IkE58k1eSoyZtJZ66ZxTnAmI4xsxxQuwdk4FrsqWcgnhG0otwTzbbZjZugbSn49yjM75TWPkky76
+1lwiV2OcIkeOO+I2y7k=</dsign:SignatureValue><dsign:KeyInfo Id="S1-KeyInfo"><dsign:KeyValue><dsign:RSAKeyValue><dsign:Modulus>qUcUC/+x9H1X6tKhEeiC8351ltzl3w+I0uBM90HTci5NACjGkR2hLYyt+uqo8xlMIJLaRmk/Grq3
+boW0o5Bgxfliq+537wZhTEfFOfGqbeh2sdTNNOVzfW1S+nb06pBnzsdzo0j83v2gfp+RDpvTCdfY
+dseojMlSutR31e58K1s=</dsign:Modulus><dsign:Exponent>AQAB</dsign:Exponent></dsign:RSAKeyValue></dsign:KeyValue><dsign:X509Data><dsign:X509Certificate>MIIGJTCCBQ2gAwIBAgIINGpLhs2UWw4wDQYJKoZIhvcNAQEFBQAwUjERMA8GA1UEAxMIQUNDVi1D
 QTIxDzANBgNVBAsTBlBLSUdWQTEfMB0GA1UEChMWR2VuZXJhbGl0YXQgVmFsZW5jaWFuYTELMAkG
-A1UEBhMCRVMwHhcNMTEwNDEyMDcwMzQ0WhcNMTQwNDExMDcxMzQ0WjCBtzExMC8GA1UEAxMoUklD
+A1UEBhMCRVMwHhcNMDgwNDA4MDkzODUyWhcNMTEwNDA4MDk0ODUyWjCBtzExMC8GA1UEAxMoUklD
 QVJETyBCT1JJTExPIERPTUVORUNIIC0gTklGOjUyOTQ1ODEzQzESMBAGA1UEBRMJNTI5NDU4MTND
 MRAwDgYDVQQqEwdSSUNBUkRPMRkwFwYDVQQEExBCT1JJTExPIERPTUVORUNIMRMwEQYDVQQLEwpD
 aXVkYWRhbm9zMR8wHQYDVQQKExZHZW5lcmFsaXRhdCBWYWxlbmNpYW5hMQswCQYDVQQGEwJFUzCB
-nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAt+yNJbnZcbATSsRnD/IuR2m+cZbi4pAetmBe9o0T
-9cYKdxhoNez2gYs85u9m4Ki6jDy8Eb82JauzoyD6cf8ZAWFfsD2md64+00G1PYqY3WWgKKdAK25e
-5mRVFf02NnSzvaXDeHHtDIMgu/1qJkwqMg4Z/60pt8F8bHJuwMRCuUECAwEAAaOCAxowggMWMAwG
+nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAqUcUC/+x9H1X6tKhEeiC8351ltzl3w+I0uBM90HT
+ci5NACjGkR2hLYyt+uqo8xlMIJLaRmk/Grq3boW0o5Bgxfliq+537wZhTEfFOfGqbeh2sdTNNOVz
+fW1S+nb06pBnzsdzo0j83v2gfp+RDpvTCdfYdseojMlSutR31e58K1sCAwEAAaOCAxswggMXMAwG
 A1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
-BDAdBgNVHQ4EFgQUoiri2TiSaFvtReM4ab27hd4g/NQwHwYDVR0jBBgwFoAUs3jtBaV5QTrC9MBS
-KP9jQz+/44EwZgYDVR0RBF8wXYEZcmljYXJkby5ib3JpbGxvQHNpLnVqaS5lc6RAMD4xITAfBgNV
-BAMMGFJJQ0FSRE98Qk9SSUxMT3xET01FTkVDSDEZMBcGCgmSJomT8ixkAQETCTUyOTQ1ODEzQzCC
-AbwGA1UdIASCAbMwggGvMIIBqwYLKwYBBAG/VQMHBAAwggGaMIIBZAYIKwYBBQUHAgIwggFWHoIB
-UgBDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIAByAGUAYwBvAG4AbwBjAGkAZABvACAAcABhAHIAYQAg
-AEMAaQB1AGQAYQBkAGEAbgBvACAAZQB4AHAAZQBkAGkAZABvACAAcABvAHIAIABsAGEAIABBAHUA
-dABvAHIAaQB0AGEAdAAgAGQAZQAgAEMAZQByAHQAaQBmAGkAYwBhAGMAaQDzACAAZABlACAAbABh
-ACAAQwBvAG0AdQBuAGkAdABhAHQAIABWAGEAbABlAG4AYwBpAGEAbgBhACAAKABQAGwALgAgAE0A
-YQBuAGkAcwBlAHMAIAAxAC4AIABDAEkARgAgAFMANAA2ADEAMQAwADAAMQBBACkALgAgAEMAUABT
-ACAAeQAgAEMAUAAgAGUAbgAgAGgAdAB0AHAAOgAvAC8AdwB3AHcALgBhAGMAYwB2AC4AZQBzMDAG
-CCsGAQUFBwIBFiRodHRwOi8vd3d3LmFjY3YuZXMvbGVnaXNsYWNpb25fYy5odG0wOwYDVR0fBDQw
-MjAwoC6gLIYqaHR0cDovL3d3dy5hY2N2LmVzL2dlc3RjZXJ0L2NpdWRhZGFub3MuY3JsMDIGCCsG
-AQUFBwEBBCYwJDAiBggrBgEFBQcwAYYWaHR0cDovL29jc3AucGtpLmd2YS5lczANBgkqhkiG9w0B
-AQUFAAOCAQEAXj2Yx0tnC2m1daQxtViHCv/KYmI/4Bj+6WDS36sp+IsL1AOWJJ6r0jOqoCe4hlAu
-/1eossO74xDHJVQB76fYd2SoYumB1GiMuVUd0vTXp+bWVXIMyeS/tV8J4wSLKkvnwDyqyOkBatus
-wr5c6ho4kl8gq2KqbrD5KLrCCOtdGgHMXJUXNY44okz4XFIOng3MqKOumV+6zbW9ANV7ARnhHrbh
-KuZGg6pwc0mio89IJsw6SKaRkb+MT0PsEGtjF2i/9V1m0oJ98YdvUSVRpU7FRMFXK6zfVIuz9h99
-HXT+whJUXdRvjzRavHHoAqqgPSl7BASQt8GDMr/q7uVvlSUBUw==</dsign:X509Certificate><dsign:X509SubjectName>C=ES, O=Generalitat Valenciana, OU=Ciudadanos, OID.2.5.4.4=BORILLO DOMENECH, OID.2.5.4.42=RICARDO, OID.2.5.4.5=52945813C, CN=RICARDO BORILLO DOMENECH - NIF:52945813C</dsign:X509SubjectName><dsign:X509IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>8890499274928531747</dsign:X509SerialNumber></dsign:X509IssuerSerial></dsign:X509Data></dsign:KeyInfo><dsign:Object><xades:QualifyingProperties Id="S1-QualifyingProperties" Target="#S1-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="S1-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2011-10-14T13:37:18+02:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>N0BsHe9/0WlwiwCId/1v9Dsjx+E=</dsign:DigestValue></xades:CertDigest><xades:IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>8890499274928531747</dsign:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyImplied/></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></dsign:Object></dsign:Signature><dsign:Signature Id="S2-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#"><dsign:SignedInfo><dsign:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><dsign:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsign:Reference URI="#D2"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>cZc/QiSWTpXPEp97fkVxrvyPcv8=</dsign:DigestValue></dsign:Reference><dsign:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#S2-SignedProperties"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>lTd+VUMtTDWmXvD/KpDLgQyK5x8=</dsign:DigestValue></dsign:Reference><dsign:Reference URI="#S2-KeyInfo"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>mlOocwEjcZ5Oa3f0ETW/mn+DnCU=</dsign:DigestValue></dsign:Reference></dsign:SignedInfo><dsign:SignatureValue Id="S2-SignatureValue">kHEH6kHbsIXCPeMk5q48MhUilg6UOVb7o3fjRZva76E1YOliT87HKZRC/O/LnhH78NXjbEvFwMN8
-IVZlM6qXqRyaf9j9k8rhThuJjZgZ8mu89lA74a9YE0BX8jKRXYwWyphiuwhFdlErYxIdOh3Ftj/X
-oT3HPcw701uZ2HuKbAw=</dsign:SignatureValue><dsign:KeyInfo Id="S2-KeyInfo"><dsign:KeyValue><dsign:RSAKeyValue><dsign:Modulus>t+yNJbnZcbATSsRnD/IuR2m+cZbi4pAetmBe9o0T9cYKdxhoNez2gYs85u9m4Ki6jDy8Eb82Jauz
-oyD6cf8ZAWFfsD2md64+00G1PYqY3WWgKKdAK25e5mRVFf02NnSzvaXDeHHtDIMgu/1qJkwqMg4Z
-/60pt8F8bHJuwMRCuUE=</dsign:Modulus><dsign:Exponent>AQAB</dsign:Exponent></dsign:RSAKeyValue></dsign:KeyValue><dsign:X509Data><dsign:X509Certificate>MIIGJDCCBQygAwIBAgIIe2Fl/JX7qSMwDQYJKoZIhvcNAQEFBQAwUjERMA8GA1UEAxMIQUNDVi1D
+BDAdBgNVHQ4EFgQUsEgTXpwFH2RRjwMeJfzrPFf2OqUwHwYDVR0jBBgwFoAUs3jtBaV5QTrC9MBS
+KP9jQz+/44EwZwYDVR0RBGAwXoEZcmljYXJkby5ib3JpbGxvQHNpLnVqaS5lc6RBMD8xIjAgBgNV
+BAMMGVJpY2FyZG98Qm9yaWxsb3xEb23DqW5lY2gxGTAXBgoJkiaJk/IsZAEBEwk1Mjk0NTgxM0Mw
+ggG8BgNVHSAEggGzMIIBrzCCAasGCysGAQQBv1UDBwQAMIIBmjCCAWQGCCsGAQUFBwICMIIBVh6C
+AVIAQwBlAHIAdABpAGYAaQBjAGEAZABvACAAcgBlAGMAbwBuAG8AYwBpAGQAbwAgAHAAYQByAGEA
+IABDAGkAdQBkAGEAZABhAG4AbwAgAGUAeABwAGUAZABpAGQAbwAgAHAAbwByACAAbABhACAAQQB1
+AHQAbwByAGkAdABhAHQAIABkAGUAIABDAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wAgAGQAZQAgAGwA
+YQAgAEMAbwBtAHUAbgBpAHQAYQB0ACAAVgBhAGwAZQBuAGMAaQBhAG4AYQAgACgAUABsAC4AIABN
+AGEAbgBpAHMAZQBzACAAMQAuACAAQwBJAEYAIABTADQANgAxADEAMAAwADEAQQApAC4AIABDAFAA
+UwAgAHkAIABDAFAAIABlAG4AIABoAHQAdABwADoALwAvAHcAdwB3AC4AYQBjAGMAdgAuAGUAczAw
+BggrBgEFBQcCARYkaHR0cDovL3d3dy5hY2N2LmVzL2xlZ2lzbGFjaW9uX2MuaHRtMDsGA1UdHwQ0
+MDIwMKAuoCyGKmh0dHA6Ly93d3cuYWNjdi5lcy9nZXN0Y2VydC9jaXVkYWRhbm9zLmNybDAyBggr
+BgEFBQcBAQQmMCQwIgYIKwYBBQUHMAGGFmh0dHA6Ly9vY3NwLnBraS5ndmEuZXMwDQYJKoZIhvcN
+AQEFBQADggEBACQ3z614j/RXliIZAas63pwDn2SWDTOAHvQYCMnYAUjqTqOujHPLQXAiQMwhajur
+LkN474FcLkb2A3GmxQF8MaDnl6JU7LZQiyocZZNACc1LuqqOTXG/xmx7bJ6/1tHmmd9Pgs99jIZQ
+5wd6EMEkVM3EUXLKO6kIXFv4Zl1bo+ccKTlrBKvnThNbYCF7Cgh8oB1N7iSOpgkUj4Dt7hHamhWl
+8voGX/n9ZTNrtC5kG45QVgKD5m1eaUSuR0y2d33op4Jvsh2Kdp135ViQUUELwBCHbddIm5oomvgx
+cLY6/0i1kxuxu4jtsrrpzaWUoTgFpYRgoy7/Awu7lPxNxZ897cQ=</dsign:X509Certificate><dsign:X509SubjectName>C=ES, O=Generalitat Valenciana, OU=Ciudadanos, OID.2.5.4.4=BORILLO DOMENECH, OID.2.5.4.42=RICARDO, OID.2.5.4.5=52945813C, CN=RICARDO BORILLO DOMENECH - NIF:52945813C</dsign:X509SubjectName><dsign:X509IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>3776914279850334990</dsign:X509SerialNumber></dsign:X509IssuerSerial></dsign:X509Data></dsign:KeyInfo><dsign:Object><xades:QualifyingProperties Id="S1-QualifyingProperties" Target="#S1-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="S1-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2012-05-14T15:12:56+02:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>lRDWkx0DfmfPkjn3fK3Sk5lM3H4=</dsign:DigestValue></xades:CertDigest><xades:IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>3776914279850334990</dsign:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyImplied/></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></dsign:Object></dsign:Signature><dsign:Signature Id="S2-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#"><dsign:SignedInfo><dsign:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><dsign:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><dsign:Reference URI="#D2"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>cZc/QiSWTpXPEp97fkVxrvyPcv8=</dsign:DigestValue></dsign:Reference><dsign:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#S2-SignedProperties"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>q7xXbIz27MsYZY3KaC5zSl5c0B8=</dsign:DigestValue></dsign:Reference><dsign:Reference URI="#S2-KeyInfo"><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>RO19t+KFfu9tlR3XxhptK2VL5yg=</dsign:DigestValue></dsign:Reference></dsign:SignedInfo><dsign:SignatureValue Id="S2-SignatureValue">dliyw4H+j1WPE3SSosHWjxDGdqjn1r6VMj6CKUFqBDX0CCN4DPjy7sX68/Z0IU/Wra9VzbKckUny
+cVYuovTXBiP4PwLgqTEZXcqEBaP3FQratgXpi2+L/2JaKFlcG6Vm7pyf9DvQsJ8ghgHZQVN0llFF
+bIi+LQ/J+csm/frkuj0=</dsign:SignatureValue><dsign:KeyInfo Id="S2-KeyInfo"><dsign:KeyValue><dsign:RSAKeyValue><dsign:Modulus>qUcUC/+x9H1X6tKhEeiC8351ltzl3w+I0uBM90HTci5NACjGkR2hLYyt+uqo8xlMIJLaRmk/Grq3
+boW0o5Bgxfliq+537wZhTEfFOfGqbeh2sdTNNOVzfW1S+nb06pBnzsdzo0j83v2gfp+RDpvTCdfY
+dseojMlSutR31e58K1s=</dsign:Modulus><dsign:Exponent>AQAB</dsign:Exponent></dsign:RSAKeyValue></dsign:KeyValue><dsign:X509Data><dsign:X509Certificate>MIIGJTCCBQ2gAwIBAgIINGpLhs2UWw4wDQYJKoZIhvcNAQEFBQAwUjERMA8GA1UEAxMIQUNDVi1D
 QTIxDzANBgNVBAsTBlBLSUdWQTEfMB0GA1UEChMWR2VuZXJhbGl0YXQgVmFsZW5jaWFuYTELMAkG
-A1UEBhMCRVMwHhcNMTEwNDEyMDcwMzQ0WhcNMTQwNDExMDcxMzQ0WjCBtzExMC8GA1UEAxMoUklD
+A1UEBhMCRVMwHhcNMDgwNDA4MDkzODUyWhcNMTEwNDA4MDk0ODUyWjCBtzExMC8GA1UEAxMoUklD
 QVJETyBCT1JJTExPIERPTUVORUNIIC0gTklGOjUyOTQ1ODEzQzESMBAGA1UEBRMJNTI5NDU4MTND
 MRAwDgYDVQQqEwdSSUNBUkRPMRkwFwYDVQQEExBCT1JJTExPIERPTUVORUNIMRMwEQYDVQQLEwpD
 aXVkYWRhbm9zMR8wHQYDVQQKExZHZW5lcmFsaXRhdCBWYWxlbmNpYW5hMQswCQYDVQQGEwJFUzCB
-nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAt+yNJbnZcbATSsRnD/IuR2m+cZbi4pAetmBe9o0T
-9cYKdxhoNez2gYs85u9m4Ki6jDy8Eb82JauzoyD6cf8ZAWFfsD2md64+00G1PYqY3WWgKKdAK25e
-5mRVFf02NnSzvaXDeHHtDIMgu/1qJkwqMg4Z/60pt8F8bHJuwMRCuUECAwEAAaOCAxowggMWMAwG
+nzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAqUcUC/+x9H1X6tKhEeiC8351ltzl3w+I0uBM90HT
+ci5NACjGkR2hLYyt+uqo8xlMIJLaRmk/Grq3boW0o5Bgxfliq+537wZhTEfFOfGqbeh2sdTNNOVz
+fW1S+nb06pBnzsdzo0j83v2gfp+RDpvTCdfYdseojMlSutR31e58K1sCAwEAAaOCAxswggMXMAwG
 A1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgeAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
-BDAdBgNVHQ4EFgQUoiri2TiSaFvtReM4ab27hd4g/NQwHwYDVR0jBBgwFoAUs3jtBaV5QTrC9MBS
-KP9jQz+/44EwZgYDVR0RBF8wXYEZcmljYXJkby5ib3JpbGxvQHNpLnVqaS5lc6RAMD4xITAfBgNV
-BAMMGFJJQ0FSRE98Qk9SSUxMT3xET01FTkVDSDEZMBcGCgmSJomT8ixkAQETCTUyOTQ1ODEzQzCC
-AbwGA1UdIASCAbMwggGvMIIBqwYLKwYBBAG/VQMHBAAwggGaMIIBZAYIKwYBBQUHAgIwggFWHoIB
-UgBDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIAByAGUAYwBvAG4AbwBjAGkAZABvACAAcABhAHIAYQAg
-AEMAaQB1AGQAYQBkAGEAbgBvACAAZQB4AHAAZQBkAGkAZABvACAAcABvAHIAIABsAGEAIABBAHUA
-dABvAHIAaQB0AGEAdAAgAGQAZQAgAEMAZQByAHQAaQBmAGkAYwBhAGMAaQDzACAAZABlACAAbABh
-ACAAQwBvAG0AdQBuAGkAdABhAHQAIABWAGEAbABlAG4AYwBpAGEAbgBhACAAKABQAGwALgAgAE0A
-YQBuAGkAcwBlAHMAIAAxAC4AIABDAEkARgAgAFMANAA2ADEAMQAwADAAMQBBACkALgAgAEMAUABT
-ACAAeQAgAEMAUAAgAGUAbgAgAGgAdAB0AHAAOgAvAC8AdwB3AHcALgBhAGMAYwB2AC4AZQBzMDAG
-CCsGAQUFBwIBFiRodHRwOi8vd3d3LmFjY3YuZXMvbGVnaXNsYWNpb25fYy5odG0wOwYDVR0fBDQw
-MjAwoC6gLIYqaHR0cDovL3d3dy5hY2N2LmVzL2dlc3RjZXJ0L2NpdWRhZGFub3MuY3JsMDIGCCsG
-AQUFBwEBBCYwJDAiBggrBgEFBQcwAYYWaHR0cDovL29jc3AucGtpLmd2YS5lczANBgkqhkiG9w0B
-AQUFAAOCAQEAXj2Yx0tnC2m1daQxtViHCv/KYmI/4Bj+6WDS36sp+IsL1AOWJJ6r0jOqoCe4hlAu
-/1eossO74xDHJVQB76fYd2SoYumB1GiMuVUd0vTXp+bWVXIMyeS/tV8J4wSLKkvnwDyqyOkBatus
-wr5c6ho4kl8gq2KqbrD5KLrCCOtdGgHMXJUXNY44okz4XFIOng3MqKOumV+6zbW9ANV7ARnhHrbh
-KuZGg6pwc0mio89IJsw6SKaRkb+MT0PsEGtjF2i/9V1m0oJ98YdvUSVRpU7FRMFXK6zfVIuz9h99
-HXT+whJUXdRvjzRavHHoAqqgPSl7BASQt8GDMr/q7uVvlSUBUw==</dsign:X509Certificate><dsign:X509SubjectName>C=ES, O=Generalitat Valenciana, OU=Ciudadanos, OID.2.5.4.4=BORILLO DOMENECH, OID.2.5.4.42=RICARDO, OID.2.5.4.5=52945813C, CN=RICARDO BORILLO DOMENECH - NIF:52945813C</dsign:X509SubjectName><dsign:X509IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>8890499274928531747</dsign:X509SerialNumber></dsign:X509IssuerSerial></dsign:X509Data></dsign:KeyInfo><dsign:Object><xades:QualifyingProperties Id="S2-QualifyingProperties" Target="#S2-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="S2-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2011-10-14T13:37:18+02:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>N0BsHe9/0WlwiwCId/1v9Dsjx+E=</dsign:DigestValue></xades:CertDigest><xades:IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>8890499274928531747</dsign:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyImplied/></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></dsign:Object></dsign:Signature></SignedDoc>
+BDAdBgNVHQ4EFgQUsEgTXpwFH2RRjwMeJfzrPFf2OqUwHwYDVR0jBBgwFoAUs3jtBaV5QTrC9MBS
+KP9jQz+/44EwZwYDVR0RBGAwXoEZcmljYXJkby5ib3JpbGxvQHNpLnVqaS5lc6RBMD8xIjAgBgNV
+BAMMGVJpY2FyZG98Qm9yaWxsb3xEb23DqW5lY2gxGTAXBgoJkiaJk/IsZAEBEwk1Mjk0NTgxM0Mw
+ggG8BgNVHSAEggGzMIIBrzCCAasGCysGAQQBv1UDBwQAMIIBmjCCAWQGCCsGAQUFBwICMIIBVh6C
+AVIAQwBlAHIAdABpAGYAaQBjAGEAZABvACAAcgBlAGMAbwBuAG8AYwBpAGQAbwAgAHAAYQByAGEA
+IABDAGkAdQBkAGEAZABhAG4AbwAgAGUAeABwAGUAZABpAGQAbwAgAHAAbwByACAAbABhACAAQQB1
+AHQAbwByAGkAdABhAHQAIABkAGUAIABDAGUAcgB0AGkAZgBpAGMAYQBjAGkA8wAgAGQAZQAgAGwA
+YQAgAEMAbwBtAHUAbgBpAHQAYQB0ACAAVgBhAGwAZQBuAGMAaQBhAG4AYQAgACgAUABsAC4AIABN
+AGEAbgBpAHMAZQBzACAAMQAuACAAQwBJAEYAIABTADQANgAxADEAMAAwADEAQQApAC4AIABDAFAA
+UwAgAHkAIABDAFAAIABlAG4AIABoAHQAdABwADoALwAvAHcAdwB3AC4AYQBjAGMAdgAuAGUAczAw
+BggrBgEFBQcCARYkaHR0cDovL3d3dy5hY2N2LmVzL2xlZ2lzbGFjaW9uX2MuaHRtMDsGA1UdHwQ0
+MDIwMKAuoCyGKmh0dHA6Ly93d3cuYWNjdi5lcy9nZXN0Y2VydC9jaXVkYWRhbm9zLmNybDAyBggr
+BgEFBQcBAQQmMCQwIgYIKwYBBQUHMAGGFmh0dHA6Ly9vY3NwLnBraS5ndmEuZXMwDQYJKoZIhvcN
+AQEFBQADggEBACQ3z614j/RXliIZAas63pwDn2SWDTOAHvQYCMnYAUjqTqOujHPLQXAiQMwhajur
+LkN474FcLkb2A3GmxQF8MaDnl6JU7LZQiyocZZNACc1LuqqOTXG/xmx7bJ6/1tHmmd9Pgs99jIZQ
+5wd6EMEkVM3EUXLKO6kIXFv4Zl1bo+ccKTlrBKvnThNbYCF7Cgh8oB1N7iSOpgkUj4Dt7hHamhWl
+8voGX/n9ZTNrtC5kG45QVgKD5m1eaUSuR0y2d33op4Jvsh2Kdp135ViQUUELwBCHbddIm5oomvgx
+cLY6/0i1kxuxu4jtsrrpzaWUoTgFpYRgoy7/Awu7lPxNxZ897cQ=</dsign:X509Certificate><dsign:X509SubjectName>C=ES, O=Generalitat Valenciana, OU=Ciudadanos, OID.2.5.4.4=BORILLO DOMENECH, OID.2.5.4.42=RICARDO, OID.2.5.4.5=52945813C, CN=RICARDO BORILLO DOMENECH - NIF:52945813C</dsign:X509SubjectName><dsign:X509IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>3776914279850334990</dsign:X509SerialNumber></dsign:X509IssuerSerial></dsign:X509Data></dsign:KeyInfo><dsign:Object><xades:QualifyingProperties Id="S2-QualifyingProperties" Target="#S2-Signature" xmlns:dsign="http://www.w3.org/2000/09/xmldsig#" xmlns:xades="http://uri.etsi.org/01903/v1.3.2#"><xades:SignedProperties Id="S2-SignedProperties"><xades:SignedSignatureProperties><xades:SigningTime>2012-05-14T15:12:56+02:00</xades:SigningTime><xades:SigningCertificate><xades:Cert><xades:CertDigest><dsign:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><dsign:DigestValue>lRDWkx0DfmfPkjn3fK3Sk5lM3H4=</dsign:DigestValue></xades:CertDigest><xades:IssuerSerial><dsign:X509IssuerName>C=ES, O=Generalitat Valenciana, OU=PKIGVA, CN=ACCV-CA2</dsign:X509IssuerName><dsign:X509SerialNumber>3776914279850334990</dsign:X509SerialNumber></xades:IssuerSerial></xades:Cert></xades:SigningCertificate><xades:SignaturePolicyIdentifier><xades:SignaturePolicyImplied/></xades:SignaturePolicyIdentifier></xades:SignedSignatureProperties></xades:SignedProperties></xades:QualifyingProperties></dsign:Object></dsign:Signature></SignedDoc>

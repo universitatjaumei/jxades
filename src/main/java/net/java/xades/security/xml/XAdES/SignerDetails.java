@@ -22,11 +22,11 @@ public class SignerDetails extends XAdESStructure
 
         value = signer.getUserId();
         if (value != null)
-            setAttribute(ID_ATTRIBUTE, value);
+            setAttributeNS(null, ID_ATTRIBUTE, value);
 
         value = signer.getUsername();
         if (value != null)
-            setAttribute(USERNAME_ATTRIBUTE, value);
+            setAttributeNS(null, USERNAME_ATTRIBUTE, value);
     }
 
     public SignerDetails(Node node, String xadesPrefix, String xadesNamespace,

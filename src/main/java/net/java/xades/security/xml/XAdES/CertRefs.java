@@ -46,7 +46,7 @@ public class CertRefs extends XAdESStructure
         Element thisElement = getElement();
         if (signatureIdPrefix != null)
         {
-            setAttribute("Id", signatureIdPrefix + "-CertRefs");
+            setAttributeNS(null, "Id", signatureIdPrefix + "-CertRefs");
         }
 
         certs = new ArrayList<Cert>(certificates.size());

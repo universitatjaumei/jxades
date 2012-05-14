@@ -24,7 +24,7 @@ public class SignerNameSignatureProperty
 
     public void setUserId(String userId)
     {
-        getElement().setAttribute("UserId", userId);
+        getElement().setAttributeNS(null, "UserId", userId);
     }
 
     public String getUserId()
@@ -34,7 +34,7 @@ public class SignerNameSignatureProperty
 
     public void setUsername(String username)
     {
-        getElement().setAttribute("Username", username);
+        getElement().setAttributeNS(null, "Username", username);
     }
 
     public String getUsername()

@@ -53,7 +53,7 @@ public class DigestAlgAndValue extends XAdESStructure
         Element element = createElement(DIGEST_METHOD_ELEMENT);
         element.setPrefix(xmlSignaturePrefix);
         thisElement.appendChild(element);
-        element.setAttribute(ALGORITHM_ATTR, DigestMethod.SHA1);
+        element.setAttributeNS(xmlSignaturePrefix, ALGORITHM_ATTR, DigestMethod.SHA1);
 
         MessageDigest md = MessageDigest.getInstance("SHA-1");
 
