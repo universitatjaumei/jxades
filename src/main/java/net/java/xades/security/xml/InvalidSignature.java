@@ -1,7 +1,7 @@
 package net.java.xades.security.xml;
 
 /**
- *
+ * 
  * @author miro
  */
 public enum InvalidSignature

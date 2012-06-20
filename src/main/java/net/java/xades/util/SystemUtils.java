@@ -1,56 +1,33 @@
 package net.java.xades.util;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.channels.FileChannel;
-import java.text.DateFormat;
-import java.io.LineNumberReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.Writer;
-import java.net.JarURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.AccessController;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
-import java.util.StringTokenizer;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.zip.ZipEntry;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
 
 /**
- * <p>Title: </p>
- *
- * <p>Description: </p>
- *
- * <p>Copyright: Copyright (c) 2006</p>
- *
- * <p>Company: </p>
- *
+ * <p>
+ * Title:
+ * </p>
+ * 
+ * <p>
+ * Description:
+ * </p>
+ * 
+ * <p>
+ * Copyright: Copyright (c) 2006
+ * </p>
+ * 
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author not attributable
  * @version 1.0
  */
@@ -69,11 +46,11 @@ public class SystemUtils
 
     private static DateFormat getDateFormatter()
     {
-        if(dateFormat == null)
+        if (dateFormat == null)
         {
-            //String dateFormatString = ResourceBundleManager.getString("Default_Date_Formatter",
-            //    "yyyy-MM-dd'T'HH:mm:ssZ");
-            //dateFormat = new SimpleDateFormat(dateFormatString);
+            // String dateFormatString = ResourceBundleManager.getString("Default_Date_Formatter",
+            // "yyyy-MM-dd'T'HH:mm:ssZ");
+            // dateFormat = new SimpleDateFormat(dateFormatString);
             dateFormat = new ISO8601DateFormat();
         }
         return dateFormat;
@@ -89,15 +66,14 @@ public class SystemUtils
         return getDateFormatter().format(date);
     }
 
-    public static Date parseDate(String dateString)
-        throws ParseException
+    public static Date parseDate(String dateString) throws ParseException
     {
         DateFormat dateFormat = getDateFormatter();
         try
         {
             return dateFormat.parse(dateString);
         }
-        catch(ParseException ex)
+        catch (ParseException ex)
         {
             dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
             return dateFormat.parse(dateString);
@@ -106,7 +82,7 @@ public class SystemUtils
 
     public static DecimalFormat getDecimalFormatter()
     {
-        if(decimalFormat == null)
+        if (decimalFormat == null)
         {
             decimalFormat = new DecimalFormat("#,##0.##");
         }
@@ -115,17 +91,17 @@ public class SystemUtils
 
     public static String getCauseMessages(Throwable ex)
     {
-        if(ex == null)
+        if (ex == null)
             return null;
 
         StringBuilder sb = new StringBuilder();
         sb.append(getErrorMessage(ex)).append("; \n");
 
         Throwable cause = ex.getCause();
-        while(cause != null)
+        while (cause != null)
         {
             String message = getErrorMessage(cause);
-            if(message != null)
+            if (message != null)
             {
                 sb.append(message).append("; \n");
             }
@@ -137,21 +113,20 @@ public class SystemUtils
 
     public static String getErrorMessage(Throwable ex)
     {
-        if(ex != null)
+        if (ex != null)
         {
             String message = ex.getMessage();
-            if(message == null)
+            if (message == null)
                 message = ex.getClass().getName();
             return message;
         }
         else
             return null;
     }
-    
-    public static byte[] toByteArray(InputStream inStream)
-        throws IOException
+
+    public static byte[] toByteArray(InputStream inStream) throws IOException
     {
-        if(inStream == null)
+        if (inStream == null)
             return null;
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -160,12 +135,11 @@ public class SystemUtils
         return os.toByteArray();
     }
 
-    public static void copy(InputStream inStream, OutputStream outStream)
-        throws IOException
+    public static void copy(InputStream inStream, OutputStream outStream) throws IOException
     {
-        if(inStream == null)
+        if (inStream == null)
             throw new IllegalArgumentException("InputStream can not be NULL in copy method.");
-        if(outStream == null)
+        if (outStream == null)
             throw new IllegalArgumentException("OutputStream can not be NULL in copy method.");
 
         byte[] buffer = new byte[1024];
@@ -173,7 +147,7 @@ public class SystemUtils
 
         try
         {
-            while((read = inStream.read(buffer)) >= 0)
+            while ((read = inStream.read(buffer)) >= 0)
             {
                 outStream.write(buffer, 0, read);
             }
@@ -187,16 +161,16 @@ public class SystemUtils
             outStream.close();
         }
     }
-    
+
     public static String trimFileName(String filePathName)
     {
-        if(filePathName == null)
+        if (filePathName == null)
             return filePathName;
 
         StringBuilder sb = new StringBuilder(filePathName);
         int size = sb.length();
         char ch;
-        while(size > 0 && ((ch = sb.charAt(size - 1)) == '.' || ch == File.separatorChar))
+        while (size > 0 && ((ch = sb.charAt(size - 1)) == '.' || ch == File.separatorChar))
         {
             size--;
             sb.setLength(size);
@@ -216,7 +190,7 @@ public class SystemUtils
 
     public static String getUserHome()
     {
-    	return System.getProperty("user.home");
+        return System.getProperty("user.home");
     }
 
     public static String toHexString(byte[] data)
@@ -226,7 +200,7 @@ public class SystemUtils
 
     public static char[] toHexChars(byte[] data)
     {
-        if(data == null || data.length <= 0)
+        if (data == null || data.length <= 0)
             return EMPTY_CHAR_ARRAY;
 
         int size = data.length;
@@ -240,21 +214,5 @@ public class SystemUtils
         }
 
         return result;
-    }
-
-    /**
-     * Return the value of the boolean System property propName.
-     */
-    public static boolean getBooleanProperty(String propName, boolean defaultValue)
-    {
-        // if set, require value of either true or false
-        String b = (String) AccessController.doPrivileged(new sun.security.action.GetPropertyAction(propName));
-        
-        if (b == null)
-        {
-        	return defaultValue;
-        }
-
-        return Boolean.parseBoolean(b);
     }
 }

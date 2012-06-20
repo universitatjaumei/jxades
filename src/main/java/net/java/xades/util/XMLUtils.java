@@ -12,14 +12,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
@@ -29,11 +21,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
-
-import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;
-import com.sun.org.apache.xerces.internal.dom.DOMOutputImpl;
 
 /**
  * Common XML Tasks
@@ -42,8 +30,6 @@ import com.sun.org.apache.xerces.internal.dom.DOMOutputImpl;
  */
 public class XMLUtils
 {
-    private static final Logger logger = Logger.getLogger(XMLUtils.class.getName());
-
     private static Charset charset = Charset.forName("UTF-8");
 
     /**
@@ -250,7 +236,7 @@ public class XMLUtils
         // ns0:Id="S0-QualifyingProperties"
         // xmlns:ns1="http://uri.etsi.org/01903/v1.3.2#"
         // ns1:Target="#S0-Signature">
-        //        	
+        //
         // DOMSource domSource = new DOMSource(node);
         // StreamResult streamResult = new StreamResult(writer);
         // TransformerFactoryImpl tf = new TransformerFactoryImpl();

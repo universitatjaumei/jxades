@@ -9,7 +9,6 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.XMLStructure;
@@ -52,8 +51,6 @@ import org.w3c.dom.NodeList;
  */
 public class XMLSignatureDocument
 {
-    private static final Logger logger = Logger.getLogger(XMLSignatureDocument.class.getName());
-
     private Element baseElement;
     private XMLSignatureFactory xmlSignatureFactory;
     private DigestMethod digestMethod;

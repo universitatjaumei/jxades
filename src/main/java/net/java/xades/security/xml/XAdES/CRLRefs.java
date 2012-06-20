@@ -1,6 +1,5 @@
 package net.java.xades.security.xml.XAdES;
 
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

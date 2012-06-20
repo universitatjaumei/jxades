@@ -1,17 +1,17 @@
 package net.java.xades.security.xml;
 
-import net.java.xades.util.ComparableBean;
-
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.crypto.MarshalException;
 
+import net.java.xades.util.ComparableBean;
+
 /**
- *
+ * 
  * @author miro
  */
-public class SignatureStatus
-    implements ComparableBean
+public class SignatureStatus implements ComparableBean
 {
     private String signatureId;
     private ValidateResult validateResult;
@@ -33,14 +33,12 @@ public class SignatureStatus
 
     public SignatureStatus(String signatureId, ClassCastException ex)
     {
-        this(signatureId,
-             ValidateResult.INVALID,
-             new InvalidSignatureReason(InvalidSignature.INAPPROPRIATE_XML_CONTEXT, ex));
+        this(signatureId, ValidateResult.INVALID, new InvalidSignatureReason(
+                InvalidSignature.INAPPROPRIATE_XML_CONTEXT, ex));
     }
 
-    public SignatureStatus(String signatureId,
-                                      ValidateResult validateResult,
-                                      InvalidSignatureReason reason)
+    public SignatureStatus(String signatureId, ValidateResult validateResult,
+            InvalidSignatureReason reason)
     {
         this(signatureId, validateResult);
         addInvalidSignatureReason(reason);
@@ -77,9 +75,9 @@ public class SignatureStatus
         StringBuilder sb = new StringBuilder();
         boolean isFirst = true;
         List<InvalidSignatureReason> reasons = getInvalidSignatureReasons();
-        for(InvalidSignatureReason reason : reasons)
+        for (InvalidSignatureReason reason : reasons)
         {
-            if(isFirst)
+            if (isFirst)
             {
                 isFirst = false;
                 sb.append(reason.getReason());
@@ -100,9 +98,9 @@ public class SignatureStatus
 
     public static boolean isValid(List<SignatureStatus> validateResults)
     {
-        for(SignatureStatus signStatus : validateResults)
+        for (SignatureStatus signStatus : validateResults)
         {
-            if(!ValidateResult.VALID.equals(signStatus.getValidateResult()))
+            if (!ValidateResult.VALID.equals(signStatus.getValidateResult()))
                 return false;
         }
 

@@ -19,22 +19,18 @@ import net.java.xades.security.xml.XAdES.XMLAdvancedSignature;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.sun.org.apache.xml.internal.security.c14n.CanonicalizationException;
-import com.sun.org.apache.xml.internal.security.c14n.InvalidCanonicalizerException;
-
 public class TestDigidocOpenXAdES extends BaseTest
 {
     private void signAndVerify(String fileName, int numDatafiles) throws FileNotFoundException,
-            IOException, GeneralSecurityException, InvalidCanonicalizerException,
-            CanonicalizationException, MarshalException, XMLSignatureException, TransformException,
-            ParserConfigurationException, SAXException
+            IOException, GeneralSecurityException, MarshalException, XMLSignatureException,
+            TransformException, ParserConfigurationException, SAXException
     {
         byte[] document = inputStreamToByteArray(new FileInputStream("src/main/resources/"
                 + fileName));
 
         // Default signature options
         SignatureOptions signatureOptions = getSignatureOptions(
-                "/home/borillo/Dropbox/docs/ca-x509/all.p12", "PKCS12", null, "komun14", "komun14");
+                "/home/borillo/docs/ca-x509/all.p12", "PKCS12", null, "komun14", "komun14");
 
         XMLAdvancedSignature xmlSignature = null;
 
@@ -43,8 +39,7 @@ public class TestDigidocOpenXAdES extends BaseTest
         {
             xmlSignature = createXAdES_EPES(signatureOptions, document);
             xmlSignature.sign(signatureOptions.getCertificate(), signatureOptions.getPrivateKey(),
-                    SignatureMethod.RSA_SHA1, Arrays.asList(new Object[] { "D" + i }), "S" + i,
-                    "http://tss.accv.es:8318/tsa");
+                    SignatureMethod.RSA_SHA1, Arrays.asList(new Object[] { "D" + i }), "S" + i);
 
             // Show results
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -63,8 +58,7 @@ public class TestDigidocOpenXAdES extends BaseTest
 
     @Test
     public void digiDocOpenXAdES() throws FileNotFoundException, IOException,
-            GeneralSecurityException, InvalidCanonicalizerException, CanonicalizationException,
-            MarshalException, XMLSignatureException, TransformException,
+            GeneralSecurityException, MarshalException, XMLSignatureException, TransformException,
             ParserConfigurationException, SAXException
     {
         signAndVerify("digidoc-openxades-1.xml", 3);

@@ -1,13 +1,12 @@
 package net.java.xades.security.xml;
 
-import java.security.AccessController;
 import java.security.Key;
 import java.security.KeyException;
 import java.security.PublicKey;
-import java.security.Security;
 import java.security.cert.X509Certificate;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.crypto.AlgorithmMethod;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.KeySelectorException;
@@ -26,13 +25,6 @@ import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import javax.xml.crypto.dsig.keyinfo.X509Data;
 
-import net.java.xades.security.xml.InvalidSignature;
-import net.java.xades.security.xml.InvalidSignatureReason;
-import net.java.xades.security.xml.SignatureStatus;
-import net.java.xades.security.xml.ValidateResult;
-import net.java.xades.security.xml.X509DataKeySelectorResult;
-import net.java.xades.security.xml.XAdES.BasicXAdES;
-
 import org.w3c.dom.Element;
 
 /**
@@ -45,29 +37,6 @@ public class XMLSignatureElement
     private XMLSignatureFactory xmlSignatureFactory;
     private KeySelector keySelector;
 
-    static
-    {
-        AccessController.doPrivileged(new java.security.PrivilegedAction<Void>()
-        {
-            public Void run()
-            {
-                if (System.getProperty("java.version").startsWith("1.5"))
-                {
-                    try
-                    {
-                        Security.addProvider(new org.jcp.xml.dsig.internal.dom.XMLDSigRI());
-                    }
-                    catch (Throwable e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                return null;
-            }
-        });
-    }
-
-    /** Creates a new instance of XMLSignatureElement */
     public XMLSignatureElement(Element signatureElement)
     {
         if (signatureElement == null)

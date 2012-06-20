@@ -1,7 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
 import java.io.IOException;
-import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 
 /**

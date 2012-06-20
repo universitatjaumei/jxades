@@ -1,13 +1,12 @@
 package net.java.xades.security.xml;
 
 /**
- *
+ * 
  * @author miro
  */
 public enum XmlWrappedKeyInfo
 {
-    PUBLIC_KEY("PublicKey"),
-    CERTIFICATE("Certificate");
+    PUBLIC_KEY("PublicKey"), CERTIFICATE("Certificate");
 
     private XmlWrappedKeyInfo(String wrappedKeyInfoName)
     {

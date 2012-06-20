@@ -308,7 +308,7 @@ public class BasicXAdESImpl implements XAdES_BES
 
     @SuppressWarnings("unchecked")
     protected void marshalQualifyingProperties(QualifyingProperties qp, String signatureIdPrefix,
-            List referencesIdList, String tsaURL) throws MarshalException
+            List referencesIdList) throws MarshalException
     {
         SignedSignatureProperties ssp;
         SignedDataObjectProperties sdop;
@@ -363,21 +363,8 @@ public class BasicXAdESImpl implements XAdES_BES
                         {
                             // TODO: Manage CommitmentTypeIndication as a ArrayList
                             sdop = getSignedDataObjectProperties(qp);
-                            sdop
-                                    .setCommitmentTypeIndication(((ArrayList<CommitmentTypeIndication>) value)
-                                            .get(0));
-                        }
-                        else if (XAdES.Element.ALL_DATA_OBJECTS_TIMESTAMPS.equals(key))
-                        {
-                            sdop = getSignedDataObjectProperties(qp);
-                            sdop.setAllDataObjectsTimeStamp(
-                                    (ArrayList<AllDataObjectsTimeStamp>) value, tsaURL);
-                        }
-                        else if (XAdES.Element.INDIVIDUAL_DATA_OBJECTS_TIMESTAMPS.equals(key))
-                        {
-                            sdop = getSignedDataObjectProperties(qp);
-                            sdop.setIndividualDataObjectsTimeStamp(
-                                    (ArrayList<IndividualDataObjectsTimeStamp>) value, tsaURL);
+                            sdop.setCommitmentTypeIndication(((ArrayList<CommitmentTypeIndication>) value)
+                                    .get(0));
                         }
                         else if (XAdES.Element.COMPLETE_CERTIFICATE_REFS.equals(key))
                         {
@@ -391,13 +378,6 @@ public class BasicXAdESImpl implements XAdES_BES
                         // usp.setCompleteRevocationRefs((CertValidationInfo)value,
                         // signatureIdPrefix);
                         // }
-                        else if (XAdES.Element.SIGNATURE_TIME_STAMP.equals(key))
-                        {
-                            usp = getUnsignedSignatureProperties(qp);
-                            usp
-                                    .setSignatureTimeStamp((ArrayList<SignatureTimeStamp>) value,
-                                            tsaURL);
-                        }
                     }
                 }
             }

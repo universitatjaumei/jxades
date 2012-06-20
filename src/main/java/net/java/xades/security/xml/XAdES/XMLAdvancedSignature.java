@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.security.AccessController;
 import java.security.GeneralSecurityException;
 import java.security.KeyException;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Security;
-import java.security.SignatureException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,8 +34,6 @@ import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.java.xades.security.timestamp.TimeStampFactory;
-import net.java.xades.security.xml.DOMCanonicalizationFactory;
 import net.java.xades.security.xml.SignatureStatus;
 import net.java.xades.security.xml.WrappedKeyStorePlace;
 import net.java.xades.security.xml.XMLSignatureElement;
@@ -47,10 +43,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.sun.org.apache.xml.internal.security.c14n.CanonicalizationException;
-import com.sun.org.apache.xml.internal.security.c14n.InvalidCanonicalizerException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-
 /**
  * 
  * @author miro
@@ -59,7 +51,7 @@ public class XMLAdvancedSignature
 {
     public static final String XADES_v132 = "http://uri.etsi.org/01903/v1.3.2#";
     public static final String XADES_v141 = "http://uri.etsi.org/01903/v1.4.1#";
-    
+
     public String signedPropertiesTypeUrl = "http://uri.etsi.org/01903#SignedProperties";
 
     public static final String ELEMENT_SIGNATURE = "Signature";
@@ -81,28 +73,6 @@ public class XMLAdvancedSignature
 
     protected XMLSignature signature;
     protected DOMSignContext signContext;
-
-    static
-    {
-        AccessController.doPrivileged(new java.security.PrivilegedAction<Void>()
-        {
-            public Void run()
-            {
-                if (System.getProperty("java.version").startsWith("1.5"))
-                {
-                    try
-                    {
-                        Security.addProvider(new org.jcp.xml.dsig.internal.dom.XMLDSigRI());
-                    }
-                    catch (Throwable e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-                return null;
-            }
-        });
-    }
 
     protected XMLAdvancedSignature(XAdES_BES xades)
     {
@@ -144,16 +114,15 @@ public class XMLAdvancedSignature
     {
         this.xadesNamespace = xadesNamespace;
     }
-    
-    public void setSignedPropertiesTypeUrl(String signedPropertiesTypeUrl) 
+
+    public void setSignedPropertiesTypeUrl(String signedPropertiesTypeUrl)
     {
-    	this.signedPropertiesTypeUrl = signedPropertiesTypeUrl;
+        this.signedPropertiesTypeUrl = signedPropertiesTypeUrl;
     }
 
     public void sign(X509Certificate certificate, PrivateKey privateKey, String signatureMethod,
-            List refsIdList, String signatureIdPrefix, String tsaURL) throws MarshalException,
-            XMLSignatureException, GeneralSecurityException, TransformException,
-            InvalidCanonicalizerException, CanonicalizationException, IOException,
+            List refsIdList, String signatureIdPrefix) throws MarshalException,
+            XMLSignatureException, GeneralSecurityException, TransformException, IOException,
             ParserConfigurationException, SAXException
     {
         List referencesIdList = new ArrayList(refsIdList);
@@ -170,17 +139,16 @@ public class XMLAdvancedSignature
              */
         }
 
-        XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace, 
-        		this.signedPropertiesTypeUrl, signatureIdPrefix,
-                referencesIdList, tsaURL);
+        XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace,
+                this.signedPropertiesTypeUrl, signatureIdPrefix, referencesIdList);
         addXMLObject(xadesObject);
 
         String signatureId = getSignatureId(signatureIdPrefix);
         String signatureValueId = getSignatureValueId(signatureIdPrefix);
 
         XMLSignatureFactory fac = getXMLSignatureFactory();
-        CanonicalizationMethod cm = fac.newCanonicalizationMethod(
-                CanonicalizationMethod.INCLUSIVE, (C14NMethodParameterSpec) null);
+        CanonicalizationMethod cm = fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE,
+                (C14NMethodParameterSpec) null);
 
         List<Reference> documentReferences = getReferences(referencesIdList);
         String keyInfoId = getKeyInfoId(signatureIdPrefix);
@@ -197,70 +165,6 @@ public class XMLAdvancedSignature
         this.signContext.putNamespacePrefix(this.xadesNamespace, this.xades.getXadesPrefix());
 
         this.signature.sign(this.signContext);
-
-        enrichUnsignedProperties(tsaURL);
-    }
-
-    public void enrichUnsignedProperties(String tsaURL) throws TransformException,
-            MarshalException, NoSuchAlgorithmException, SignatureException, IOException,
-            InvalidCanonicalizerException, CanonicalizationException, ParserConfigurationException,
-            SAXException
-    {
-        if (this.signature == null)
-        {
-            throw new IllegalStateException(
-                    "Can not find Signature. You must call sign method firs to generate it");
-        }
-
-        if (this.xades instanceof TimestampXAdESImpl)
-        {
-            //
-            // SignatureTimeStamp
-            //            
-
-            NodeList unsignedProperties = this.baseElement.getElementsByTagNameNS(this.xadesNamespace,
-                    "UnsignedSignatureProperties");
-            NodeList signatureValue = this.baseElement.getElementsByTagNameNS(XMLSignature.XMLNS,
-                    "SignatureValue");
-            NodeList canonicalizationMethod = this.baseElement.getElementsByTagNameNS(
-                    XMLSignature.XMLNS, "CanonicalizationMethod");
-
-            if (unsignedProperties != null && unsignedProperties.getLength() == 1
-                    && signatureValue != null && signatureValue.getLength() == 1
-                    && canonicalizationMethod != null && canonicalizationMethod.getLength() == 1)
-            {
-                // Determine c14n algorithm
-                String c14nAlgorithm = canonicalizationMethod.item(0).getAttributes().getNamedItem(
-                        "Algorithm").getTextContent();
-
-                // c14n signatureValue node
-                byte[] c10nSignatureValue = DOMCanonicalizationFactory.c14n(c14nAlgorithm,
-                        signatureValue.item(0));
-
-                // Generate timestamp with the c14n result
-                byte[] timestampData = TimeStampFactory.getTimeStamp(tsaURL, c10nSignatureValue,
-                        true);
-
-                // Append new SignatureTimeStamp node to UnsignedSignatureProperties
-                Element encapsulatedTimeStamp = this.baseElement.getOwnerDocument()
-                        .createElementNS(this.xadesNamespace, "EncapsulatedTimeStamp");
-                encapsulatedTimeStamp.setPrefix(this.xades.getXadesPrefix());
-                encapsulatedTimeStamp.setTextContent(Base64.encode(timestampData));
-
-                Element signatureTimestamp = this.baseElement.getOwnerDocument().createElementNS(
-                        this.xadesNamespace, "SignatureTimeStamp");
-                signatureTimestamp.setPrefix(this.xades.getXadesPrefix());
-                signatureTimestamp.appendChild(encapsulatedTimeStamp);
-                signatureTimestamp.setAttributeNS(this.xadesNamespace, "Id", "TS1-SignatureTimeStamp");
-
-                unsignedProperties.item(0).appendChild(signatureTimestamp);
-            }
-            else
-            {
-                throw new MarshalException(
-                        "UnsignedProperties section not found in signature. Unable to generate SignatureTimeStamp element.");
-            }
-        }
     }
 
     public List<SignatureStatus> validate()
@@ -302,7 +206,8 @@ public class XMLAdvancedSignature
 
     protected List<XMLSignatureElement> getXMLSignatureElements()
     {
-        NodeList nl = this.baseElement.getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
+        NodeList nl = this.baseElement
+                .getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
         int size = nl.getLength();
         ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
         for (int i = 0; i < size; i++)
@@ -486,23 +391,23 @@ public class XMLAdvancedSignature
     }
 
     private List<QualifyingPropertiesReference> qualifyingPropertiesReferences;
-//    private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
+
+    // private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
 
     protected QualifyingProperties marshalQualifyingProperties(String xmlNamespace,
-            String signedPropertiesTypeUrl, String signatureIdPrefix, List referencesIdList, 
-            String tsaURL)
+            String signedPropertiesTypeUrl, String signatureIdPrefix, List referencesIdList)
             throws GeneralSecurityException, MarshalException
     {
         QualifyingProperties qp;
-        qp = new QualifyingProperties(getBaseElement(), signatureIdPrefix, this.xades.getXadesPrefix(),
-                xmlNamespace, this.xades.getXmlSignaturePrefix());
+        qp = new QualifyingProperties(getBaseElement(), signatureIdPrefix,
+                this.xades.getXadesPrefix(), xmlNamespace, this.xades.getXmlSignaturePrefix());
 
-        this.xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList, tsaURL);
+        this.xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList);
 
         SignedProperties sp = qp.getSignedProperties();
-//        UnsignedProperties up = qp.getUnsignedProperties();
-//        UnsignedSignatureProperties usp = qp.getUnsignedProperties()
-//                .getUnsignedSignatureProperties();
+        // UnsignedProperties up = qp.getUnsignedProperties();
+        // UnsignedSignatureProperties usp = qp.getUnsignedProperties()
+        // .getUnsignedSignatureProperties();
 
         List transforms = null;
         String spId = sp.getId();
@@ -512,13 +417,13 @@ public class XMLAdvancedSignature
         return qp;
     }
 
-    protected XMLObject marshalXMLSignature(String xadesNamespace, 
-    		String signedPropertiesTypeUrl, String signatureIdPrefix,
-            List referencesIdList, String tsaURL) throws GeneralSecurityException, MarshalException
+    protected XMLObject marshalXMLSignature(String xadesNamespace, String signedPropertiesTypeUrl,
+            String signatureIdPrefix, List referencesIdList) throws GeneralSecurityException,
+            MarshalException
     {
         QualifyingProperties qp;
         qp = marshalQualifyingProperties(xadesNamespace, signedPropertiesTypeUrl,
-        		signatureIdPrefix, referencesIdList, tsaURL);
+                signatureIdPrefix, referencesIdList);
 
         List<QualifyingPropertiesReference> qpr = getQualifyingPropertiesReferences();
         ArrayList<XMLStructure> content = new ArrayList<XMLStructure>(qpr.size() + 1);
