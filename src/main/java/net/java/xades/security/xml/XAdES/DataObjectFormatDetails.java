@@ -31,6 +31,8 @@ public class DataObjectFormatDetails extends XAdESStructure
         description.setPrefix(xadesPrefix);
         description.setTextContent(dataObjectFormat.getDescription());
 
+        getNode().appendChild(description);
+        
         ObjectIdentifier objectIdentifier = dataObjectFormat.getObjectIdentifier();
 
         if (objectIdentifier != null)
@@ -43,16 +45,16 @@ public class DataObjectFormatDetails extends XAdESStructure
         mimetype.setPrefix(xadesPrefix);
         mimetype.setTextContent(dataObjectFormat.getMimeType());
 
+        getNode().appendChild(mimetype);
+        
         Element encoding = createElement("Encoding");
         encoding.setPrefix(xadesPrefix);
         encoding.setTextContent(dataObjectFormat.getEncoding());
         
+        getNode().appendChild(encoding);
+        
         // TODO: must ensure that there is an ObjectReference attribute, otherwise an Exception
         // should be raised
         setAttributeNS(xadesNamespace, "ObjectReference", dataObjectFormat.getObjectReference());
-        
-        getNode().appendChild(description);
-        getNode().appendChild(mimetype);
-        getNode().appendChild(encoding);
     }
 }
