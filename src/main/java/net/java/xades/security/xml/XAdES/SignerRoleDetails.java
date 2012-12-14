@@ -27,7 +27,7 @@ public class SignerRoleDetails extends XAdESStructure
         super(ssp, "SignerRole", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
 
         Element claimedRoles = createElement("ClaimedRoles");
-        Element certifiedRoles = createElement("ClaimedRoles");
+        Element certifiedRoles = createElement("CertifiedRoles");
 
         for (String sr : signerRole.getClaimedRole())
         {
