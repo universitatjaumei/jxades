@@ -43,8 +43,8 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://universitatjaumei.jira.com/svn/JXADES/tags/jXAdES_0.0.8</connection>
-    <url>https://universitatjaumei.jira.com/svn/JXADES/tags/jXAdES_0.0.8</url>
+    <connection>scm:svn:http://jira.uji.es/repos/uji/JXADES/tags/jXAdES_0.0.8</connection>
+    <url>http://jira.uji.es/repos/uji/JXADES/tags/jXAdES_0.0.8</url>
   </scm>
 
   <distributionManagement>
