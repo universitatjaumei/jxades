@@ -30,7 +30,7 @@ public class TestDigidocOpenXAdES extends BaseTest
 
         // Default signature options
         SignatureOptions signatureOptions = getSignatureOptions(
-                "/home/borillo/docs/ca-x509/all.p12", "PKCS12", null, "komun14", "komun14");
+                "src/test/resources/catcert.p12", "PKCS12", null, "1234", "1234");
 
         XMLAdvancedSignature xmlSignature = null;
 

@@ -30,7 +30,7 @@ public class TestCosign extends BaseTest
 
         // Default signature options
         SignatureOptions signatureOptions = getSignatureOptions(
-                "/home/borillo/docs/ca-x509/all.p12", "PKCS12", null, "komun14", "komun14");
+                "src/test/resources/catcert.p12", "PKCS12", null, "1234", "1234");
 
         // Build XAdES-EPES signature
         XMLAdvancedSignature xmlSignature = createXAdES_EPES(signatureOptions, data);
