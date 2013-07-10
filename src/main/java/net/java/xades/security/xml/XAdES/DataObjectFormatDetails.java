@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -20,25 +21,26 @@ import org.w3c.dom.Element;
 
 public class DataObjectFormatDetails extends XAdESStructure
 {
-    public DataObjectFormatDetails(SignedDataObjectProperties signedDataObjectProperties,
+    public DataObjectFormatDetails(Document document,
+            SignedDataObjectProperties signedDataObjectProperties,
             DataObjectFormat dataObjectFormat, String xadesPrefix, String xadesNamespace,
             String xmlSignaturePrefix)
     {
-        super(signedDataObjectProperties, "DataObjectFormat", xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
+        super(document, signedDataObjectProperties, "DataObjectFormat", xadesPrefix,
+                xadesNamespace, xmlSignaturePrefix);
 
         Element description = createElement("Description");
         description.setPrefix(xadesPrefix);
         description.setTextContent(dataObjectFormat.getDescription());
 
         getNode().appendChild(description);
-        
+
         ObjectIdentifier objectIdentifier = dataObjectFormat.getObjectIdentifier();
 
         if (objectIdentifier != null)
         {
-            new ObjectIdentifierDetails(this, objectIdentifier, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix);
+            new ObjectIdentifierDetails(document, this, objectIdentifier, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix);
         }
 
         Element mimetype = createElement("MimeType");
@@ -46,13 +48,13 @@ public class DataObjectFormatDetails extends XAdESStructure
         mimetype.setTextContent(dataObjectFormat.getMimeType());
 
         getNode().appendChild(mimetype);
-        
+
         Element encoding = createElement("Encoding");
         encoding.setPrefix(xadesPrefix);
         encoding.setTextContent(dataObjectFormat.getEncoding());
-        
+
         getNode().appendChild(encoding);
-        
+
         // TODO: must ensure that there is an ObjectReference attribute, otherwise an Exception
         // should be raised
         setAttributeNS(xadesNamespace, "ObjectReference", dataObjectFormat.getObjectReference());

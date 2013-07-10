@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -32,10 +33,11 @@ public class ExplicitPolicyXAdESImpl extends BasicXAdESImpl implements XAdES_EPE
      * super(baseElement); this.useExplicitPolicy = useExplicitPolicy; }
      */
 
-    public ExplicitPolicyXAdESImpl(Element baseElement, boolean readOnlyMode, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix, String digestMethod)
+    public ExplicitPolicyXAdESImpl(Document document, Element baseElement, boolean readOnlyMode,
+            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix,
+            String digestMethod)
     {
-        super(baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
+        super(document, baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
                 digestMethod);
     }
 

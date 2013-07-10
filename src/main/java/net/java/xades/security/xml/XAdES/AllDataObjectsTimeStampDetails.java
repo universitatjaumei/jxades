@@ -2,16 +2,18 @@ package net.java.xades.security.xml.XAdES;
 
 import net.java.xades.util.Base64;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class AllDataObjectsTimeStampDetails extends XAdESStructure
 {
-    public AllDataObjectsTimeStampDetails(SignedDataObjectProperties signedDataObjectProperties,
+    public AllDataObjectsTimeStampDetails(Document document,
+            SignedDataObjectProperties signedDataObjectProperties,
             AllDataObjectsTimeStamp allDataObjectsTimeStamp, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix, String tsaURL)
     {
-        super(signedDataObjectProperties, "AllDataObjectsTimeStamp", xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
+        super(document, signedDataObjectProperties, "AllDataObjectsTimeStamp", xadesPrefix,
+                xadesNamespace, xmlSignaturePrefix);
 
         try
         {

@@ -2,16 +2,17 @@ package net.java.xades.security.xml.XAdES;
 
 import net.java.xades.util.Base64;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class IndividualDataObjectsTimeStampDetails extends XAdESStructure
 {
-    public IndividualDataObjectsTimeStampDetails(
+    public IndividualDataObjectsTimeStampDetails(Document document,
             SignedDataObjectProperties signedDataObjectProperties,
             IndividualDataObjectsTimeStamp individualDataObjectsTimeStampDetails,
             String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix, String tsaURL)
     {
-        super(signedDataObjectProperties, "IndividualDataObjectsTimeStamp", xadesPrefix,
+        super(document, signedDataObjectProperties, "IndividualDataObjectsTimeStamp", xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
 
         try

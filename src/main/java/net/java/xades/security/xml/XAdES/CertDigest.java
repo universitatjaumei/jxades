@@ -3,6 +3,7 @@ package net.java.xades.security.xml.XAdES;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /*
@@ -18,10 +19,10 @@ import org.w3c.dom.Node;
  */
 public class CertDigest extends DigestAlgAndValue
 {
-    public CertDigest(XAdESStructure parent, X509Certificate cert, String xadesPrefix,
+    public CertDigest(Document document, XAdESStructure parent, X509Certificate cert, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix) throws GeneralSecurityException
     {
-        super(parent, "CertDigest", cert.getEncoded(), xadesPrefix, xadesNamespace,
+        super(document, parent, "CertDigest", cert.getEncoded(), xadesPrefix, xadesNamespace,
                 xmlSignaturePrefix);
     }
 

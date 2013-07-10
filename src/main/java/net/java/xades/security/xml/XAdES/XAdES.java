@@ -1,10 +1,14 @@
 package net.java.xades.security.xml.XAdES;
 
-import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.DigestMethod;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import net.java.xades.util.ObjectId;
 import net.java.xades.util.OccursRequirement;
+
+import org.w3c.dom.Document;
 
 /**
  * ETSI TS 101 903 V1.3.2 (2006-03)
@@ -249,58 +253,68 @@ public enum XAdES
     public static XAdES_BES newInstance(XAdES xades, org.w3c.dom.Element baseElement)
     {
         return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign",
-                DigestMethod.SHA1, baseElement);
+                DigestMethod.SHA1, baseElement.getOwnerDocument(), baseElement);
+    }
+
+    public static XAdES_BES newInstance(XAdES xades)
+    {
+        try
+        {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setNamespaceAware(true);
+            DocumentBuilder documentBuilder;
+            documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+
+            return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign",
+                    DigestMethod.SHA1, document, null);
+        }
+        catch (ParserConfigurationException e)
+        {
+            return null;
+        }
     }
 
     public static XAdES_BES newInstance(XAdES xades, String xadesNamespace, String xadesPrefix,
-            String xmlSignaturePrefix, String digestMethod, org.w3c.dom.Element baseElement)
+            String xmlSignaturePrefix, String digestMethod, Document document,
+            org.w3c.dom.Element baseElement)
     {
         if (BES.equals(xades))
         {
-            return new BasicXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
+            return new BasicXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);
         }
         else if (EPES.equals(xades))
         {
-            return new ExplicitPolicyXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, digestMethod);
+            return new ExplicitPolicyXAdESImpl(document, baseElement, false, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
         else if (T.equals(xades))
         {
-            return new TimestampXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, digestMethod);
+            return new TimestampXAdESImpl(document, baseElement, false, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
         else if (C.equals(xades))
         {
-            return new CompleteValidationXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, digestMethod);
+            return new CompleteValidationXAdESImpl(document, baseElement, false, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
         else if (X.equals(xades))
         {
-            return new ExtendedXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
+            return new ExtendedXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);
         }
         else if (X_L.equals(xades))
         {
-            return new ExtendedLongXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, digestMethod);
+            return new ExtendedLongXAdESImpl(document, baseElement, false, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
         else if (A.equals(xades))
         {
-            return new ArchivalXAdESImpl(baseElement, false, xadesPrefix, xadesNamespace,
+            return new ArchivalXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);
         }
 
         throw new IllegalArgumentException("Unknown XAdES type: " + xades);
-    }
-
-    public static XAdES_C getInstance(org.w3c.dom.Element baseElement, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix, String digestMethod)
-            throws MarshalException
-    {
-        ArchivalXAdESImpl xades = new ArchivalXAdESImpl(baseElement, true, xadesPrefix,
-                xadesNamespace, xmlSignaturePrefix, digestMethod);
-        xades.unmarshal();
-        return xades;
     }
 }

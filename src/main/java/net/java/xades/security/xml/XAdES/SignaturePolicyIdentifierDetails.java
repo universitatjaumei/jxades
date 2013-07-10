@@ -2,6 +2,7 @@ package net.java.xades.security.xml.XAdES;
 
 import javax.xml.crypto.dsig.XMLSignature;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -21,11 +22,13 @@ import org.w3c.dom.Element;
 
 public class SignaturePolicyIdentifierDetails extends XAdESStructure
 {
-    public SignaturePolicyIdentifierDetails(SignedSignatureProperties signedSignatureProperties,
+    public SignaturePolicyIdentifierDetails(Document document,
+            SignedSignatureProperties signedSignatureProperties,
             SignaturePolicyIdentifier signaturePolicyIdentifier, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(signedSignatureProperties, "SignaturePolicyIdentifier", xadesPrefix, xadesNamespace, //$NON-NLS-1$
+        super(document, signedSignatureProperties,
+                "SignaturePolicyIdentifier", xadesPrefix, xadesNamespace, //$NON-NLS-1$
                 xmlSignaturePrefix);
 
         // TODO: check if when the policy is implied other attributes are not mandatory.
@@ -39,20 +42,25 @@ public class SignaturePolicyIdentifierDetails extends XAdESStructure
             final Element signaturePolicyId = createElement("SignaturePolicyId"); //$NON-NLS-1$
 
             final Element identifier = createElement("Identifier"); //$NON-NLS-1$
-            identifier.appendChild(getDocument().createTextNode(signaturePolicyIdentifier.getIdentifier()));
+            identifier.appendChild(getDocument().createTextNode(
+                    signaturePolicyIdentifier.getIdentifier()));
 
             final Element description = createElement("Description"); //$NON-NLS-1$
-            description.appendChild(getDocument().createTextNode(signaturePolicyIdentifier.getDescription()));
+            description.appendChild(getDocument().createTextNode(
+                    signaturePolicyIdentifier.getDescription()));
 
             final Element sigPolicyId = createElement("SigPolicyId"); //$NON-NLS-1$
             sigPolicyId.appendChild(identifier);
             sigPolicyId.appendChild(description);
             signaturePolicyId.appendChild(sigPolicyId);
 
-            final Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestMethod"); //$NON-NLS-1$
-            digestMethod.setAttributeNS(xmlSignaturePrefix, "Algorithm", signaturePolicyIdentifier.getHashAlgorithm()); //$NON-NLS-1$
+            final Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
+                    "DigestMethod"); //$NON-NLS-1$
+            digestMethod.setAttributeNS(xmlSignaturePrefix,
+                    "Algorithm", signaturePolicyIdentifier.getHashAlgorithm()); //$NON-NLS-1$
 
-            final Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestValue"); //$NON-NLS-1$
+            final Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
+                    "DigestValue"); //$NON-NLS-1$
             digestValue.setTextContent(signaturePolicyIdentifier.getHashBase64());
 
             final Element sigPolicyHash = createElement("SigPolicyHash"); //$NON-NLS-1$

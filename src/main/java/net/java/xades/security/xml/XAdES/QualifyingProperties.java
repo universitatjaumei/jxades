@@ -3,6 +3,7 @@ package net.java.xades.security.xml.XAdES;
 import javax.xml.XMLConstants;
 import javax.xml.crypto.dsig.XMLSignature;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -17,18 +18,22 @@ public class QualifyingProperties extends XAdESStructure
     private SignedProperties signedProperties;
     private UnsignedProperties unsignedProperties;
 
-    public QualifyingProperties(Node node, String signatureIdPrefix, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
-    {
-        this(node, "QualifyingProperties", signatureIdPrefix, xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
-    }
+    private Document document;
 
-    private QualifyingProperties(Node node, String elementName, String signatureIdPrefix,
+    public QualifyingProperties(Document document, Node node, String signatureIdPrefix,
             String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
     {
-        this(node.getOwnerDocument().createElementNS(xadesNamespace, elementName), xadesPrefix,
+        this(document, node, "QualifyingProperties", signatureIdPrefix, xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
+    }
+
+    private QualifyingProperties(Document document, Node node, String elementName,
+            String signatureIdPrefix, String xadesPrefix, String xadesNamespace,
+            String xmlSignaturePrefix)
+    {
+        this(document.createElementNS(xadesNamespace, elementName), xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
+        this.document = document;
 
         this.signatureIdPrefix = signatureIdPrefix;
 
@@ -57,7 +62,7 @@ public class QualifyingProperties extends XAdESStructure
     {
         if (signedProperties == null)
         {
-            signedProperties = new SignedProperties(this, signatureIdPrefix, xadesPrefix,
+            signedProperties = new SignedProperties(document, this, signatureIdPrefix, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix);
         }
 
@@ -66,11 +71,11 @@ public class QualifyingProperties extends XAdESStructure
 
     public UnsignedProperties getUnsignedProperties()
     {
-//        if (unsignedProperties == null)
-//        {
-//            unsignedProperties = new UnsignedProperties(this, xadesPrefix, xadesNamespace,
-//                    xmlSignaturePrefix);
-//        }
+        // if (unsignedProperties == null)
+        // {
+        // unsignedProperties = new UnsignedProperties(this, xadesPrefix, xadesNamespace,
+        // xmlSignaturePrefix);
+        // }
 
         return unsignedProperties;
     }

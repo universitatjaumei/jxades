@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -33,9 +34,9 @@ public class ExtendedLongXAdESImpl extends ExtendedXAdESImpl implements XAdES_X_
      * super(baseElement, useExplicitPolicy); }
      */
 
-    public ExtendedLongXAdESImpl(Element baseElement, boolean readOnlyMode, String xadesPrefix,
+    public ExtendedLongXAdESImpl(Document document, Element baseElement, boolean readOnlyMode, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix, String digestMethod)
     {
-        super(baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix, digestMethod);
+        super(document, baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix, digestMethod);
     }
 }

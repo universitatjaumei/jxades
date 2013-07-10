@@ -3,6 +3,7 @@ package net.java.xades.security.xml.XAdES;
 import java.security.GeneralSecurityException;
 import java.util.Date;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -21,10 +22,13 @@ import org.w3c.dom.Node;
  */
 public class SignedSignatureProperties extends XAdESStructure
 {
-    public SignedSignatureProperties(SignedProperties sp, String xadesPrefix,
+    private Document document;
+
+    public SignedSignatureProperties(Document document, SignedProperties sp, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(sp, "SignedSignatureProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, sp, "SignedSignatureProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this.document = document;
     }
 
     public SignedSignatureProperties(Node node, String xadesPrefix, String xadesNamespace,
@@ -40,12 +44,12 @@ public class SignedSignatureProperties extends XAdESStructure
 
     public void setSigningTime(Date signingTime)
     {
-        new SigningTime(this, signingTime, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        new SigningTime(document, this, signingTime, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public void setSigner(Signer signer)
     {
-        new SignerDetails(this, signer, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        new SignerDetails(document, this, signer, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public void setSigningCertificate(SigningCertificate signingCertificate)
@@ -53,7 +57,7 @@ public class SignedSignatureProperties extends XAdESStructure
     {
         if (signingCertificate != null)
         {
-            new SigningCertificateDetails(this, signingCertificate, xadesPrefix, xadesNamespace,
+            new SigningCertificateDetails(document, this, signingCertificate, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix);
         }
     }
@@ -64,7 +68,7 @@ public class SignedSignatureProperties extends XAdESStructure
         {
             if (signerRole.getClaimedRole().size() > 0 || signerRole.getCertifiedRole().size() > 0)
             {
-                new SignerRoleDetails(this, signerRole, xadesPrefix, xadesNamespace,
+                new SignerRoleDetails(document, this, signerRole, xadesPrefix, xadesNamespace,
                         xmlSignaturePrefix);
             }
         }
@@ -95,7 +99,7 @@ public class SignedSignatureProperties extends XAdESStructure
     {
         if (signatureProductionPlace != null)
         {
-            new SignatureProductionPlaceDetails(this, signatureProductionPlace, xadesPrefix,
+            new SignatureProductionPlaceDetails(document, this, signatureProductionPlace, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix);
         }
     }
@@ -104,7 +108,7 @@ public class SignedSignatureProperties extends XAdESStructure
     {
         if (signaturePolicyIdentifier != null)
         {
-            new SignaturePolicyIdentifierDetails(this, signaturePolicyIdentifier, xadesPrefix,
+            new SignaturePolicyIdentifierDetails(document, this, signaturePolicyIdentifier, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix);
         }
     }

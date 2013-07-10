@@ -4,6 +4,7 @@ import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -15,18 +16,19 @@ public class CompleteCertificateRefsImpl extends XAdESStructure implements Compl
 {
     private CertRefs certRefs;
 
-    public CompleteCertificateRefsImpl(XAdESStructure parent,
+    public CompleteCertificateRefsImpl(Document document, XAdESStructure parent,
             Collection<X509Certificate> caCertificates, String signatureIdPrefix,
             String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
             throws GeneralSecurityException
     {
-        super(parent, "CompleteCertificateRefs", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, parent, "CompleteCertificateRefs", xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
 
         if (caCertificates == null || caCertificates.isEmpty())
             throw new IllegalArgumentException(
                     "The CA Certificates collection can not be NULL or empty.");
 
-        certRefs = new CertRefs(this, caCertificates, signatureIdPrefix, xadesPrefix,
+        certRefs = new CertRefs(document, this, caCertificates, signatureIdPrefix, xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
     }
 

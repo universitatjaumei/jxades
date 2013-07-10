@@ -21,29 +21,30 @@ public class XAdESStructure extends DOMStructure
     public static final String ID_ATTRIBUTE = "Id";
     public static final String TARGET_ATTRIBUTE = "Target";
 
-    private Document document;
+    private Document baseDocument;
 
     public String xadesPrefix;
     public String xadesNamespace;
     public String xmlSignaturePrefix;
 
-    public XAdESStructure(XAdESStructure parent, String elementName, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public XAdESStructure(Document document, XAdESStructure parent, String elementName,
+            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
     {
-        this(parent.getElement(), elementName, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this(document, parent.getElement(), elementName, xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
     }
 
-    public XAdESStructure(Element parentElement, String elementName, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public XAdESStructure(Document document, Element parentElement, String elementName,
+            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
     {
-        this(parentElement.getOwnerDocument().createElementNS(xadesNamespace, elementName),
-                xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this(document.createElementNS(xadesNamespace, elementName), xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
+        baseDocument = document;
 
         this.xadesPrefix = xadesPrefix;
         this.xadesNamespace = xadesNamespace;
         this.xmlSignaturePrefix = xmlSignaturePrefix;
 
-        document = parentElement.getOwnerDocument();
         Element element = getElement();
         element.setPrefix(xadesPrefix);
 
@@ -133,7 +134,7 @@ public class XAdESStructure extends DOMStructure
 
     protected Document getDocument()
     {
-        return document;
+        return baseDocument;
     }
 
     protected Element createElement(String elementName)
@@ -148,7 +149,7 @@ public class XAdESStructure extends DOMStructure
     {
         Element element = getDocument().createElementNS(namespace, elementName);
         element.setPrefix(prefix);
-        
+
         return element;
     }
 

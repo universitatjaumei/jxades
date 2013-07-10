@@ -250,7 +250,17 @@ public class XMLUtils
         //
         // serializer.transform(domSource, streamResult);
 
-        Document document = node.getOwnerDocument();
+        Document document = null;
+        
+        if (node instanceof Element)
+        {
+            document = node.getOwnerDocument();
+        }
+        else if (node instanceof Document)
+        {
+            document = (Document) node;
+        }
+        
         DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
         LSSerializer serializer = domImplLS.createLSSerializer();
         serializer.getDomConfig().setParameter("namespaces", false);

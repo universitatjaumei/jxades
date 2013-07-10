@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -16,12 +17,13 @@ import org.w3c.dom.Element;
 
 public class CommitmentTypeIdDetails extends XAdESStructure
 {
-    public CommitmentTypeIdDetails(CommitmentTypeIndicationDetails commitmentTypeIndicationDetails,
+    public CommitmentTypeIdDetails(Document document,
+            CommitmentTypeIndicationDetails commitmentTypeIndicationDetails,
             CommitmentTypeId commitmentTypeId, String xadesPrefix, String xadesNamespace,
             String xmlSignaturePrefix)
     {
-        super(commitmentTypeIndicationDetails, "CommitmentTypeId", xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
+        super(document, commitmentTypeIndicationDetails, "CommitmentTypeId", xadesPrefix,
+                xadesNamespace, xmlSignaturePrefix);
 
         Element identifier = createElement("Identifier");
         identifier.setTextContent(commitmentTypeId.getIdentifier());

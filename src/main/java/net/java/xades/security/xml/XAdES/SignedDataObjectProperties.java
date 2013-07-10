@@ -2,26 +2,32 @@ package net.java.xades.security.xml.XAdES;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Document;
+
 public class SignedDataObjectProperties extends XAdESStructure
 {
-    public SignedDataObjectProperties(SignedProperties signedProperties, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    private Document document;
+
+    public SignedDataObjectProperties(Document document, SignedProperties signedProperties,
+            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(signedProperties, "SignedDataObjectProperties", xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
+        super(document, signedProperties, "SignedDataObjectProperties", xadesPrefix,
+                xadesNamespace, xmlSignaturePrefix);
+        this.document = document;
     }
 
     public void setDataObjectFormat(ArrayList<DataObjectFormat> dataObjectFormat)
     {
         for (DataObjectFormat dof : dataObjectFormat)
         {
-            new DataObjectFormatDetails(this, dof, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+            new DataObjectFormatDetails(document, this, dof, xadesPrefix, xadesNamespace,
+                    xmlSignaturePrefix);
         }
     }
 
     public void setCommitmentTypeIndication(CommitmentTypeIndication commitmentTypeIndication)
     {
-        new CommitmentTypeIndicationDetails(this, commitmentTypeIndication, xadesPrefix,
+        new CommitmentTypeIndicationDetails(document, this, commitmentTypeIndication, xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
     }
 
@@ -30,7 +36,7 @@ public class SignedDataObjectProperties extends XAdESStructure
     {
         for (AllDataObjectsTimeStamp adots : allDataObjectsTimeStamp)
         {
-            new AllDataObjectsTimeStampDetails(this, adots, xadesPrefix, xadesNamespace,
+            new AllDataObjectsTimeStampDetails(document, this, adots, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, tsaURL);
         }
     }
@@ -40,8 +46,8 @@ public class SignedDataObjectProperties extends XAdESStructure
     {
         for (IndividualDataObjectsTimeStamp idots : individualDataObjectsTimeStamp)
         {
-            new IndividualDataObjectsTimeStampDetails(this, idots, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, tsaURL);
+            new IndividualDataObjectsTimeStampDetails(document, this, idots, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix, tsaURL);
         }
     }
 }

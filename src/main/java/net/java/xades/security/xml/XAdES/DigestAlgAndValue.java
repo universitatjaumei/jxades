@@ -9,6 +9,7 @@ import javax.xml.crypto.dsig.DigestMethod;
 
 import net.java.xades.util.Base64;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -35,18 +36,19 @@ public class DigestAlgAndValue extends XAdESStructure
     // this(parent, "DigestAlgAndValue", ocspResponse.getResponseData());
     // }
 
-    public DigestAlgAndValue(XAdESStructure parent, X509CRL crl, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix) throws GeneralSecurityException
-    {
-        this(parent, "DigestAlgAndValue", crl.getEncoded(), xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
-    }
-
-    protected DigestAlgAndValue(XAdESStructure parent, String elementName, byte[] data,
+    public DigestAlgAndValue(Document document, XAdESStructure parent, X509CRL crl,
             String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
             throws GeneralSecurityException
     {
-        super(parent, elementName, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this(document, parent, "DigestAlgAndValue", crl.getEncoded(), xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
+    }
+
+    protected DigestAlgAndValue(Document document, XAdESStructure parent, String elementName,
+            byte[] data, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+            throws GeneralSecurityException
+    {
+        super(document, parent, elementName, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
 
         Element thisElement = getElement();
 
@@ -64,10 +66,11 @@ public class DigestAlgAndValue extends XAdESStructure
         element.setTextContent(digestValue);
     }
 
-    protected DigestAlgAndValue(XAdESStructure parent, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix) throws GeneralSecurityException
+    protected DigestAlgAndValue(Document document, XAdESStructure parent, String xadesPrefix,
+            String xadesNamespace, String xmlSignaturePrefix) throws GeneralSecurityException
     {
-        super(parent, "DigestAlgAndValue", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, parent, "DigestAlgAndValue", xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
     }
 
     public DigestAlgAndValue(Node node, String xadesPrefix, String xadesNamespace,

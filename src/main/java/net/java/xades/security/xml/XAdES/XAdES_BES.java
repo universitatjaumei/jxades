@@ -3,6 +3,8 @@ package net.java.xades.security.xml.XAdES;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
+
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -128,6 +130,7 @@ import org.w3c.dom.Element;
 public interface XAdES_BES
 {
     public Element getBaseElement();
+    public Document getBaseDocument();
 
     public Date getSigningTime();
     public void setSigningTime(Date signingTime);

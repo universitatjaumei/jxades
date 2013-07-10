@@ -4,6 +4,7 @@ import java.security.GeneralSecurityException;
 
 import javax.xml.crypto.dsig.XMLSignature;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -24,11 +25,11 @@ import org.w3c.dom.Node;
 
 public class SigningCertificateDetails extends XAdESStructure
 {
-    public SigningCertificateDetails(SignedSignatureProperties ssp,
+    public SigningCertificateDetails(Document document, SignedSignatureProperties ssp,
             SigningCertificate signingCertificate, String xadesPrefix, String xadesNamespace,
             String xmlSignaturePrefix) throws GeneralSecurityException
     {
-        super(ssp, "SigningCertificate", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, ssp, "SigningCertificate", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
 
         // TODO: Unimplemented URI parameter
         Element cert = createElement("Cert");

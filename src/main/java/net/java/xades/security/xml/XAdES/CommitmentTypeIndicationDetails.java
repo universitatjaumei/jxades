@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -21,19 +22,20 @@ import org.w3c.dom.Element;
 
 public class CommitmentTypeIndicationDetails extends XAdESStructure
 {
-    public CommitmentTypeIndicationDetails(SignedDataObjectProperties signedDataObjectProperties,
+    public CommitmentTypeIndicationDetails(Document document,
+            SignedDataObjectProperties signedDataObjectProperties,
             CommitmentTypeIndication commitmentTypeIndication, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(signedDataObjectProperties, "CommitmentTypeIndication", xadesPrefix, xadesNamespace,
-                xmlSignaturePrefix);
+        super(document, signedDataObjectProperties, "CommitmentTypeIndication", xadesPrefix,
+                xadesNamespace, xmlSignaturePrefix);
 
         CommitmentTypeId commitmentTypeId = commitmentTypeIndication.getCommitmentTypeId();
 
         if (commitmentTypeId != null)
         {
-            new CommitmentTypeIdDetails(this, commitmentTypeId, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix);
+            new CommitmentTypeIdDetails(document, this, commitmentTypeId, xadesPrefix,
+                    xadesNamespace, xmlSignaturePrefix);
         }
 
         Element objectReference = createElement("ObjectReference");

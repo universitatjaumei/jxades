@@ -21,8 +21,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.java.xades.security.xml.SignatureStatus;
-import net.java.xades.security.xml.ValidateResult;
 import net.java.xades.security.xml.XAdES.SignaturePolicyIdentifier;
 import net.java.xades.security.xml.XAdES.SignaturePolicyIdentifierImpl;
 import net.java.xades.security.xml.XAdES.XAdES;
@@ -57,8 +55,8 @@ public class BaseTest
         X509Certificate certificate = (X509Certificate) keystore.getCertificate(certificateAlias);
 
         // Clave privada para firmar
-        PrivateKey privateKey = (PrivateKey) keystore.getKey(certificateAlias, keyPassword
-                .toCharArray());
+        PrivateKey privateKey = (PrivateKey) keystore.getKey(certificateAlias,
+                keyPassword.toCharArray());
 
         SignatureOptions signatureOptions = new SignatureOptions();
         signatureOptions.setKeystore(keystore);
@@ -75,6 +73,15 @@ public class BaseTest
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
         return db.parse(new ByteArrayInputStream(data)).getDocumentElement();
+    }
+
+    protected Element getEmptyDocument() throws SAXException, IOException,
+            ParserConfigurationException
+    {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        return db.newDocument().getDocumentElement();
     }
 
     protected boolean verify(XMLAdvancedSignature xmlSignature)
@@ -108,7 +115,14 @@ public class BaseTest
 
     protected void showSignature(XMLAdvancedSignature xmlSignature, OutputStream output)
     {
-        XMLUtils.writeXML(output, xmlSignature.getBaseElement(), false);
+        if (xmlSignature.getBaseElement() != null)
+        {
+            XMLUtils.writeXML(output, xmlSignature.getBaseElement(), false);
+        }
+        else
+        {
+            XMLUtils.writeXML(output, xmlSignature.getBaseDocument(), false);
+        }
     }
 
     protected XMLAdvancedSignature createXAdES_EPES(SignatureOptions signatureOptions, byte[] data)
@@ -123,6 +137,22 @@ public class BaseTest
         SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
         xades.setSignaturePolicyIdentifier(spi);
 
+        // Enveloped signature
+        return XMLAdvancedSignature.newInstance(xades);
+    }
+
+    protected XMLAdvancedSignature createXadesEpesDetached(SignatureOptions signatureOptions)
+            throws SAXException, IOException, ParserConfigurationException,
+            GeneralSecurityException
+    {
+        // Build XAdES-EPES signature
+        XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES);
+        xades.setSigningCertificate(signatureOptions.getCertificate());
+
+        // Add implied policy
+        SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
+        xades.setSignaturePolicyIdentifier(spi);
+        
         // Enveloped signature
         return XMLAdvancedSignature.newInstance(xades);
     }
@@ -142,7 +172,7 @@ public class BaseTest
         // Enveloped signature
         return XMLAdvancedSignature.newInstance(xades);
     }
-    
+
     public static byte[] inputStreamToByteArray(InputStream in) throws IOException
     {
         byte[] buffer = new byte[2048];
@@ -156,5 +186,5 @@ public class BaseTest
         }
 
         return baos.toByteArray();
-    }    
+    }
 }

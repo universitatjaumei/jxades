@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.TreeMap;
 
 import javax.xml.crypto.MarshalException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -22,6 +26,7 @@ public class BasicXAdESImpl implements XAdES_BES
     protected boolean readOnlyMode = true;
     protected TreeMap<XAdES.Element, Object> data;
     private Element baseElement;
+    private Document baseDocument;
     private QualifyingProperties qualifyingProperties;
 
     public String xadesPrefix;
@@ -29,13 +34,17 @@ public class BasicXAdESImpl implements XAdES_BES
     public String xmlSignaturePrefix;
     public String digestMethod;
 
-    public BasicXAdESImpl(Element baseElement, boolean readOnlyMode, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix, String digestMethod)
+    public BasicXAdESImpl(Document document, Element baseElement, boolean readOnlyMode,
+            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix,
+            String digestMethod)
     {
-        if (baseElement == null)
+        baseDocument = document;
+        
+        if (baseElement != null)
         {
-            throw new IllegalArgumentException("Root/Base XML Element can not be NULL.");
+            baseDocument = baseElement.getOwnerDocument();
         }
+
         this.baseElement = baseElement;
         this.readOnlyMode = readOnlyMode;
 
@@ -45,6 +54,11 @@ public class BasicXAdESImpl implements XAdES_BES
         this.xadesNamespace = xadesNamespace;
         this.xmlSignaturePrefix = xmlSignaturePrefix;
         this.digestMethod = digestMethod;
+    }
+
+    public Document getBaseDocument()
+    {
+        return baseDocument;
     }
 
     public Element getBaseElement()

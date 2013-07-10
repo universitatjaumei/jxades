@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.xml.crypto.MarshalException;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -36,10 +37,10 @@ public class ArchivalXAdESImpl extends ExtendedLongXAdESImpl
      * useExplicitPolicy); }
      */
 
-    public ArchivalXAdESImpl(Element baseElement, boolean readOnlyMode, String xadesPrefix,
+    public ArchivalXAdESImpl(Document document, Element baseElement, boolean readOnlyMode, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix, String digestMethod)
     {
-        super(baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
+        super(document, baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
                 digestMethod);
     }
 

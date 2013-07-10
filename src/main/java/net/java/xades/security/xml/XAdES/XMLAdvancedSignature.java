@@ -1,11 +1,9 @@
 package net.java.xades.security.xml.XAdES;
 
 import java.io.IOException;
-import java.security.AccessController;
 import java.security.GeneralSecurityException;
 import java.security.KeyException;
 import java.security.PrivateKey;
-import java.security.Security;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +37,7 @@ import net.java.xades.security.xml.WrappedKeyStorePlace;
 import net.java.xades.security.xml.XMLSignatureElement;
 import net.java.xades.security.xml.XmlWrappedKeyInfo;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -82,12 +81,6 @@ public class XMLAdvancedSignature
         }
 
         this.baseElement = xades.getBaseElement();
-
-        if (this.baseElement == null)
-        {
-            throw new IllegalArgumentException("Root/Base XML Element can not be NULL.");
-        }
-
         this.xades = (BasicXAdESImpl) xades;
     }
 
@@ -108,6 +101,11 @@ public class XMLAdvancedSignature
     public Element getBaseElement()
     {
         return this.baseElement;
+    }
+
+    public Document getBaseDocument()
+    {
+        return this.xades.getBaseDocument();
     }
 
     public void setXadesNamespace(String xadesNamespace)
@@ -160,7 +158,15 @@ public class XMLAdvancedSignature
         this.signature = fac.newXMLSignature(si, newKeyInfo(certificate, keyInfoId),
                 getXMLObjects(), signatureId, signatureValueId);
 
-        this.signContext = new DOMSignContext(privateKey, this.baseElement);
+        if (this.baseElement != null)
+        {
+            this.signContext = new DOMSignContext(privateKey, getBaseElement());
+        }
+        else
+        {
+            this.signContext = new DOMSignContext(privateKey, getBaseDocument());
+        }
+
         this.signContext.putNamespacePrefix(XMLSignature.XMLNS, this.xades.getXmlSignaturePrefix());
         this.signContext.putNamespacePrefix(this.xadesNamespace, this.xades.getXadesPrefix());
 
@@ -206,8 +212,19 @@ public class XMLAdvancedSignature
 
     protected List<XMLSignatureElement> getXMLSignatureElements()
     {
-        NodeList nl = this.baseElement
-                .getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
+        NodeList nl = null;
+
+        if (this.baseElement != null)
+        {
+            nl = this.getBaseElement()
+                    .getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
+        }
+        else
+        {
+            nl = this.getBaseDocument().getElementsByTagNameNS(XMLSignature.XMLNS,
+                    ELEMENT_SIGNATURE);
+        }
+
         int size = nl.getLength();
         ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
         for (int i = 0; i < size; i++)
@@ -279,7 +296,7 @@ public class XMLAdvancedSignature
                 transforms = Collections.singletonList(envelopedTransform);
             }
         }
-        else if (!uri.startsWith("#"))
+        else if (!uri.startsWith("#") && !uri.startsWith("http://") && !uri.startsWith("https://"))
         {
             uri = "#" + uri;
         }
@@ -399,8 +416,9 @@ public class XMLAdvancedSignature
             throws GeneralSecurityException, MarshalException
     {
         QualifyingProperties qp;
-        qp = new QualifyingProperties(getBaseElement(), signatureIdPrefix,
-                this.xades.getXadesPrefix(), xmlNamespace, this.xades.getXmlSignaturePrefix());
+        qp = new QualifyingProperties(this.xades.getBaseDocument(), getBaseElement(),
+                signatureIdPrefix, this.xades.getXadesPrefix(), xmlNamespace,
+                this.xades.getXmlSignaturePrefix());
 
         this.xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList);
 

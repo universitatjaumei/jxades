@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -16,11 +17,12 @@ import org.w3c.dom.Node;
 
 public class SignatureProductionPlaceDetails extends XAdESStructure
 {
-    public SignatureProductionPlaceDetails(SignedSignatureProperties ssp,
+    public SignatureProductionPlaceDetails(Document document, SignedSignatureProperties ssp,
             SignatureProductionPlace signatureProductionPlace, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(ssp, "SignatureProductionPlace", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, ssp, "SignatureProductionPlace", xadesPrefix, xadesNamespace,
+                xmlSignaturePrefix);
 
         if (signatureProductionPlace.getCity() != null)
         {

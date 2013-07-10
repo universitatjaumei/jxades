@@ -1,5 +1,6 @@
 package net.java.xades.security.xml.XAdES;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -15,11 +16,11 @@ import org.w3c.dom.Element;
 
 public class ObjectIdentifierDetails extends XAdESStructure
 {
-    public ObjectIdentifierDetails(DataObjectFormatDetails dataObjectFormatDetails,
-            ObjectIdentifier objectIdentifier, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public ObjectIdentifierDetails(Document document,
+            DataObjectFormatDetails dataObjectFormatDetails, ObjectIdentifier objectIdentifier,
+            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
     {
-        super(dataObjectFormatDetails, "ObjectIdentifier", xadesPrefix, xadesNamespace,
+        super(document, dataObjectFormatDetails, "ObjectIdentifier", xadesPrefix, xadesNamespace,
                 xmlSignaturePrefix);
 
         Element identifier = createElement("Identifier");

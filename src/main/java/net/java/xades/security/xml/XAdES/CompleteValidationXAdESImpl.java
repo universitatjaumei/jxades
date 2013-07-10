@@ -3,6 +3,7 @@ package net.java.xades.security.xml.XAdES;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
@@ -36,11 +37,11 @@ public class CompleteValidationXAdESImpl extends TimestampXAdESImpl implements X
      * super(baseElement, useExplicitPolicy); }
      */
 
-    public CompleteValidationXAdESImpl(Element baseElement, boolean readOnlyMode,
+    public CompleteValidationXAdESImpl(Document document, Element baseElement, boolean readOnlyMode,
             String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix,
             String digestMethod)
     {
-        super(baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
+        super(document, baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
                 digestMethod);
     }
 

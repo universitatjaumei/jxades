@@ -3,6 +3,7 @@ package net.java.xades.security.xml.XAdES;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -28,15 +29,13 @@ public class Cert extends XAdESStructure
     private CertDigest certDigest;
     private IssuerSerial issuerSerial;
 
-    public Cert(XAdESStructure parent, X509Certificate cert, String xadesPrefix,
+    public Cert(Document document, XAdESStructure parent, X509Certificate cert, String xadesPrefix,
             String xadesNamespace, String xmlSignaturePrefix) throws GeneralSecurityException
     {
-        super(parent, "Cert", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, parent, "Cert", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
 
-        Element thisElement = getElement();
-
-        certDigest = new CertDigest(this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-        issuerSerial = new IssuerSerial(this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        certDigest = new CertDigest(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        issuerSerial = new IssuerSerial(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public Cert(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
