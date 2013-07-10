@@ -43,8 +43,8 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://universitatjaumei.jira.com/svn/JXADES/trunk</connection>
-    <url>https://universitatjaumei.jira.com/svn/JXADES/trunk</url>
+    <connection>scm:svn:http://jira.uji.es/repos/uji/JXADES/trunk</connection>
+    <url>http://jira.uji.es/repos/uji/JXADES/trunk</url>
   </scm>
 
   <distributionManagement>
