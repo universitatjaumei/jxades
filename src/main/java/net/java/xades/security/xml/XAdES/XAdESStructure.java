@@ -71,20 +71,15 @@ public class XAdESStructure extends DOMStructure
         return getAttribute(ID_ATTRIBUTE);
     }
 
-    public String getIdNS(String namespace)
-    {
-        return getAttributeNS(ID_ATTRIBUTE, namespace);
-    }
-
-    protected void setAttribute(String name, String value) throws DOMException
-    {
-        getElement().setAttributeNS(null, name, value);
-    }
-
     protected void setAttributeNS(String namespaceURI, String qualifiedName, String value)
             throws DOMException
     {
         getElement().setAttributeNS(namespaceURI, qualifiedName, value);
+
+        if ("Id".equals(qualifiedName))
+        {
+            getElement().setIdAttributeNS(null, "Id", true);
+        }
     }
 
     protected String getAttribute(String name)

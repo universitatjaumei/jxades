@@ -38,7 +38,7 @@ public class SignedProperties extends XAdESStructure
         super(document, qp, "SignedProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
         this.document = document;
 
-        setAttributeNS(xadesNamespace, ID_ATTRIBUTE, signatureIdPrefix + "-SignedProperties");
+        setAttributeNS(null, ID_ATTRIBUTE, signatureIdPrefix + "-SignedProperties");
     }
 
     public SignedProperties(Node node, String xadesPrefix, String xadesNamespace,

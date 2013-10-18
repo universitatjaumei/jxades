@@ -9,6 +9,8 @@ import net.java.xades.util.ObjectId;
 import net.java.xades.util.OccursRequirement;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 /**
  * ETSI TS 101 903 V1.3.2 (2006-03)
@@ -279,6 +281,8 @@ public enum XAdES
             String xmlSignaturePrefix, String digestMethod, Document document,
             org.w3c.dom.Element baseElement)
     {
+        setDefinedIdAttributesAsDOMIds(document);
+
         if (BES.equals(xades))
         {
             return new BasicXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
@@ -316,5 +320,20 @@ public enum XAdES
         }
 
         throw new IllegalArgumentException("Unknown XAdES type: " + xades);
+    }
+
+    private static void setDefinedIdAttributesAsDOMIds(Document document)
+    {
+        NodeList nodes = document.getElementsByTagName("*");
+
+        for (int i=0 ; i<nodes.getLength() ; i++)
+        {
+            org.w3c.dom.Element node = (org.w3c.dom.Element) nodes.item(i);
+
+            if (node.getAttribute("Id") != null && !node.getAttribute("Id").isEmpty())
+            {
+                node.setIdAttributeNS(null, "Id", true);
+            }
+        }
     }
 }

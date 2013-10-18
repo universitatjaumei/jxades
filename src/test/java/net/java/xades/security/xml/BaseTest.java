@@ -29,7 +29,9 @@ import net.java.xades.security.xml.XAdES.XAdES_T;
 import net.java.xades.security.xml.XAdES.XMLAdvancedSignature;
 import net.java.xades.util.XMLUtils;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class BaseTest
@@ -72,6 +74,7 @@ public class BaseTest
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
         DocumentBuilder db = dbf.newDocumentBuilder();
+
         return db.parse(new ByteArrayInputStream(data)).getDocumentElement();
     }
 
@@ -129,8 +132,15 @@ public class BaseTest
             throws SAXException, IOException, ParserConfigurationException,
             GeneralSecurityException
     {
+        return createXAdES_EPES(signatureOptions, getDocumentToSign(data));
+    }
+
+    protected XMLAdvancedSignature createXAdES_EPES(SignatureOptions signatureOptions, Element data)
+            throws SAXException, IOException, ParserConfigurationException,
+            GeneralSecurityException
+    {
         // Build XAdES-EPES signature
-        XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES, getDocumentToSign(data));
+        XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES, data);
         xades.setSigningCertificate(signatureOptions.getCertificate());
 
         // Add implied policy

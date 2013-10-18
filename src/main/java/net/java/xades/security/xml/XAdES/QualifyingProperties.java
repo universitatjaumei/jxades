@@ -46,10 +46,10 @@ public class QualifyingProperties extends XAdESStructure
         element.setPrefix(xadesPrefix);
 
         String target = "#" + signatureIdPrefix + "-" + SIGNATURE_ELEMENT_NAME;
-        setAttributeNS(xadesNamespace, TARGET_ATTRIBUTE, target);
+        setAttributeNS(null, TARGET_ATTRIBUTE, target);
 
         String id = signatureIdPrefix + "-" + elementName;
-        setAttributeNS(xadesNamespace, ID_ATTRIBUTE, id);
+        setAttributeNS(null, ID_ATTRIBUTE, id);
     }
 
     public QualifyingProperties(Node node, String xadesPrefix, String xadesNamespace,

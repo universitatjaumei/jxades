@@ -25,7 +25,7 @@ public class TestCosign extends BaseTest
             MarshalException, XMLSignatureException, TransformException,
             ParserConfigurationException, SAXException
     {
-        byte[] data = "<?xml version=\"1.0\"?><root><datafile id=\"test\">contenido</datafile></root>"
+        byte[] data = "<?xml version=\"1.0\"?><root><datafile Id=\"test\">contenido</datafile></root>"
                 .getBytes();
 
         // Default signature options
