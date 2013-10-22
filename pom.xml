@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.java.xades</groupId>
   <artifactId>jxades</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <name>jXAdES</name>
 
   <repositories>
@@ -43,8 +43,8 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://jira.uji.es/repos/uji/JXADES/trunk</connection>
-    <url>http://jira.uji.es/repos/uji/JXADES/trunk</url>
+    <connection>scm:svn:http://jira.uji.es/repos/uji/JXADES/tags/jXAdES_0.1.0</connection>
+    <url>http://jira.uji.es/repos/uji/JXADES/tags/jXAdES_0.1.0</url>
   </scm>
 
   <distributionManagement>
@@ -83,6 +83,20 @@
           <storepass>cryptoapplet</storepass>
           <signedjar>target/${project.build.finalName}-signed.jar</signedjar>
           <verify>true</verify>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.12.3</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/Base*Test.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
 
