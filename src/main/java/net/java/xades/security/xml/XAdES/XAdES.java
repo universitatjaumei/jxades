@@ -132,14 +132,14 @@ public enum XAdES
                 SIGNED_PROPERTIES, "SignedSignatureProperties"), SIGNING_TIME(XAdES.BES,
                 SIGNED_SIGNATURE_PROPERTIES, "SigningTime", OccursRequirement.ZERO_OR_ONE), SIGNING_CERTIFICATE(
                 XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificate",
-                OccursRequirement.ZERO_OR_ONE), SIGNATURE_PRODUCTION_PLACE(XAdES.BES,
+                OccursRequirement.ZERO_OR_ONE), SIGNATURE_POLICY_IDENTIFIER(
+                XAdES.EPES, SIGNED_SIGNATURE_PROPERTIES, "SignaturePolicyIdentifier",
+                OccursRequirement.EXACTLY_ONE), SIGNATURE_PRODUCTION_PLACE(XAdES.BES,
                 SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlace",
                 OccursRequirement.ZERO_OR_ONE), SIGNER_ROLE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES,
                 "SignerRole", OccursRequirement.ZERO_OR_ONE), CLAIMED_ROLES(XAdES.BES, SIGNER_ROLE,
                 "ClaimedRoles", OccursRequirement.ZERO_OR_MORE), CERTIFIED_ROLES(XAdES.BES,
-                SIGNER_ROLE, "CertifiedRoles", OccursRequirement.ZERO_OR_MORE), SIGNATURE_POLICY_IDENTIFIER(
-                XAdES.EPES, SIGNED_SIGNATURE_PROPERTIES, "SignaturePolicyIdentifier",
-                OccursRequirement.EXACTLY_ONE), SIGNER(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES,
+                SIGNER_ROLE, "CertifiedRoles", OccursRequirement.ZERO_OR_MORE), SIGNER(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES,
                 "Signer", OccursRequirement.ZERO_OR_ONE), SIGNER_DETAILS(XAdES.BES,
                 SIGNED_SIGNATURE_PROPERTIES, "SignerDetails", OccursRequirement.ZERO_OR_ONE), SIGNED_DATA_OBJECT_PROPERTIES(
                 SIGNED_PROPERTIES, "SignedDataObjectProperties"), DATA_OBJECT_FORMATS(XAdES.BES,
