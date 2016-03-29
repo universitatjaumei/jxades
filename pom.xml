@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.java.xades</groupId>
   <artifactId>jxades</artifactId>
-  <version>0.1.2-SNAPSHOT</version>
+  <version>0.1.3-SNAPSHOT</version>
   <name>jXAdES</name>
 
   <repositories>
@@ -43,8 +43,8 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://jira.uji.es/repos/uji/JXADES/trunk</connection>
-    <url>http://jira.uji.es/repos/uji/JXADES/trunk</url>
+    <connection>scm:git:https://github.com/universitatjaumei/jxades</connection>
+    <url>https://github.com/universitatjaumei/jxades</url>
   </scm>
 
   <distributionManagement>
