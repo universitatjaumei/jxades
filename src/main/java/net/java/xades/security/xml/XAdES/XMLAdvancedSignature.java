@@ -32,29 +32,29 @@ import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
 import javax.xml.parsers.ParserConfigurationException;
 
-import net.java.xades.security.xml.SignatureStatus;
-import net.java.xades.security.xml.WrappedKeyStorePlace;
-import net.java.xades.security.xml.XMLSignatureElement;
-import net.java.xades.security.xml.XmlWrappedKeyInfo;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import net.java.xades.security.xml.SignatureStatus;
+import net.java.xades.security.xml.WrappedKeyStorePlace;
+import net.java.xades.security.xml.XMLSignatureElement;
+import net.java.xades.security.xml.XmlWrappedKeyInfo;
+
 /**
- * 
+ *
  * @author miro
  */
 public class XMLAdvancedSignature
 {
-    public static final String XADES_v132 = "http://uri.etsi.org/01903/v1.3.2#";
-    public static final String XADES_v141 = "http://uri.etsi.org/01903/v1.4.1#";
+    public static final String XADES_v132 = "http://uri.etsi.org/01903/v1.3.2#"; //$NON-NLS-1$
+    public static final String XADES_v141 = "http://uri.etsi.org/01903/v1.4.1#"; //$NON-NLS-1$
 
-    public String signedPropertiesTypeUrl = "http://uri.etsi.org/01903#SignedProperties";
+    public String signedPropertiesTypeUrl = "http://uri.etsi.org/01903#SignedProperties"; //$NON-NLS-1$
 
-    public static final String ELEMENT_SIGNATURE = "Signature";
-    public static final String ELEMENT_SIGNATURE_VALUE = "SignatureValue";
+    public static final String ELEMENT_SIGNATURE = "Signature"; //$NON-NLS-1$
+    public static final String ELEMENT_SIGNATURE_VALUE = "SignatureValue"; //$NON-NLS-1$
 
     protected BasicXAdESImpl xades;
     protected Element baseElement;
@@ -73,27 +73,27 @@ public class XMLAdvancedSignature
     protected XMLSignature signature;
     protected DOMSignContext signContext;
 
-    protected XMLAdvancedSignature(XAdES_BES xades)
+    protected XMLAdvancedSignature(final XAdES_BES xades)
     {
         if (xades == null)
         {
-            throw new IllegalArgumentException("XAdES parameter can not be NULL.");
+            throw new IllegalArgumentException("XAdES parameter can not be NULL."); //$NON-NLS-1$
         }
 
         this.baseElement = xades.getBaseElement();
         this.xades = (BasicXAdESImpl) xades;
     }
 
-    public static XMLAdvancedSignature newInstance(XAdES_BES xades) throws GeneralSecurityException
+    public static XMLAdvancedSignature newInstance(final XAdES_BES xades) throws GeneralSecurityException
     {
-        XMLAdvancedSignature result = new XMLAdvancedSignature(xades);
+        final XMLAdvancedSignature result = new XMLAdvancedSignature(xades);
         result.setDigestMethod(xades.getDigestMethod());
         result.setXadesNamespace(xades.getXadesNamespace());
 
         return result;
     }
 
-    public static XMLAdvancedSignature getInstance(XAdES_BES xades) throws GeneralSecurityException
+    public static XMLAdvancedSignature getInstance(final XAdES_BES xades) throws GeneralSecurityException
     {
         return newInstance(xades);
     }
@@ -108,22 +108,22 @@ public class XMLAdvancedSignature
         return this.xades.getBaseDocument();
     }
 
-    public void setXadesNamespace(String xadesNamespace)
+    public void setXadesNamespace(final String xadesNamespace)
     {
         this.xadesNamespace = xadesNamespace;
     }
 
-    public void setSignedPropertiesTypeUrl(String signedPropertiesTypeUrl)
+    public void setSignedPropertiesTypeUrl(final String signedPropertiesTypeUrl)
     {
         this.signedPropertiesTypeUrl = signedPropertiesTypeUrl;
     }
 
-    public void sign(X509Certificate certificate, PrivateKey privateKey, String signatureMethod,
-            List refsIdList, String signatureIdPrefix) throws MarshalException,
+    public void sign(final X509Certificate certificate, final PrivateKey privateKey, final String signatureMethod,
+            final List refsIdList, final String signatureIdPrefix) throws MarshalException,
             XMLSignatureException, GeneralSecurityException, TransformException, IOException,
             ParserConfigurationException, SAXException
     {
-        List referencesIdList = new ArrayList(refsIdList);
+        final List referencesIdList = new ArrayList(refsIdList);
 
         if (WrappedKeyStorePlace.SIGNING_CERTIFICATE_PROPERTY.equals(getWrappedKeyStorePlace()))
         {
@@ -137,23 +137,23 @@ public class XMLAdvancedSignature
              */
         }
 
-        XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace,
+        final XMLObject xadesObject = marshalXMLSignature(this.xadesNamespace,
                 this.signedPropertiesTypeUrl, signatureIdPrefix, referencesIdList);
         addXMLObject(xadesObject);
 
-        String signatureId = getSignatureId(signatureIdPrefix);
-        String signatureValueId = getSignatureValueId(signatureIdPrefix);
+        final String signatureId = getSignatureId(signatureIdPrefix);
+        final String signatureValueId = getSignatureValueId(signatureIdPrefix);
 
-        XMLSignatureFactory fac = getXMLSignatureFactory();
-        CanonicalizationMethod cm = fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE,
+        final XMLSignatureFactory fac = getXMLSignatureFactory();
+        final CanonicalizationMethod cm = fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE,
                 (C14NMethodParameterSpec) null);
 
-        List<Reference> documentReferences = getReferences(referencesIdList);
-        String keyInfoId = getKeyInfoId(signatureIdPrefix);
-        documentReferences.add(fac.newReference("#" + keyInfoId, getDigestMethod()));
+        final List<Reference> documentReferences = getReferences(referencesIdList);
+        final String keyInfoId = getKeyInfoId(signatureIdPrefix);
+        documentReferences.add(fac.newReference("#" + keyInfoId, getDigestMethod())); //$NON-NLS-1$
 
-        SignatureMethod sm = fac.newSignatureMethod(signatureMethod, null);
-        SignedInfo si = fac.newSignedInfo(cm, sm, documentReferences);
+        final SignatureMethod sm = fac.newSignatureMethod(signatureMethod, null);
+        final SignedInfo si = fac.newSignedInfo(cm, sm, documentReferences);
 
         this.signature = fac.newXMLSignature(si, newKeyInfo(certificate, keyInfoId),
                 getXMLObjects(), signatureId, signatureValueId);
@@ -176,9 +176,9 @@ public class XMLAdvancedSignature
     public List<SignatureStatus> validate()
     {
         ArrayList<SignatureStatus> validateResult;
-        List<XMLSignatureElement> signatureElements = getXMLSignatureElements();
+        final List<XMLSignatureElement> signatureElements = getXMLSignatureElements();
         validateResult = new ArrayList<SignatureStatus>(signatureElements.size());
-        for (XMLSignatureElement signatureElement : signatureElements)
+        for (final XMLSignatureElement signatureElement : signatureElements)
         {
             validateResult.add(signatureElement.validate());
         }
@@ -191,7 +191,7 @@ public class XMLAdvancedSignature
         return WrappedKeyStorePlace.KEY_INFO;
     }
 
-    public void setWrappedKeyStorePlace(WrappedKeyStorePlace wrappedKeyStorePlace)
+    public void setWrappedKeyStorePlace(final WrappedKeyStorePlace wrappedKeyStorePlace)
     {
     }
 
@@ -205,7 +205,7 @@ public class XMLAdvancedSignature
         return this.xmlObjects;
     }
 
-    public void setXmlWrappedKeyInfo(XmlWrappedKeyInfo wrappedKeyInfo)
+    public void setXmlWrappedKeyInfo(final XmlWrappedKeyInfo wrappedKeyInfo)
     {
         this.wrappedKeyInfo = wrappedKeyInfo;
     }
@@ -225,8 +225,8 @@ public class XMLAdvancedSignature
                     ELEMENT_SIGNATURE);
         }
 
-        int size = nl.getLength();
-        ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
+        final int size = nl.getLength();
+        final ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
         for (int i = 0; i < size; i++)
         {
             signatureElements.add(new XMLSignatureElement((Element) nl.item(i)));
@@ -235,56 +235,56 @@ public class XMLAdvancedSignature
         return signatureElements;
     }
 
-    protected String getSignatureId(String idPrefix)
+    protected String getSignatureId(final String idPrefix)
     {
-        return idPrefix + "-Signature";
+        return idPrefix + "-Signature"; //$NON-NLS-1$
     }
 
-    protected String getSignatureValueId(String idPrefix)
+    protected String getSignatureValueId(final String idPrefix)
     {
-        return idPrefix + "-SignatureValue";
+        return idPrefix + "-SignatureValue"; //$NON-NLS-1$
     }
 
-    protected String getKeyInfoId(String idPrefix)
+    protected String getKeyInfoId(final String idPrefix)
     {
-        return idPrefix + "-KeyInfo";
+        return idPrefix + "-KeyInfo"; //$NON-NLS-1$
     }
 
     protected XMLSignatureFactory getXMLSignatureFactory()
     {
         if (this.xmlSignatureFactory == null)
         {
-            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
+            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM"); //$NON-NLS-1$
         }
         return this.xmlSignatureFactory;
     }
 
-    protected Reference getReference(String uri) throws GeneralSecurityException
+    protected Reference getReference(final String uri) throws GeneralSecurityException
     {
         return getReference(uri, null);
     }
 
-    protected Reference getReference(String uri, String type) throws GeneralSecurityException
+    protected Reference getReference(final String uri, final String type) throws GeneralSecurityException
     {
         return getReference(uri, null, type, null);
     }
 
-    protected Reference getReference(String uri, List<Transform> transforms, String type)
+    protected Reference getReference(final String uri, final List<Transform> transforms, final String type)
             throws GeneralSecurityException
     {
         return getReference(uri, transforms, type, null);
     }
 
-    protected Reference getReference(String uri, List<Transform> transforms, String type,
-            String referenceId) throws GeneralSecurityException
+    protected Reference getReference(String uri, List<Transform> transforms, final String type,
+            final String referenceId) throws GeneralSecurityException
     {
-        XMLSignatureFactory fac = getXMLSignatureFactory();
-        DigestMethod dm = getDigestMethod();
+        final XMLSignatureFactory fac = getXMLSignatureFactory();
+        final DigestMethod dm = getDigestMethod();
         uri = uri.trim();
 
-        if (uri.equals(""))
+        if (uri.equals("")) //$NON-NLS-1$
         {
-            Transform envelopedTransform = fac.newTransform(Transform.ENVELOPED,
+            final Transform envelopedTransform = fac.newTransform(Transform.ENVELOPED,
                     (TransformParameterSpec) null);
 
             if (transforms != null)
@@ -296,19 +296,19 @@ public class XMLAdvancedSignature
                 transforms = Collections.singletonList(envelopedTransform);
             }
         }
-        else if (!uri.startsWith("#") && !uri.startsWith("http://") && !uri.startsWith("https://"))
+        else if (!uri.startsWith("#") && !uri.startsWith("http://") && !uri.startsWith("https://")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         {
-            uri = "#" + uri;
+            uri = "#" + uri; //$NON-NLS-1$
         }
 
         return fac.newReference(uri, dm, transforms, type, referenceId);
     }
 
-    protected List<Reference> getReferences(List<?> idList) throws GeneralSecurityException
+    protected List<Reference> getReferences(final List<?> idList) throws GeneralSecurityException
     {
-        ArrayList<Reference> references = new ArrayList<Reference>(idList.size());
+        final ArrayList<Reference> references = new ArrayList<Reference>(idList.size());
 
-        for (Object id : idList)
+        for (final Object id : idList)
         {
             if (id instanceof Reference)
             {
@@ -332,57 +332,57 @@ public class XMLAdvancedSignature
         return this.digestMethod;
     }
 
-    public void setDigestMethod(String method) throws GeneralSecurityException
+    public void setDigestMethod(final String method) throws GeneralSecurityException
     {
         this.digestMethod = getXMLSignatureFactory().newDigestMethod(method, null);
     }
 
-    protected KeyInfo newKeyInfo(X509Certificate certificate, String keyInfoId) throws KeyException
+    protected KeyInfo newKeyInfo(final X509Certificate certificate, final String keyInfoId) throws KeyException
     {
-        KeyInfoFactory keyInfoFactory = getXMLSignatureFactory().getKeyInfoFactory();
-        KeyValue keyValue = keyInfoFactory.newKeyValue(certificate.getPublicKey());
+        final KeyInfoFactory keyInfoFactory = getXMLSignatureFactory().getKeyInfoFactory();
+        final KeyValue keyValue = keyInfoFactory.newKeyValue(certificate.getPublicKey());
 
-        List<Object> x509DataList = new ArrayList<Object>();
+        final List<Object> x509DataList = new ArrayList<Object>();
 
         if (!XmlWrappedKeyInfo.PUBLIC_KEY.equals(getXmlWrappedKeyInfo()))
         {
             x509DataList.add(certificate);
         }
 
-        X509IssuerSerial x509IssuerSerial = keyInfoFactory.newX509IssuerSerial(certificate
+        final X509IssuerSerial x509IssuerSerial = keyInfoFactory.newX509IssuerSerial(certificate
                 .getIssuerDN().getName(), certificate.getSerialNumber());
 
-        x509DataList.add(certificate.getSubjectX500Principal().getName("RFC1779"));
+        x509DataList.add(certificate.getSubjectX500Principal().getName("RFC1779")); //$NON-NLS-1$
         x509DataList.add(x509IssuerSerial);
 
-        X509Data x509Data = keyInfoFactory.newX509Data(x509DataList);
+        final X509Data x509Data = keyInfoFactory.newX509Data(x509DataList);
 
-        List<Object> newList = new ArrayList<Object>();
+        final List<XMLStructure> newList = new ArrayList<XMLStructure>();
         newList.add(keyValue);
         newList.add(x509Data);
 
         return keyInfoFactory.newKeyInfo(newList, keyInfoId);
     }
 
-    protected XMLObject newXMLObject(List<XMLStructure> xmlObjects)
+    protected XMLObject newXMLObject(final List<XMLStructure> xmlObjects)
     {
         return newXMLObject(xmlObjects, getDefaultXMLObjectId());
     }
 
-    protected XMLObject newXMLObject(List<XMLStructure> xmlObjects, String id)
+    protected XMLObject newXMLObject(final List<XMLStructure> xmlObjects, final String id)
     {
         return newXMLObject(xmlObjects, id, getDefaultXMLObjectMimeType());
     }
 
-    protected XMLObject newXMLObject(List<XMLStructure> xmlObjects, String id, String mimeType)
+    protected XMLObject newXMLObject(final List<XMLStructure> xmlObjects, final String id, final String mimeType)
     {
         return newXMLObject(xmlObjects, id, mimeType, getDefaultXMLObjectEncoding());
     }
 
-    protected XMLObject newXMLObject(List<XMLStructure> xmlObjects, String id, String mimeType,
-            String encoding)
+    protected XMLObject newXMLObject(final List<XMLStructure> xmlObjects, final String id, final String mimeType,
+            final String encoding)
     {
-        XMLSignatureFactory fac = getXMLSignatureFactory();
+        final XMLSignatureFactory fac = getXMLSignatureFactory();
         return fac.newXMLObject(xmlObjects, id, mimeType, encoding);
     }
 
@@ -401,7 +401,7 @@ public class XMLAdvancedSignature
         return this.defaultXMLObjectEncoding;
     }
 
-    public XMLObject addXMLObject(XMLObject xmlObject)
+    public XMLObject addXMLObject(final XMLObject xmlObject)
     {
         this.xmlObjects.add(xmlObject);
         return xmlObject;
@@ -411,8 +411,8 @@ public class XMLAdvancedSignature
 
     // private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
 
-    protected QualifyingProperties marshalQualifyingProperties(String xmlNamespace,
-            String signedPropertiesTypeUrl, String signatureIdPrefix, List referencesIdList)
+    protected QualifyingProperties marshalQualifyingProperties(final String xmlNamespace,
+            final String signedPropertiesTypeUrl, final String signatureIdPrefix, final List referencesIdList)
             throws GeneralSecurityException, MarshalException
     {
         QualifyingProperties qp;
@@ -422,29 +422,29 @@ public class XMLAdvancedSignature
 
         this.xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList);
 
-        SignedProperties sp = qp.getSignedProperties();
+        final SignedProperties sp = qp.getSignedProperties();
         // UnsignedProperties up = qp.getUnsignedProperties();
         // UnsignedSignatureProperties usp = qp.getUnsignedProperties()
         // .getUnsignedSignatureProperties();
 
-        List transforms = null;
-        String spId = sp.getId();
-        Reference spReference = getReference(spId, transforms, this.signedPropertiesTypeUrl);
+        final List transforms = null;
+        final String spId = sp.getId();
+        final Reference spReference = getReference(spId, transforms, this.signedPropertiesTypeUrl);
         referencesIdList.add(spReference);
 
         return qp;
     }
 
-    protected XMLObject marshalXMLSignature(String xadesNamespace, String signedPropertiesTypeUrl,
-            String signatureIdPrefix, List referencesIdList) throws GeneralSecurityException,
+    protected XMLObject marshalXMLSignature(final String xadesNamespace, final String signedPropertiesTypeUrl,
+            final String signatureIdPrefix, final List referencesIdList) throws GeneralSecurityException,
             MarshalException
     {
         QualifyingProperties qp;
         qp = marshalQualifyingProperties(xadesNamespace, signedPropertiesTypeUrl,
                 signatureIdPrefix, referencesIdList);
 
-        List<QualifyingPropertiesReference> qpr = getQualifyingPropertiesReferences();
-        ArrayList<XMLStructure> content = new ArrayList<XMLStructure>(qpr.size() + 1);
+        final List<QualifyingPropertiesReference> qpr = getQualifyingPropertiesReferences();
+        final ArrayList<XMLStructure> content = new ArrayList<XMLStructure>(qpr.size() + 1);
         content.add(qp);
         content.addAll(qpr);
 
@@ -461,7 +461,7 @@ public class XMLAdvancedSignature
         return this.qualifyingPropertiesReferences;
     }
 
-    public void setQualifyingPropertiesReferences(List<QualifyingPropertiesReference> refs)
+    public void setQualifyingPropertiesReferences(final List<QualifyingPropertiesReference> refs)
     {
         this.qualifyingPropertiesReferences = refs;
     }
