@@ -51,11 +51,11 @@
   <distributionManagement>
     <repository>
       <id>nexus</id>
-      <url>http://devel01.uji.es:8080/nexus/content/repositories/releases</url>
+      <url>http://devel.uji.es/nexus/content/repositories/releases</url>
     </repository>
     <snapshotRepository>
       <id>nexus</id>
-      <url>http://devel01.uji.es:8080/nexus/content/repositories/snapshots</url>
+      <url>http://devel.uji.es/nexus/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
