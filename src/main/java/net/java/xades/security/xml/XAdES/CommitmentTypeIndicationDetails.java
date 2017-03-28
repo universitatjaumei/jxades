@@ -17,20 +17,20 @@ import org.w3c.dom.Element;
  *     <p:CommitmentTypeQualifier>ANYTYPE</p:CommitmentTypeQualifier>
  *   </p:CommitmentTypeQualifiers>
  * </p:CommitmentTypeIndication>
- * 
+ *
  */
 
 public class CommitmentTypeIndicationDetails extends XAdESStructure
 {
-    public CommitmentTypeIndicationDetails(Document document,
-            SignedDataObjectProperties signedDataObjectProperties,
-            CommitmentTypeIndication commitmentTypeIndication, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public CommitmentTypeIndicationDetails(final Document document,
+            final SignedDataObjectProperties signedDataObjectProperties,
+            final CommitmentTypeIndication commitmentTypeIndication, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(document, signedDataObjectProperties, "CommitmentTypeIndication", xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
 
-        CommitmentTypeId commitmentTypeId = commitmentTypeIndication.getCommitmentTypeId();
+        final CommitmentTypeId commitmentTypeId = commitmentTypeIndication.getCommitmentTypeId();
 
         if (commitmentTypeId != null)
         {
@@ -38,19 +38,25 @@ public class CommitmentTypeIndicationDetails extends XAdESStructure
                     xadesNamespace, xmlSignaturePrefix);
         }
 
-        Element objectReference = createElement("ObjectReference");
-        objectReference.setTextContent(commitmentTypeIndication.getObjectReference());
+        final Element objectReference;
+        if (commitmentTypeIndication.getObjectReference() != null) {
+        	objectReference = createElement("ObjectReference");
+        	objectReference.setTextContent(commitmentTypeIndication.getObjectReference());
+        }
+        else {
+        	objectReference = createElement("AllSignedDataObjects");
+        }
 
-        Element commitmentTypeQualifiers = createElement("CommitmentTypeQualifiers");
+        final Element commitmentTypeQualifiers = createElement("CommitmentTypeQualifiers");
 
-        for (String qualifier : commitmentTypeIndication.getCommitmentTypeQualifiers())
-        {
-            Element commitmentTypeQualifier = createElement("CommitmentTypeQualifier");
+        for (final String qualifier : commitmentTypeIndication.getCommitmentTypeQualifiers()) {
+            final Element commitmentTypeQualifier = createElement("CommitmentTypeQualifier");
             commitmentTypeQualifier.setTextContent(qualifier);
             commitmentTypeQualifiers.appendChild(commitmentTypeQualifier);
         }
 
-        getNode().appendChild(objectReference);
+    	getNode().appendChild(objectReference);
+
         getNode().appendChild(commitmentTypeQualifiers);
     }
 }

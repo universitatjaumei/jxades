@@ -46,8 +46,8 @@ import net.java.xades.security.xml.XmlWrappedKeyInfo;
  *
  * @author miro
  */
-public class XMLAdvancedSignature
-{
+public class XMLAdvancedSignature {
+
     public static final String XADES_v132 = "http://uri.etsi.org/01903/v1.3.2#"; //$NON-NLS-1$
     public static final String XADES_v141 = "http://uri.etsi.org/01903/v1.4.1#"; //$NON-NLS-1$
 
@@ -73,33 +73,26 @@ public class XMLAdvancedSignature
     protected XMLSignature signature;
     protected DOMSignContext signContext;
 
-    protected XMLAdvancedSignature(final XAdES_BES xades)
-    {
-        if (xades == null)
-        {
+    protected XMLAdvancedSignature(final XAdES_BES xades) {
+        if (xades == null) {
             throw new IllegalArgumentException("XAdES parameter can not be NULL."); //$NON-NLS-1$
         }
-
         this.baseElement = xades.getBaseElement();
         this.xades = (BasicXAdESImpl) xades;
     }
 
-    public static XMLAdvancedSignature newInstance(final XAdES_BES xades) throws GeneralSecurityException
-    {
+    public static XMLAdvancedSignature newInstance(final XAdES_BES xades) throws GeneralSecurityException {
         final XMLAdvancedSignature result = new XMLAdvancedSignature(xades);
         result.setDigestMethod(xades.getDigestMethod());
         result.setXadesNamespace(xades.getXadesNamespace());
-
         return result;
     }
 
-    public static XMLAdvancedSignature getInstance(final XAdES_BES xades) throws GeneralSecurityException
-    {
+    public static XMLAdvancedSignature getInstance(final XAdES_BES xades) throws GeneralSecurityException {
         return newInstance(xades);
     }
 
-    public Element getBaseElement()
-    {
+    public Element getBaseElement() {
         return this.baseElement;
     }
 
@@ -216,12 +209,12 @@ public class XMLAdvancedSignature
 
         if (this.baseElement != null)
         {
-            nl = this.getBaseElement()
+            nl = getBaseElement()
                     .getElementsByTagNameNS(XMLSignature.XMLNS, ELEMENT_SIGNATURE);
         }
         else
         {
-            nl = this.getBaseDocument().getElementsByTagNameNS(XMLSignature.XMLNS,
+            nl = getBaseDocument().getElementsByTagNameNS(XMLSignature.XMLNS,
                     ELEMENT_SIGNATURE);
         }
 
@@ -409,39 +402,77 @@ public class XMLAdvancedSignature
 
     private List<QualifyingPropertiesReference> qualifyingPropertiesReferences;
 
-    // private WrappedKeyStorePlace wrappedKeyStorePlace = WrappedKeyStorePlace.KEY_INFO;
+    protected QualifyingProperties marshalQualifyingProperties(final String xmlNamespace,
+            final String signedPropertiesTypeUrl,
+            final String signatureIdPrefix,
+            final List referencesIdList) throws GeneralSecurityException,
+                                                MarshalException {
+    	return marshalQualifyingProperties(
+			xmlNamespace,
+			signedPropertiesTypeUrl,
+			signatureIdPrefix,
+			referencesIdList,
+			null
+		);
+    }
 
     protected QualifyingProperties marshalQualifyingProperties(final String xmlNamespace,
-            final String signedPropertiesTypeUrl, final String signatureIdPrefix, final List referencesIdList)
-            throws GeneralSecurityException, MarshalException
-    {
-        QualifyingProperties qp;
-        qp = new QualifyingProperties(this.xades.getBaseDocument(), getBaseElement(),
-                signatureIdPrefix, this.xades.getXadesPrefix(), xmlNamespace,
-                this.xades.getXmlSignaturePrefix());
+                                                               final String signedPropertiesTypeUrl,
+                                                               final String signatureIdPrefix,
+                                                               final List referencesIdList,
+                                                               final List<Transform> transforms) throws GeneralSecurityException,
+                                                                                                   MarshalException {
+        final QualifyingProperties qp = new QualifyingProperties(
+    		this.xades.getBaseDocument(),
+    		getBaseElement(),
+            signatureIdPrefix,
+            this.xades.getXadesPrefix(),
+            xmlNamespace,
+            this.xades.getXmlSignaturePrefix()
+        );
 
         this.xades.marshalQualifyingProperties(qp, signatureIdPrefix, referencesIdList);
 
         final SignedProperties sp = qp.getSignedProperties();
-        // UnsignedProperties up = qp.getUnsignedProperties();
-        // UnsignedSignatureProperties usp = qp.getUnsignedProperties()
-        // .getUnsignedSignatureProperties();
 
-        final List transforms = null;
         final String spId = sp.getId();
-        final Reference spReference = getReference(spId, transforms, this.signedPropertiesTypeUrl);
+        final Reference spReference = getReference(
+    		spId,
+    		transforms,
+    		this.signedPropertiesTypeUrl
+		);
         referencesIdList.add(spReference);
 
         return qp;
     }
 
-    protected XMLObject marshalXMLSignature(final String xadesNamespace, final String signedPropertiesTypeUrl,
-            final String signatureIdPrefix, final List referencesIdList) throws GeneralSecurityException,
-            MarshalException
-    {
-        QualifyingProperties qp;
-        qp = marshalQualifyingProperties(xadesNamespace, signedPropertiesTypeUrl,
-                signatureIdPrefix, referencesIdList);
+    protected XMLObject marshalXMLSignature(final String xadesNamespace,
+                                            final String signedPropertiesTypeUrl,
+                                            final String signatureIdPrefix,
+                                            final List referencesIdList) throws GeneralSecurityException,
+                                                                                MarshalException {
+    	return marshalXMLSignature(
+			xadesNamespace,
+			signedPropertiesTypeUrl,
+			signatureIdPrefix,
+			referencesIdList,
+			null
+		);
+    }
+
+    protected XMLObject marshalXMLSignature(final String xadesNamespace,
+    		                                final String signedPropertiesTypeUrl,
+                                            final String signatureIdPrefix,
+                                            final List referencesIdList,
+                                            final List<Transform> SignedPropertiesTransforms) throws GeneralSecurityException,
+                                                                                                     MarshalException {
+        final QualifyingProperties qp = marshalQualifyingProperties(
+    		xadesNamespace,
+    		signedPropertiesTypeUrl,
+            signatureIdPrefix,
+            referencesIdList,
+            SignedPropertiesTransforms
+        );
 
         final List<QualifyingPropertiesReference> qpr = getQualifyingPropertiesReferences();
         final ArrayList<XMLStructure> content = new ArrayList<XMLStructure>(qpr.size() + 1);
@@ -451,18 +482,14 @@ public class XMLAdvancedSignature
         return newXMLObject(content);
     }
 
-    public List<QualifyingPropertiesReference> getQualifyingPropertiesReferences()
-    {
-        if (this.qualifyingPropertiesReferences == null)
-        {
+    public List<QualifyingPropertiesReference> getQualifyingPropertiesReferences() {
+        if (this.qualifyingPropertiesReferences == null) {
             this.qualifyingPropertiesReferences = new ArrayList<QualifyingPropertiesReference>();
         }
-
         return this.qualifyingPropertiesReferences;
     }
 
-    public void setQualifyingPropertiesReferences(final List<QualifyingPropertiesReference> refs)
-    {
+    public void setQualifyingPropertiesReferences(final List<QualifyingPropertiesReference> refs) {
         this.qualifyingPropertiesReferences = refs;
     }
 }
