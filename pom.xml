@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>es.uji.crypto.xades</groupId>
   <artifactId>jxades</artifactId>
-  <version>0.2.0</version>
+  <version>0.2.1-SNAPSHOT</version>
   <name>jXAdES</name>
 
   <repositories>
@@ -46,7 +46,7 @@
   <scm>
     <connection>scm:git:https://github.com/universitatjaumei/jxades</connection>
     <url>https://github.com/universitatjaumei/jxades</url>
-    <tag>jXAdES_0.2.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
