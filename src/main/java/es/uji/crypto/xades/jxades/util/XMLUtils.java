@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,30 +26,30 @@ import org.w3c.dom.ls.LSSerializer;
 
 /**
  * Common XML Tasks
- * 
+ *
  * @author Miroslav Nachev
  */
-public class XMLUtils
-{
-    private static Charset charset = Charset.forName("UTF-8");
+public final class XMLUtils {
+
+    private static Charset charset = StandardCharsets.UTF_8;
 
     /**
      * Get the attribute with given name's value
-     * 
+     *
      * @param node
      *            the node which attribute's value is returned
      * @param name
      *            name of the attribute
      * @return the value af the attribute
      */
-    public static String getAttributeByName(Node node, String name)
+    public static String getAttributeByName(final Node node, final String name)
     {
         if (node == null)
         {
             return null;
         }
 
-        Node attribute = node.getAttributes().getNamedItem(name);
+        final Node attribute = node.getAttributes().getNamedItem(name);
         if (attribute == null)
         {
             return null;
@@ -61,14 +62,14 @@ public class XMLUtils
 
     /**
      * Get the data of the element , no matter whether it is TXT ot CDATA
-     * 
+     *
      * @param parentNode
      *            the node which data is returned
      * @return the TEXT or CDATA of the parentNode
      */
-    public static String getElementTextValueDeprecated(Element parentNode)
+    public static String getElementTextValueDeprecated(final Element parentNode)
     {
-        Text text = getElementTextNode(parentNode);
+        final Text text = getElementTextNode(parentNode);
         if (text != null)
         {
             return text.getData();
@@ -81,13 +82,13 @@ public class XMLUtils
 
     /**
      * Sets element TEXT data
-     * 
+     *
      * @param e
      *            the element
      * @param data
      *            the new data
      */
-    public static void setElementTextValue(Element e, String data)
+    public static void setElementTextValue(final Element e, final String data)
     {
         Text txt = getElementTextNode(e);
         if (txt != null)
@@ -103,13 +104,13 @@ public class XMLUtils
 
     /**
      * Sets element CDATA data
-     * 
+     *
      * @param e
      *            the lement
      * @param data
      *            the new data
      */
-    public static void setElementCDataValue(Element e, String data)
+    public static void setElementCDataValue(final Element e, final String data)
     {
         CDATASection txt = getElementCDataNode(e);
         if (txt != null)
@@ -125,14 +126,14 @@ public class XMLUtils
 
     /**
      * Gets CDATA value of an element
-     * 
+     *
      * @param e
      *            the element
      * @return CDATA value of element e
      */
-    public static String getElementCDataValue(Element e)
+    public static String getElementCDataValue(final Element e)
     {
-        CDATASection text = getElementCDataNode(e);
+        final CDATASection text = getElementCDataNode(e);
         if (text != null)
         {
             return text.getData().trim();
@@ -145,36 +146,36 @@ public class XMLUtils
 
     /**
      * Returns element's CDATA Node
-     * 
+     *
      * @param element
      *            the element which CDATA node is returned
      * @return CDATA node
      */
-    public static CDATASection getElementCDataNode(Element element)
+    public static CDATASection getElementCDataNode(final Element element)
     {
         return (CDATASection) getChildNodeByType(element, Node.CDATA_SECTION_NODE);
     }
 
     /**
      * Returns element's TEXT Node
-     * 
+     *
      * @param element
      *            the element which TEXT node is returned
      * @return TEXT node
      */
-    public static Text getElementTextNode(Element element)
+    public static Text getElementTextNode(final Element element)
     {
         return (Text) getChildNodeByType(element, Node.TEXT_NODE);
     }
 
-    private static Node getChildNodeByType(Element element, short nodeType)
+    private static Node getChildNodeByType(final Element element, final short nodeType)
     {
         if (element == null)
         {
             return null;
         }
 
-        NodeList nodes = element.getChildNodes();
+        final NodeList nodes = element.getChildNodes();
         if (nodes == null || nodes.getLength() < 1)
         {
             return null;
@@ -185,7 +186,7 @@ public class XMLUtils
         for (int i = 0; i < nodes.getLength(); i++)
         {
             node = nodes.item(i);
-            short type = node.getNodeType();
+            final short type = node.getNodeType();
             if (type == nodeType)
             {
                 if (type == Node.TEXT_NODE || type == Node.CDATA_SECTION_NODE)
@@ -204,30 +205,30 @@ public class XMLUtils
         return null;
     }
 
-    public static void writeXML(File file, Node node) throws FileNotFoundException
+    public static void writeXML(final File file, final Node node) throws FileNotFoundException
     {
         writeXML(new FileOutputStream(file), node);
     }
 
-    public static void writeXML(OutputStream outStream, Node node)
+    public static void writeXML(final OutputStream outStream, final Node node)
     {
         writeXML(new BufferedWriter(new OutputStreamWriter(outStream, charset)), node, true);
     }
 
-    public static void writeXML(OutputStream outStream, Node node, boolean indent)
+    public static void writeXML(final OutputStream outStream, final Node node, final boolean indent)
     {
         writeXML(new BufferedWriter(new OutputStreamWriter(outStream, charset)), node, indent);
     }
 
     /**
      * Writes the specified document to the given file. The default encoding is UTF-8.
-     * 
+     *
      * @param out
      *            the output File
      * @param document
      *            the document to be writen
      */
-    public static void writeXML(Writer writer, Node node, boolean indent)
+    public static void writeXML(final Writer writer, final Node node, final boolean indent)
     {
         // TODO: This section only works with XALAN transformation!!!
         // Result with JDK transformation:
@@ -251,7 +252,7 @@ public class XMLUtils
         // serializer.transform(domSource, streamResult);
 
         Document document = null;
-        
+
         if (node instanceof Element)
         {
             document = node.getOwnerDocument();
@@ -260,24 +261,24 @@ public class XMLUtils
         {
             document = (Document) node;
         }
-        
-        DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
-        LSSerializer serializer = domImplLS.createLSSerializer();
+
+        final DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
+        final LSSerializer serializer = domImplLS.createLSSerializer();
         serializer.getDomConfig().setParameter("namespaces", false);
 
-        DOMOutputImpl output = new DOMOutputImpl();
+        final DOMOutputImpl output = new DOMOutputImpl();
         output.setCharacterStream(writer);
 
         serializer.write(node, output);
     }
 
-    public static void writeXML(Writer writer, Document document, String doctypeSystem,
-            String doctypePublic)
+    public static void writeXML(final Writer writer, final Document document, final String doctypeSystem,
+            final String doctypePublic)
     {
-        DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
-        LSSerializer serializer = domImplLS.createLSSerializer();
+        final DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
+        final LSSerializer serializer = domImplLS.createLSSerializer();
 
-        DOMOutputImpl output = new DOMOutputImpl();
+        final DOMOutputImpl output = new DOMOutputImpl();
         output.setCharacterStream(writer);
 
         serializer.write(document.getDocumentElement(), output);
@@ -285,25 +286,24 @@ public class XMLUtils
 
     /**
      * Returns the element which is at the end of the specified chain <parent><child><grandchild>...
-     * 
+     *
      * @param element
      * @param chain
      * @return
      */
-    public static Element getChildElementByChain(Element element, String[] chain, boolean create)
+    public static Element getChildElementByChain(final Element element, final String[] chain, final boolean create)
     {
         if (chain == null)
         {
             return null;
         }
         Element e = element;
-        for (int i = 0; i < chain.length; i++)
-        {
+        for (final String element2 : chain) {
             if (e == null)
             {
                 return null;
             }
-            e = getChildElementByTagName(e, chain[i]);
+            e = getChildElementByTagName(e, element2);
         }
         return e;
     }
@@ -311,28 +311,27 @@ public class XMLUtils
     /**
      * Creates (only if necessary) and returns the element which is at the end of the specified
      * path.
-     * 
+     *
      * @param doc
      *            the target document where the specified path should be created
      * @param path
      *            a dot separated string indicating the path to be created
      * @return the component at the end of the newly created path.
      */
-    public static Element createLastPathComponent(Document doc, String[] path)
+    public static Element createLastPathComponent(final Document doc, final String[] path)
     {
-        Element parent = (Element) doc.getFirstChild();
+        final Element parent = (Element) doc.getFirstChild();
         if (path == null || parent == null || doc == null)
         {
             throw new IllegalArgumentException("Document parent and path must not be null");
         }
 
         Element e = parent;
-        for (int i = 0; i < path.length; i++)
-        {
-            Element newEl = getChildElementByTagName(e, path[i]);
+        for (final String element : path) {
+            Element newEl = getChildElementByTagName(e, element);
             if (newEl == null)
             {
-                newEl = doc.createElement(path[i]);
+                newEl = doc.createElement(element);
                 e.appendChild(newEl);
             }
             e = newEl;
@@ -340,18 +339,18 @@ public class XMLUtils
         return e;
     }
 
-    public static Element getChildElementByTagNameNS(Element parent, String tagName, String nsName)
+    public static Element getChildElementByTagNameNS(final Element parent, final String tagName, final String nsName)
     {
-        NodeList nl = parent.getChildNodes();
-        int size = nl.getLength();
+        final NodeList nl = parent.getChildNodes();
+        final int size = nl.getLength();
         for (int i = 0; i < size; i++)
         {
-            Node node = nl.item(i);
+            final Node node = nl.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE)
             {
                 if (tagName.equals(node.getLocalName()))
                 {
-                    String ns = node.getNamespaceURI();
+                    final String ns = node.getNamespaceURI();
                     if (ns != null && ns.equals(nsName))
                     {
                         return (Element) node;
@@ -365,21 +364,21 @@ public class XMLUtils
 
     /**
      * Returns the child element with the specified tagName for the specified parent element
-     * 
+     *
      * @param parent
      * @param tagName
      * @return
      */
-    public static Element getChildElementByTagName(Element parent, String tagName)
+    public static Element getChildElementByTagName(final Element parent, final String tagName)
     {
         if (parent == null || tagName == null)
         {
             return null;
         }
 
-        NodeList nodes = parent.getChildNodes();
+        final NodeList nodes = parent.getChildNodes();
         Node node;
-        int len = nodes.getLength();
+        final int len = nodes.getLength();
         for (int i = 0; i < len; i++)
         {
             node = nodes.item(i);
@@ -393,23 +392,24 @@ public class XMLUtils
         return null;
     }
 
-    public static List<Element> getChildElementsByTagNameNS(Element parent, String tagName,
-            String nsName)
+    public static List<Element> getChildElementsByTagNameNS(final Element parent, final String tagName,
+            final String nsName)
     {
-        if (parent == null || tagName == null)
-            return Collections.<Element> emptyList();
+        if (parent == null || tagName == null) {
+			return Collections.<Element> emptyList();
+		}
 
-        NodeList nl = parent.getChildNodes();
-        int size = nl.getLength();
-        ArrayList<Element> childElements = new ArrayList<Element>(size);
+        final NodeList nl = parent.getChildNodes();
+        final int size = nl.getLength();
+        final ArrayList<Element> childElements = new ArrayList<>(size);
         for (int i = 0; i < size; i++)
         {
-            Node node = nl.item(i);
+            final Node node = nl.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE)
             {
                 if (tagName.equals(node.getLocalName()))
                 {
-                    String ns = node.getNamespaceURI();
+                    final String ns = node.getNamespaceURI();
                     if (ns != null && ns.equals(nsName))
                     {
                         childElements.add((Element) node);
@@ -421,15 +421,16 @@ public class XMLUtils
         return childElements;
     }
 
-    public static List<Element> getChildElementsByTagName(Element parent, String tagName)
+    public static List<Element> getChildElementsByTagName(final Element parent, final String tagName)
     {
-        if (parent == null || tagName == null)
-            return Collections.<Element> emptyList();
+        if (parent == null || tagName == null) {
+			return Collections.<Element> emptyList();
+		}
 
-        NodeList nodes = parent.getChildNodes();
+        final NodeList nodes = parent.getChildNodes();
         Node node;
-        int len = nodes.getLength();
-        ArrayList<Element> childElements = new ArrayList<Element>(len);
+        final int len = nodes.getLength();
+        final ArrayList<Element> childElements = new ArrayList<>(len);
         for (int i = 0; i < len; i++)
         {
             node = nodes.item(i);
@@ -445,7 +446,7 @@ public class XMLUtils
 
     /**
      * Used for debuging
-     * 
+     *
      * @param parent
      *            Element
      * @param out
@@ -455,11 +456,11 @@ public class XMLUtils
      * @param prefix
      *            String
      */
-    public static void printChildElements(Element parent, PrintStream out, boolean deep,
-            String prefix)
+    public static void printChildElements(final Element parent, final PrintStream out, final boolean deep,
+            final String prefix)
     {
         out.print(prefix + "<" + parent.getNodeName());
-        NamedNodeMap attrs = parent.getAttributes();
+        final NamedNodeMap attrs = parent.getAttributes();
         Node node;
         for (int i = 0; i < attrs.getLength(); i++)
         {
@@ -481,7 +482,7 @@ public class XMLUtils
             out.println(prefix + "\t<![CDATA[" + data + "]]>");
         }
 
-        NodeList nodes = parent.getChildNodes();
+        final NodeList nodes = parent.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++)
         {
             node = nodes.item(i);
