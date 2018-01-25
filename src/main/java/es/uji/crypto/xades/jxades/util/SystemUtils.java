@@ -15,19 +15,19 @@ import java.util.Date;
  * <p>
  * Title:
  * </p>
- * 
+ *
  * <p>
  * Description:
  * </p>
- * 
+ *
  * <p>
  * Copyright: Copyright (c) 2006
  * </p>
- * 
+ *
  * <p>
  * Company:
  * </p>
- * 
+ *
  * @author not attributable
  * @version 1.0
  */
@@ -42,7 +42,6 @@ public class SystemUtils
 
     private static DateFormat dateFormat;
     private static DecimalFormat decimalFormat;
-    public static String charsetName = "UTF-8";
 
     private static DateFormat getDateFormatter()
     {
@@ -56,24 +55,24 @@ public class SystemUtils
         return dateFormat;
     }
 
-    public static String formatDate(Object date)
+    public static String formatDate(final Object date)
     {
         return getDateFormatter().format(date);
     }
 
-    public static String formatDate(Date date)
+    public static String formatDate(final Date date)
     {
         return getDateFormatter().format(date);
     }
 
-    public static Date parseDate(String dateString) throws ParseException
+    public static Date parseDate(final String dateString) throws ParseException
     {
         DateFormat dateFormat = getDateFormatter();
         try
         {
             return dateFormat.parse(dateString);
         }
-        catch (ParseException ex)
+        catch (final ParseException ex)
         {
             dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
             return dateFormat.parse(dateString);
@@ -89,18 +88,19 @@ public class SystemUtils
         return decimalFormat;
     }
 
-    public static String getCauseMessages(Throwable ex)
+    public static String getCauseMessages(final Throwable ex)
     {
-        if (ex == null)
-            return null;
+        if (ex == null) {
+			return null;
+		}
 
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         sb.append(getErrorMessage(ex)).append("; \n");
 
         Throwable cause = ex.getCause();
         while (cause != null)
         {
-            String message = getErrorMessage(cause);
+            final String message = getErrorMessage(cause);
             if (message != null)
             {
                 sb.append(message).append("; \n");
@@ -111,36 +111,40 @@ public class SystemUtils
         return sb.toString();
     }
 
-    public static String getErrorMessage(Throwable ex)
+    public static String getErrorMessage(final Throwable ex)
     {
         if (ex != null)
         {
             String message = ex.getMessage();
-            if (message == null)
-                message = ex.getClass().getName();
+            if (message == null) {
+				message = ex.getClass().getName();
+			}
             return message;
-        }
-        else
-            return null;
+        } else {
+			return null;
+		}
     }
 
-    public static byte[] toByteArray(InputStream inStream) throws IOException
+    public static byte[] toByteArray(final InputStream inStream) throws IOException
     {
-        if (inStream == null)
-            return null;
+        if (inStream == null) {
+			return null;
+		}
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
         copy(inStream, os);
 
         return os.toByteArray();
     }
 
-    public static void copy(InputStream inStream, OutputStream outStream) throws IOException
+    public static void copy(InputStream inStream, final OutputStream outStream) throws IOException
     {
-        if (inStream == null)
-            throw new IllegalArgumentException("InputStream can not be NULL in copy method.");
-        if (outStream == null)
-            throw new IllegalArgumentException("OutputStream can not be NULL in copy method.");
+        if (inStream == null) {
+			throw new IllegalArgumentException("InputStream can not be NULL in copy method.");
+		}
+        if (outStream == null) {
+			throw new IllegalArgumentException("OutputStream can not be NULL in copy method.");
+		}
 
         byte[] buffer = new byte[1024];
         int read = 0;
@@ -162,12 +166,13 @@ public class SystemUtils
         }
     }
 
-    public static String trimFileName(String filePathName)
+    public static String trimFileName(final String filePathName)
     {
-        if (filePathName == null)
-            return filePathName;
+        if (filePathName == null) {
+			return filePathName;
+		}
 
-        StringBuilder sb = new StringBuilder(filePathName);
+        final StringBuilder sb = new StringBuilder(filePathName);
         int size = sb.length();
         char ch;
         while (size > 0 && ((ch = sb.charAt(size - 1)) == '.' || ch == File.separatorChar))
@@ -193,22 +198,23 @@ public class SystemUtils
         return System.getProperty("user.home");
     }
 
-    public static String toHexString(byte[] data)
+    public static String toHexString(final byte[] data)
     {
         return new String(toHexChars(data));
     }
 
-    public static char[] toHexChars(byte[] data)
+    public static char[] toHexChars(final byte[] data)
     {
-        if (data == null || data.length <= 0)
-            return EMPTY_CHAR_ARRAY;
+        if (data == null || data.length <= 0) {
+			return EMPTY_CHAR_ARRAY;
+		}
 
-        int size = data.length;
-        char[] result = new char[size << 1];
+        final int size = data.length;
+        final char[] result = new char[size << 1];
 
         for (int i = 0, j = 0; i < size; i++)
         {
-            int ch = data[i];
+            final int ch = data[i];
             result[j++] = HEX_DIGITS[(ch & 0xF0) >>> 4];
             result[j++] = HEX_DIGITS[ch & 0x0F];
         }
