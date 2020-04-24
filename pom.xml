@@ -93,10 +93,11 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.3.2</version>
+        <artifactId>maven-jarsigner-plugin</artifactId>
+        <version>3.0.0</version>
         <executions>
           <execution>
+            <id>sign</id>
             <goals>
               <goal>sign</goal>
             </goals>
@@ -106,8 +107,25 @@
           <keystore>src/main/resources/uji.keystore</keystore>
           <alias>uji</alias>
           <storepass>cryptoapplet</storepass>
-          <signedjar>target/${project.build.finalName}-signed.jar</signedjar>
-          <verify>true</verify>
+          <keypass>cryptoapplet</keypass>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jarsigner-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>verify</id>
+            <goals>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <verbose>true</verbose>
+          <certs>true</certs>
         </configuration>
       </plugin>
 
