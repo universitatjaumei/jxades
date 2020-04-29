@@ -56,7 +56,7 @@ public class XMLAdvancedSignature {
     public static final String ELEMENT_SIGNATURE = "Signature"; //$NON-NLS-1$
     public static final String ELEMENT_SIGNATURE_VALUE = "SignatureValue"; //$NON-NLS-1$
 
-    protected BasicXAdESImpl xades;
+    protected BaseXAdESImpl xades;
     protected Element baseElement;
     protected XMLSignatureFactory xmlSignatureFactory;
     protected DigestMethod digestMethod;
@@ -73,22 +73,26 @@ public class XMLAdvancedSignature {
     protected XMLSignature signature;
     protected DOMSignContext signContext;
 
-    protected XMLAdvancedSignature(final XAdES_BES xades) {
-        if (xades == null) {
+    protected XMLAdvancedSignature(final XAdESBase xades)
+    {
+        if (xades == null)
+        {
             throw new IllegalArgumentException("XAdES parameter can not be NULL."); //$NON-NLS-1$
         }
         this.baseElement = xades.getBaseElement();
-        this.xades = (BasicXAdESImpl) xades;
+        this.xades = (BaseXAdESImpl) xades;
     }
 
-    public static XMLAdvancedSignature newInstance(final XAdES_BES xades) throws GeneralSecurityException {
+    public static XMLAdvancedSignature newInstance(final XAdESBase xades) throws GeneralSecurityException
+    {
         final XMLAdvancedSignature result = new XMLAdvancedSignature(xades);
         result.setDigestMethod(xades.getDigestMethod());
         result.setXadesNamespace(xades.getXadesNamespace());
         return result;
     }
 
-    public static XMLAdvancedSignature getInstance(final XAdES_BES xades) throws GeneralSecurityException {
+    public static XMLAdvancedSignature getInstance(final XAdESBase xades) throws GeneralSecurityException
+    {
         return newInstance(xades);
     }
 
@@ -111,16 +115,32 @@ public class XMLAdvancedSignature {
         this.signedPropertiesTypeUrl = signedPropertiesTypeUrl;
     }
 
+    public void sign(final X509Certificate signingCert, final PrivateKey privateKey, final String signatureMethod,
+            final List refsIdList, final String signatureIdPrefix) throws MarshalException, XMLSignatureException,
+    				GeneralSecurityException, TransformException, IOException, ParserConfigurationException,
+    				SAXException
+    {
+    	sign(signingCert, privateKey, signatureMethod, refsIdList, signatureIdPrefix, null);
+    }
+    
     public void sign(final X509Certificate certificate, final PrivateKey privateKey, final String signatureMethod,
-            final List refsIdList, final String signatureIdPrefix) throws MarshalException,
-            XMLSignatureException, GeneralSecurityException, TransformException, IOException,
-            ParserConfigurationException, SAXException
+            final List refsIdList, final String signatureIdPrefix, final SigningCertificateInfo signingCertInfo)
+            		throws MarshalException, XMLSignatureException, GeneralSecurityException, TransformException,
+            		IOException, ParserConfigurationException, SAXException
     {
         final List referencesIdList = new ArrayList(refsIdList);
 
-        if (WrappedKeyStorePlace.SIGNING_CERTIFICATE_PROPERTY.equals(getWrappedKeyStorePlace()))
-        {
-            this.xades.setSigningCertificate(certificate);
+        if (WrappedKeyStorePlace.SIGNING_CERTIFICATE_PROPERTY.equals(getWrappedKeyStorePlace())) {
+        	if (this.xades instanceof XadesWithBasicAttributes) {
+        		((XadesWithBasicAttributes) this.xades).setSigningCertificate(certificate);
+        	}
+        	else if (this.xades instanceof XadesWithBaselineAttributes) {
+        		final SigningCertificateV2Info certInfo = (SigningCertificateV2Info) signingCertInfo;
+        		((XadesWithBaselineAttributes) this.xades).setSigningCertificateV2(certificate, certInfo);
+        	}
+        	else {
+        		throw new XMLSignatureException("Unsupported signature profile");
+        	}
         }
         else
         {

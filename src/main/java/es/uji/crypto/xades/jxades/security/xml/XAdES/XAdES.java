@@ -12,21 +12,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 /**
- * ETSI TS 101 903 V1.3.2 (2006-03)
- *
- * Xml Advanced Electronic Signature (XAdES)
- *
- * 4.4 Electronic signature forms
- * The current clause specifies four forms of XML advanced
- * electronic signatures, namely the Basic Electronic
- * Signature (XAdES-BES), the Explicit Policy based
- * Electronic Signature (XAdES-EPES), and the Electronic
- * Signature with Validation Data (XAdES-T and XAdES-C).
- * Conformance to the present document mandates the
- * signer to create one of these formats.
- * The informative annex B defines extended forms of XAdES.
- * Conformance to the present document does not mandate
- * the signer to create any of the forms defined in annex B.
+ * Xml Advanced Electronic Signature (XAdES) profiles are
+ * defined in:
+ * <ul>
+ *   <li>ETSI TS 101 903 V1.3.2 (2006-03)</li>
+ *   <li>ETSI EN 319 132-1 V1.1.1 (2016-04)</li>
+ * </ul>
  *
  * Similar/related projects/standards:
  * - RFC3126 (http://www.ietf.org/rfc/rfc3126.txt,
@@ -49,10 +40,10 @@ public enum XAdES
      * of these formats. The informative annex B defines extended forms of XAdES. Conformance to the
      * present document does not mandate the signer to create any of the forms defined in annex B.
      **/
-    BES("XAdES-BES", "4.4.1", "Basic Electronic Signature"), EPES("XAdES-EPES", "4.4.2",
-            "Explicit Policy Electronic Signatures"), T("XAdES-T", "4.4.3.1",
-            "Electronic Signature with Time"), C("XAdES-C", "4.4.3.2",
-            "Electronic Signature with Complete Validation Data References"),
+    BES("XAdES-BES", "4.4.1", "Basic Electronic Signature"),
+    EPES("XAdES-EPES", "4.4.2", "Explicit Policy Electronic Signatures"),
+    T("XAdES-T", "4.4.3.1", "Electronic Signature with Time"),
+    C("XAdES-C", "4.4.3.2", "Electronic Signature with Complete Validation Data References"),
 
     /**
      * 4.5 Validation process The Validation Process validates an electronic signature, the output
@@ -94,9 +85,29 @@ public enum XAdES
      * present document. The clauses below give an overview of the various forms of extended
      * signature formats in the present document.
      **/
-    X("XAdES-X", "B.1", "Extended Signatures with Time Forms"), X_L("XAdES-X-L", "B.2",
-            "Extended Long Electronic Signatures with Time"), A("XAdES-A", "B.3",
-            "Archival Electronic Signatures");
+    X("XAdES-X", "B.1", "Extended Signatures with Time Forms"),
+    X_L("XAdES-X-L", "B.2", "Extended Long Electronic Signatures with Time"),
+    A("XAdES-A", "B.3", "Archival Electronic Signatures"),
+    
+    /**
+     * ETSI EN 319 132-1 V1.1.1 6.3<br>
+     * <br>
+     * 6.1 Signature levels<br>
+     * Clause 6 defines four levels of XAdES baseline signatures, intended to facilitate interoperability and to encompass the
+     * life cycle of XAdES signature, namely:<br>
+     * <ol>
+     * <li>B-B level provides requirements for the incorporation of signed and some unsigned qualifying properties when
+     * the signature is generated.</li>
+     * <li>B-T level provides requirements for the generation and inclusion, for an existing signature, of a trusted token
+     * proving that the signature itself actually existed at a certain date and time.</li>
+     * <li>B-LT level provides requirements for the incorporation of all the material required for validating the signature
+     * in the signature document. This level aims to tackle the long term availability of the validation material.</li>
+     * <li>B-LTA level provides requirements for the incorporation of electronic time-stamps that allow validation of the
+     * signature long time after its generation. This level aims to tackle the long term availability and integrity of the
+     * validation material.</li>
+     * </ol>
+     */
+    B_LEVEL("B-B-LEVEL", "ETSI EN 319 132-1 V1.1.1 6.3", "XAdES BASELINE B-LEVEL");
 
     private XAdES(String nickname, String contentsId, String title)
     {
@@ -126,43 +137,37 @@ public enum XAdES
 
     public enum Element implements XadesElement
     {
-        OBJECT(null, "Object"), QUALIFYING_PROPERTIES(OBJECT, "QualifyingProperties"), SIGNED_PROPERTIES(
-                QUALIFYING_PROPERTIES, "SignedProperties"), SIGNED_SIGNATURE_PROPERTIES(
-                SIGNED_PROPERTIES, "SignedSignatureProperties"), SIGNING_TIME(XAdES.BES,
-                SIGNED_SIGNATURE_PROPERTIES, "SigningTime", OccursRequirement.ZERO_OR_ONE), SIGNING_CERTIFICATE(
-                XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificate",
-                OccursRequirement.ZERO_OR_ONE), SIGNATURE_POLICY_IDENTIFIER(
-                XAdES.EPES, SIGNED_SIGNATURE_PROPERTIES, "SignaturePolicyIdentifier",
-                OccursRequirement.EXACTLY_ONE), SIGNATURE_PRODUCTION_PLACE(XAdES.BES,
-                SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlace",
-                OccursRequirement.ZERO_OR_ONE), SIGNER_ROLE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES,
-                "SignerRole", OccursRequirement.ZERO_OR_ONE), CLAIMED_ROLES(XAdES.BES, SIGNER_ROLE,
-                "ClaimedRoles", OccursRequirement.ZERO_OR_MORE), CERTIFIED_ROLES(XAdES.BES,
-                SIGNER_ROLE, "CertifiedRoles", OccursRequirement.ZERO_OR_MORE), SIGNER(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES,
-                "Signer", OccursRequirement.ZERO_OR_ONE), SIGNER_DETAILS(XAdES.BES,
-                SIGNED_SIGNATURE_PROPERTIES, "SignerDetails", OccursRequirement.ZERO_OR_ONE), SIGNED_DATA_OBJECT_PROPERTIES(
-                SIGNED_PROPERTIES, "SignedDataObjectProperties"), DATA_OBJECT_FORMATS(XAdES.BES,
-                SIGNED_DATA_OBJECT_PROPERTIES, "DataObjectFormat", OccursRequirement.ZERO_OR_MORE), COMMITMENT_TYPE_INDICATIONS(
-                XAdES.BES, SIGNED_DATA_OBJECT_PROPERTIES, "CommitmentTypeIndication",
-                OccursRequirement.ZERO_OR_MORE), ALL_DATA_OBJECTS_TIMESTAMPS(XAdES.BES,
-                SIGNED_DATA_OBJECT_PROPERTIES, "AllDataObjectsTimeStamp",
-                OccursRequirement.ZERO_OR_MORE), INDIVIDUAL_DATA_OBJECTS_TIMESTAMPS(XAdES.BES,
-                SIGNED_DATA_OBJECT_PROPERTIES, "IndividualDataObjectsTimeStamp",
-                OccursRequirement.ZERO_OR_MORE), UNSIGNED_PROPERTIES(QUALIFYING_PROPERTIES,
-                "UnsignedProperties"), UNSIGNED_SIGNATURE_PROPERTIES(UNSIGNED_PROPERTIES,
-                "UnsignedSignatureProperties"), COUNTER_SIGNATURES(XAdES.BES,
-                UNSIGNED_SIGNATURE_PROPERTIES, "CounterSignature", OccursRequirement.ZERO_OR_MORE), SIGNATURE_TIME_STAMP(
-                XAdES.T, UNSIGNED_SIGNATURE_PROPERTIES, "SignatureTimeStamp",
-                OccursRequirement.ONE_OR_MORE), COMPLETE_CERTIFICATE_REFS(XAdES.C,
-                UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs",
-                OccursRequirement.EXACTLY_ONE), COMPLETE_REVOCATION_REFS(XAdES.C,
-                UNSIGNED_SIGNATURE_PROPERTIES, "CompleteRevocationRefs",
-                OccursRequirement.EXACTLY_ONE), ATTRIBUTE_CERTIFICATE_REFS(XAdES.C,
-                UNSIGNED_SIGNATURE_PROPERTIES, "AttributeCertificateRefs",
-                OccursRequirement.ZERO_OR_ONE), ATTRIBUTE_REVOCATION_REFS(XAdES.C,
-                UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs",
-                OccursRequirement.ZERO_OR_ONE), QUALIFYING_PROPERTIES_REFERENCE(OBJECT,
-                "QualifyingPropertiesReference");
+        OBJECT(null, "Object"),
+        QUALIFYING_PROPERTIES(OBJECT, "QualifyingProperties"),
+        SIGNED_PROPERTIES(QUALIFYING_PROPERTIES, "SignedProperties"),
+        SIGNED_SIGNATURE_PROPERTIES(SIGNED_PROPERTIES, "SignedSignatureProperties"),
+        SIGNING_TIME(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SigningTime", OccursRequirement.ZERO_OR_ONE),
+        SIGNING_CERTIFICATE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificate", OccursRequirement.ZERO_OR_ONE),
+        SIGNATURE_POLICY_IDENTIFIER(XAdES.EPES, SIGNED_SIGNATURE_PROPERTIES, "SignaturePolicyIdentifier", OccursRequirement.EXACTLY_ONE),
+        SIGNATURE_PRODUCTION_PLACE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlace", OccursRequirement.ZERO_OR_ONE),
+        SIGNER_ROLE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignerRole", OccursRequirement.ZERO_OR_ONE),
+        CLAIMED_ROLES(XAdES.BES, SIGNER_ROLE, "ClaimedRoles", OccursRequirement.ZERO_OR_MORE),
+        CERTIFIED_ROLES(XAdES.BES, SIGNER_ROLE, "CertifiedRoles", OccursRequirement.ZERO_OR_MORE),
+        SIGNER(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "Signer", OccursRequirement.ZERO_OR_ONE),
+        SIGNER_DETAILS(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignerDetails", OccursRequirement.ZERO_OR_ONE),
+        SIGNED_DATA_OBJECT_PROPERTIES(SIGNED_PROPERTIES, "SignedDataObjectProperties"),
+        DATA_OBJECT_FORMATS(XAdES.BES, SIGNED_DATA_OBJECT_PROPERTIES, "DataObjectFormat", OccursRequirement.ZERO_OR_MORE),
+        COMMITMENT_TYPE_INDICATIONS(XAdES.BES, SIGNED_DATA_OBJECT_PROPERTIES, "CommitmentTypeIndication", OccursRequirement.ZERO_OR_MORE),
+        ALL_DATA_OBJECTS_TIMESTAMPS(XAdES.BES, SIGNED_DATA_OBJECT_PROPERTIES, "AllDataObjectsTimeStamp", OccursRequirement.ZERO_OR_MORE),
+        INDIVIDUAL_DATA_OBJECTS_TIMESTAMPS(XAdES.BES, SIGNED_DATA_OBJECT_PROPERTIES, "IndividualDataObjectsTimeStamp", OccursRequirement.ZERO_OR_MORE),
+        UNSIGNED_PROPERTIES(QUALIFYING_PROPERTIES, "UnsignedProperties"),
+        UNSIGNED_SIGNATURE_PROPERTIES(UNSIGNED_PROPERTIES, "UnsignedSignatureProperties"),
+        COUNTER_SIGNATURES(XAdES.BES, UNSIGNED_SIGNATURE_PROPERTIES, "CounterSignature", OccursRequirement.ZERO_OR_MORE),
+        SIGNATURE_TIME_STAMP( XAdES.T, UNSIGNED_SIGNATURE_PROPERTIES, "SignatureTimeStamp", OccursRequirement.ONE_OR_MORE),
+        COMPLETE_CERTIFICATE_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs", OccursRequirement.EXACTLY_ONE),
+        COMPLETE_REVOCATION_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteRevocationRefs", OccursRequirement.EXACTLY_ONE),
+        ATTRIBUTE_CERTIFICATE_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "AttributeCertificateRefs", OccursRequirement.ZERO_OR_ONE),
+        ATTRIBUTE_REVOCATION_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs", OccursRequirement.ZERO_OR_ONE),
+        QUALIFYING_PROPERTIES_REFERENCE(OBJECT, "QualifyingPropertiesReference"),
+        
+        /** XAdES Baseline attributes */
+        SIGNING_CERTIFICATE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificateV2", OccursRequirement.EXACTLY_ONE);
+        
 
         private Element(XadesElement parent, String elementName)
         {
@@ -250,14 +255,16 @@ public enum XAdES
             Element.values(), X_L);
     public static final XadesElementsEnumeration XAdES_A_ELEMENTS = new XadesElementsEnumeration(
             Element.values(), A);
+    public static final XadesElementsEnumeration XAdES_B_LEVEL_ELEMENTS = new XadesElementsEnumeration(
+            Element.values(), XAdES.B_LEVEL);
 
-    public static XAdES_BES newInstance(XAdES xades, org.w3c.dom.Element baseElement)
+    public static XAdESBase newInstance(XAdES xades, org.w3c.dom.Element baseElement)
     {
         return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign",
                 DigestMethod.SHA1, baseElement.getOwnerDocument(), baseElement);
     }
 
-    public static XAdES_BES newInstance(XAdES xades)
+    public static XAdESBase newInstance(XAdES xades)
     {
         try
         {
@@ -276,7 +283,7 @@ public enum XAdES
         }
     }
 
-    public static XAdES_BES newInstance(XAdES xades, String xadesNamespace, String xadesPrefix,
+    public static XAdESBase newInstance(XAdES xades, String xadesNamespace, String xadesPrefix,
             String xmlSignaturePrefix, String digestMethod, Document document,
             org.w3c.dom.Element baseElement)
     {
@@ -315,6 +322,11 @@ public enum XAdES
         else if (A.equals(xades))
         {
             return new ArchivalXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
+                    xmlSignaturePrefix, digestMethod);
+        }
+        else if (B_LEVEL.equals(xades))
+        {
+            return new BLevelXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);
         }
 
