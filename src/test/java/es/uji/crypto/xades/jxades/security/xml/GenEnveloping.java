@@ -1,6 +1,5 @@
 package es.uji.crypto.xades.jxades.security.xml;
 
-import com.sun.org.apache.xerces.internal.dom.DocumentImpl;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,7 +28,7 @@ public class GenEnveloping
     {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
-        DocumentImpl doc = (DocumentImpl) dbf.newDocumentBuilder().newDocument();
+        Document doc = dbf.newDocumentBuilder().newDocument();
 
         Element root = doc.createElementNS(null, "root");
         root.setAttributeNS(null, "Id", "test");

@@ -22,6 +22,7 @@ public class JUnitXMLErrorHandler implements ErrorHandler
     @Override
     public void error(SAXParseException exception) throws SAXException
     {
+    	System.out.println(exception);
         Assert.fail();
     }
 }
