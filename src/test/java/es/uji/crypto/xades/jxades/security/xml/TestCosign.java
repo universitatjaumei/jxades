@@ -59,6 +59,6 @@ public class TestCosign extends BaseTest
         verify(xmlSignature);
 
         showSignature(xmlSignature,
-                new FileOutputStream("src/main/resources/out-cosign-jxades.xml"));
+                new FileOutputStream("src/test/resources/out-cosign-jxades.xml"));
     }
 }

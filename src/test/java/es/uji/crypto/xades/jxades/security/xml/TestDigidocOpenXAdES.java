@@ -25,7 +25,7 @@ public class TestDigidocOpenXAdES extends BaseTest
             IOException, GeneralSecurityException, MarshalException, XMLSignatureException,
             TransformException, ParserConfigurationException, SAXException
     {
-        byte[] document = inputStreamToByteArray(new FileInputStream("src/main/resources/"
+        byte[] document = inputStreamToByteArray(new FileInputStream("src/test/resources/"
                 + fileName));
 
         // Default signature options
@@ -53,7 +53,7 @@ public class TestDigidocOpenXAdES extends BaseTest
             verify(xmlSignature);
         }
 
-        showSignature(xmlSignature, new FileOutputStream("src/main/resources/out-" + fileName));
+        showSignature(xmlSignature, new FileOutputStream("src/test/resources/out-" + fileName));
     }
 
     @Test
