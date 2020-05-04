@@ -20,6 +20,11 @@ public interface XadesWithBaselineAttributes {
     SignatureProductionPlace getSignatureProductionPlace();
     void setSignatureProductionPlace(SignatureProductionPlace productionPlace);
 
-    SignerRole getSignerRole();
-    void setSignerRole(SignerRole signerRole);
+    SignerRoleV2 getSignerRoleV2();
+    
+    /**
+     * Set the signer roles.
+     * @param signerRole Signer's Roles.
+     */
+    void setSignerRoleV2(SignerRoleV2 signerRole);
 }

@@ -87,6 +87,19 @@ public class SignedSignatureProperties extends XAdESStructure
             }
         }
     }
+    
+    public void setSignerRoleV2(final SignerRoleV2 signerRole)
+    {
+        if (signerRole != null)
+        {
+            if (signerRole.getClaimedRoles().size() > 0 || signerRole.getCertifiedRolesV2().size() > 0
+            		 || signerRole.getSignedAssertions().size() > 0)
+            {
+                new SignerRoleV2Details(this.document, this, signerRole, this.xadesPrefix,
+                		this.xadesNamespace, this.xmlSignaturePrefix);
+            }
+        }
+    }
 
     public Signer getSigner()
     {

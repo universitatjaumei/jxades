@@ -166,9 +166,11 @@ public enum XAdES
         QUALIFYING_PROPERTIES_REFERENCE(OBJECT, "QualifyingPropertiesReference"),
         
         /** XAdES Baseline attributes */
-        SIGNING_CERTIFICATE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificateV2", OccursRequirement.EXACTLY_ONE);
-        
-
+        SIGNING_CERTIFICATE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificateV2", OccursRequirement.EXACTLY_ONE),
+    	SIGNER_ROLE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SignerRoleV2", OccursRequirement.ZERO_OR_ONE),
+    	CERTIFIED_ROLES_V2(XAdES.B_LEVEL, SIGNER_ROLE_V2, "CertifiedRolesV2", OccursRequirement.ZERO_OR_MORE),
+    	SIGNED_ASSERTIONS(XAdES.B_LEVEL, SIGNER_ROLE_V2, "SignedAssertions", OccursRequirement.ZERO_OR_MORE);
+    	
         private Element(XadesElement parent, String elementName)
         {
             this(null, parent, elementName, OccursRequirement.EXACTLY_ONE);
