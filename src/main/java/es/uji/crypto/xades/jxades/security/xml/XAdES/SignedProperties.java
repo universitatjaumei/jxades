@@ -9,8 +9,10 @@ import org.w3c.dom.Node;
  *   <SignedSignatureProperties>
  *     (SigningTime)?
  *     (SigningCertificate)?
+ *     (SigningCertificateV2)?
  *     (SignatureProductionPlace)?
  *     (SignerRole)?
+ *     (SignerRoleV2)?
  *   </SignedSignatureProperties>
  *   <SignedDataObjectProperties>
  *     (DataObjectFormat)*

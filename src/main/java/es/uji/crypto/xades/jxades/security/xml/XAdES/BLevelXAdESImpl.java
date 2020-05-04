@@ -90,9 +90,9 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
     }
 
     @Override
-	public SignerRole getSignerRole()
+	public SignerRoleV2 getSignerRoleV2()
     {
-        return (SignerRole) this.data.get(XAdES.Element.SIGNER_ROLE);
+        return (SignerRoleV2) this.data.get(XAdES.Element.SIGNER_ROLE_V2);
     }
 
     @Override
@@ -188,16 +188,16 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
     }
 
     @Override
-	public void setSignerRole(final SignerRole signerRole)
+	public void setSignerRoleV2(final SignerRoleV2 signerRole)
     {
         if (this.readOnlyMode) {
 			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (signerRole != null) {
-			this.data.put(XAdES.Element.SIGNER_ROLE, signerRole);
+			this.data.put(XAdES.Element.SIGNER_ROLE_V2, signerRole);
 		} else {
-			this.data.remove(XAdES.Element.SIGNER_ROLE);
+			this.data.remove(XAdES.Element.SIGNER_ROLE_V2);
 		}
     }
 
@@ -389,10 +389,10 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
                             ssp = getSignedSignatureProperties(qp);
                             ssp.setSignatureProductionPlace((SignatureProductionPlace) value);
                         }
-                        else if (XAdES.Element.SIGNER_ROLE.equals(key))
+                        else if (XAdES.Element.SIGNER_ROLE_V2.equals(key))
                         {
                             ssp = getSignedSignatureProperties(qp);
-                            ssp.setSignerRole((SignerRole) value);
+                            ssp.setSignerRoleV2((SignerRoleV2) value);
                         }
                         else if (XAdES.Element.DATA_OBJECT_FORMATS.equals(key))
                         {
