@@ -3,7 +3,6 @@ package es.uji.crypto.xades.jxades.security.xml.XAdES;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -84,9 +83,9 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
     }
 
     @Override
-	public SignatureProductionPlace getSignatureProductionPlace()
+	public SignatureProductionPlaceV2 getSignatureProductionPlaceV2()
     {
-        return (SignatureProductionPlace) this.data.get(XAdES.Element.SIGNATURE_PRODUCTION_PLACE);
+        return (SignatureProductionPlaceV2) this.data.get(XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2);
     }
 
     @Override
@@ -174,16 +173,16 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
     }
 
     @Override
-	public void setSignatureProductionPlace(final SignatureProductionPlace productionPlace)
+	public void setSignatureProductionPlaceV2(final SignatureProductionPlaceV2 productionPlace)
     {
         if (this.readOnlyMode) {
 			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (productionPlace != null) {
-			this.data.put(XAdES.Element.SIGNATURE_PRODUCTION_PLACE, productionPlace);
+			this.data.put(XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2, productionPlace);
 		} else {
-			this.data.remove(XAdES.Element.SIGNATURE_PRODUCTION_PLACE);
+			this.data.remove(XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2);
 		}
     }
 
@@ -384,10 +383,10 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
                             ssp = getSignedSignatureProperties(qp);
                             ssp.setSignaturePolicyIdentifier((SignaturePolicyIdentifier) value);
                         }
-                        else if (XAdES.Element.SIGNATURE_PRODUCTION_PLACE.equals(key))
+                        else if (XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2.equals(key))
                         {
                             ssp = getSignedSignatureProperties(qp);
-                            ssp.setSignatureProductionPlace((SignatureProductionPlace) value);
+                            ssp.setSignatureProductionPlaceV2((SignatureProductionPlaceV2) value);
                         }
                         else if (XAdES.Element.SIGNER_ROLE_V2.equals(key))
                         {

@@ -131,6 +131,15 @@ public class SignedSignatureProperties extends XAdESStructure
                     this.xadesNamespace, this.xmlSignaturePrefix);
         }
     }
+    
+    public void setSignatureProductionPlaceV2(final SignatureProductionPlaceV2 signatureProductionPlace)
+    {
+        if (signatureProductionPlace != null)
+        {
+            new SignatureProductionPlaceV2Details(this.document, this, signatureProductionPlace, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
+        }
+    }
 
     public void setSignaturePolicyIdentifier(final SignaturePolicyIdentifier signaturePolicyIdentifier)
     {

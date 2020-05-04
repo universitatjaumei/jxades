@@ -1,11 +1,6 @@
 package es.uji.crypto.xades.jxades.security.xml.XAdES;
 
 import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 public interface XadesWithBaselineAttributes {
 	
@@ -17,8 +12,13 @@ public interface XadesWithBaselineAttributes {
      */
     void setSigningCertificateV2(X509Certificate signingCertificate, SigningCertificateV2Info additionalInfo);
 
-    SignatureProductionPlace getSignatureProductionPlace();
-    void setSignatureProductionPlace(SignatureProductionPlace productionPlace);
+    SignatureProductionPlace getSignatureProductionPlaceV2();
+    
+    /**
+     * Set the production place.
+     * @param productionPlace Production place information.
+     */
+    void setSignatureProductionPlaceV2(SignatureProductionPlaceV2 productionPlace);
 
     SignerRoleV2 getSignerRoleV2();
     
