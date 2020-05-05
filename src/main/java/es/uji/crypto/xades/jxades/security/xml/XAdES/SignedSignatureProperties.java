@@ -11,28 +11,32 @@ import org.w3c.dom.Node;
  <SignedSignatureProperties>
  (SigningTime)?
  (SigningCertificate)?
+ (SigningCertificateV2)?
+ (SignaturePolicyIdentifier)?
  (SignatureProductionPlace)?
+ (SignatureProductionPlaceV2)?
  (SignerRole)?
+ (SignerRoleV2)?
  </SignedSignatureProperties>
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class SignedSignatureProperties extends XAdESStructure
 {
     private Document document;
 
-    public SignedSignatureProperties(Document document, SignedProperties sp, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public SignedSignatureProperties(final Document document, final SignedProperties sp, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(document, sp, "SignedSignatureProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
         this.document = document;
     }
 
-    public SignedSignatureProperties(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public SignedSignatureProperties(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -42,44 +46,67 @@ public class SignedSignatureProperties extends XAdESStructure
         setSigningTime(new Date());
     }
 
-    public void setSigningTime(Date signingTime)
+    public void setSigningTime(final Date signingTime)
     {
-        new SigningTime(document, this, signingTime, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        new SigningTime(this.document, this, signingTime, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
     }
 
-    public void setSigner(Signer signer)
+    public void setSigner(final Signer signer)
     {
-        new SignerDetails(document, this, signer, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        new SignerDetails(this.document, this, signer, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
     }
 
-    public void setSigningCertificate(SigningCertificate signingCertificate)
+    public void setSigningCertificate(final SigningCertificate signingCertificate)
             throws GeneralSecurityException
     {
         if (signingCertificate != null)
         {
-            new SigningCertificateDetails(document, this, signingCertificate, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix);
+            new SigningCertificateDetails(this.document, this, signingCertificate, this.xadesPrefix, this.xadesNamespace,
+                    this.xmlSignaturePrefix);
         }
     }
 
-    public void setSignerRole(SignerRole signerRole)
+    public void setSigningCertificateV2(final SigningCertificateV2 signingCertificateV2)
+            throws GeneralSecurityException
+    {
+        if (signingCertificateV2 != null)
+        {
+            new SigningCertificateV2Details(this.document, this, signingCertificateV2, this.xadesPrefix, this.xadesNamespace,
+                    this.xmlSignaturePrefix);
+        }
+    }
+
+    public void setSignerRole(final SignerRole signerRole)
     {
         if (signerRole != null)
         {
             if (signerRole.getClaimedRole().size() > 0 || signerRole.getCertifiedRole().size() > 0)
             {
-                new SignerRoleDetails(document, this, signerRole, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                new SignerRoleDetails(this.document, this, signerRole, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
+            }
+        }
+    }
+    
+    public void setSignerRoleV2(final SignerRoleV2 signerRole)
+    {
+        if (signerRole != null)
+        {
+            if (signerRole.getClaimedRoles().size() > 0 || signerRole.getCertifiedRolesV2().size() > 0
+            		 || signerRole.getSignedAssertions().size() > 0)
+            {
+                new SignerRoleV2Details(this.document, this, signerRole, this.xadesPrefix,
+                		this.xadesNamespace, this.xmlSignaturePrefix);
             }
         }
     }
 
     public Signer getSigner()
     {
-        SignerDetails details = getSignerDetails();
+        final SignerDetails details = getSignerDetails();
         if (details != null)
         {
-            Signer signer = details.getSigner();
+            final Signer signer = details.getSigner();
             return signer;
         }
 
@@ -88,28 +115,38 @@ public class SignedSignatureProperties extends XAdESStructure
 
     protected SignerDetails getSignerDetails()
     {
-        Element element = getChildElementNS("SignerDetails");
-        if (element != null)
-            return new SignerDetails(element, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-        else
-            return null;
+        final Element element = getChildElementNS("SignerDetails");
+        if (element != null) {
+			return new SignerDetails(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
+		} else {
+			return null;
+		}
     }
 
-    public void setSignatureProductionPlace(SignatureProductionPlace signatureProductionPlace)
+    public void setSignatureProductionPlace(final SignatureProductionPlace signatureProductionPlace)
     {
         if (signatureProductionPlace != null)
         {
-            new SignatureProductionPlaceDetails(document, this, signatureProductionPlace, xadesPrefix,
-                    xadesNamespace, xmlSignaturePrefix);
+            new SignatureProductionPlaceDetails(this.document, this, signatureProductionPlace, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
+        }
+    }
+    
+    public void setSignatureProductionPlaceV2(final SignatureProductionPlaceV2 signatureProductionPlace)
+    {
+        if (signatureProductionPlace != null)
+        {
+            new SignatureProductionPlaceV2Details(this.document, this, signatureProductionPlace, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
         }
     }
 
-    public void setSignaturePolicyIdentifier(SignaturePolicyIdentifier signaturePolicyIdentifier)
+    public void setSignaturePolicyIdentifier(final SignaturePolicyIdentifier signaturePolicyIdentifier)
     {
         if (signaturePolicyIdentifier != null)
         {
-            new SignaturePolicyIdentifierDetails(document, this, signaturePolicyIdentifier, xadesPrefix,
-                    xadesNamespace, xmlSignaturePrefix);
+            new SignaturePolicyIdentifierDetails(this.document, this, signaturePolicyIdentifier, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
         }
     }
 }

@@ -3,7 +3,6 @@ package es.uji.crypto.xades.jxades.security.xml.XAdES;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -18,7 +17,7 @@ import org.w3c.dom.NodeList;
  *
  * @author miro
  */
-public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
+public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
 {
     protected boolean readOnlyMode = true;
     protected TreeMap<XAdES.Element, Object> data;
@@ -31,7 +30,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
     public String xmlSignaturePrefix;
     public String digestMethod;
 
-    public BasicXAdESImpl(final Document document, final Element baseElement, final boolean readOnlyMode,
+    public BLevelXAdESImpl(final Document document, final Element baseElement, final boolean readOnlyMode,
             final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix,
             final String digestMethod)
     {
@@ -78,21 +77,21 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
     }
 
     @Override
-	public SigningCertificate getSigningCertificate()
+	public SigningCertificateV2 getSigningCertificateV2()
     {
-        return (SigningCertificate) this.data.get(XAdES.Element.SIGNING_CERTIFICATE);
+        return (SigningCertificateV2) this.data.get(XAdES.Element.SIGNING_CERTIFICATE_V2);
     }
 
     @Override
-	public SignatureProductionPlace getSignatureProductionPlace()
+	public SignatureProductionPlaceV2 getSignatureProductionPlaceV2()
     {
-        return (SignatureProductionPlace) this.data.get(XAdES.Element.SIGNATURE_PRODUCTION_PLACE);
+        return (SignatureProductionPlaceV2) this.data.get(XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2);
     }
 
     @Override
-	public SignerRole getSignerRole()
+	public SignerRoleV2 getSignerRoleV2()
     {
-        return (SignerRole) this.data.get(XAdES.Element.SIGNER_ROLE);
+        return (SignerRoleV2) this.data.get(XAdES.Element.SIGNER_ROLE_V2);
     }
 
     @Override
@@ -146,7 +145,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	public void setSigningTime(final Date signingTime)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (signingTime != null) {
@@ -157,44 +156,47 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
     }
 
     @Override
-    public void setSigningCertificate(X509Certificate certificate) {
-        if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
-		}
-
-        if (certificate == null) {
-        	this.data.remove(XAdES.Element.SIGNING_CERTIFICATE);
-		} else {
-			final SigningCertificateImpl sci = new SigningCertificateImpl(certificate, this.digestMethod);
-			this.data.put(XAdES.Element.SIGNING_CERTIFICATE, sci);
-		}
-    }
-    
-    @Override
-	public void setSignatureProductionPlace(final SignatureProductionPlace productionPlace)
+	public void setSigningCertificateV2(X509Certificate signingCertificate, SigningCertificateV2Info additionalInfo)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
+		}
+
+        if (signingCertificate == null) {
+        	this.data.remove(XAdES.Element.SIGNING_CERTIFICATE_V2);
+		}
+        else {
+        	final SigningCertificateV2Impl sci = new SigningCertificateV2Impl(signingCertificate, this.digestMethod);
+        	sci.setIssuerSerialV2(additionalInfo != null ? additionalInfo.getIssuerSerialV2() : null);
+        	this.data.put(XAdES.Element.SIGNING_CERTIFICATE_V2, sci);
+        }
+    }
+
+    @Override
+	public void setSignatureProductionPlaceV2(final SignatureProductionPlaceV2 productionPlace)
+    {
+        if (this.readOnlyMode) {
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (productionPlace != null) {
-			this.data.put(XAdES.Element.SIGNATURE_PRODUCTION_PLACE, productionPlace);
+			this.data.put(XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2, productionPlace);
 		} else {
-			this.data.remove(XAdES.Element.SIGNATURE_PRODUCTION_PLACE);
+			this.data.remove(XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2);
 		}
     }
 
     @Override
-	public void setSignerRole(final SignerRole signerRole)
+	public void setSignerRoleV2(final SignerRoleV2 signerRole)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (signerRole != null) {
-			this.data.put(XAdES.Element.SIGNER_ROLE, signerRole);
+			this.data.put(XAdES.Element.SIGNER_ROLE_V2, signerRole);
 		} else {
-			this.data.remove(XAdES.Element.SIGNER_ROLE);
+			this.data.remove(XAdES.Element.SIGNER_ROLE_V2);
 		}
     }
 
@@ -202,7 +204,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	public void setSigner(final Signer signer)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (signer != null) {
@@ -216,7 +218,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	public void setDataObjectFormats(final List<DataObjectFormat> dataObjectFormats)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (dataObjectFormats != null && dataObjectFormats.size() > 0) {
@@ -231,7 +233,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
             final List<CommitmentTypeIndication> commitmentTypeIndications)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (commitmentTypeIndications != null && commitmentTypeIndications.size() > 0) {
@@ -245,7 +247,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	public void setAllDataObjectsTimeStamps(final List<AllDataObjectsTimeStamp> allDataObjectsTimeStamps)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (allDataObjectsTimeStamps != null && allDataObjectsTimeStamps.size() > 0) {
@@ -260,7 +262,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
             final List<IndividualDataObjectsTimeStamp> individualDataObjectsTimeStamps)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (individualDataObjectsTimeStamps != null && individualDataObjectsTimeStamps.size() > 0) {
@@ -275,7 +277,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	public void setCounterSignatures(final List<CounterSignature> counterSignatures)
     {
         if (this.readOnlyMode) {
-			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
 		}
 
         if (counterSignatures != null && counterSignatures.size() > 0) {
@@ -289,7 +291,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
     {
         if (this.readOnlyMode)
         {
-            throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+            throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
         }
 
         if (signatureTimeStamps != null && signatureTimeStamps.size() > 0)
@@ -302,29 +304,12 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
         }
     }
 
-    // public void setCompleteCertificateRefs(Collection<X509Certificate> caCertificates)
-    // {
-    // if (readOnlyMode)
-    // {
-    // throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
-    // }
-    //
-    // if (caCertificates != null && caCertificates.size() > 0)
-    // {
-    // data.put(XAdES.Element.COMPLETE_CERTIFICATE_REFS, caCertificates);
-    // }
-    // else
-    // {
-    // data.remove(XAdES.Element.COMPLETE_CERTIFICATE_REFS);
-    // }
-    // }
-
     // Each implementation have to inherit this method
     // and to return the appropriate XAdES type.
     // This is important for checking cases in new XML Advanced Signature
     protected XAdES getXAdESType()
     {
-        return XAdES.BES;
+        return XAdES.B_LEVEL;
     }
 
     protected QualifyingProperties getQualifyingProperties()
@@ -343,17 +328,20 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
         return this.qualifyingProperties;
     }
 
-    protected SignedSignatureProperties getSignedSignatureProperties(final QualifyingProperties qp)
+    @SuppressWarnings("static-method")
+	protected SignedSignatureProperties getSignedSignatureProperties(final QualifyingProperties qp)
     {
         return qp.getSignedProperties().getSignedSignatureProperties();
     }
 
-    protected SignedDataObjectProperties getSignedDataObjectProperties(final QualifyingProperties qp)
+    @SuppressWarnings("static-method")
+	protected SignedDataObjectProperties getSignedDataObjectProperties(final QualifyingProperties qp)
     {
         return qp.getSignedProperties().getSignedDataObjectProperties();
     }
 
-    protected UnsignedSignatureProperties getUnsignedSignatureProperties(final QualifyingProperties qp)
+    @SuppressWarnings("static-method")
+	protected UnsignedSignatureProperties getUnsignedSignatureProperties(final QualifyingProperties qp)
     {
         return qp.getUnsignedProperties().getUnsignedSignatureProperties();
     }
@@ -364,7 +352,6 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
     {
         SignedSignatureProperties ssp;
         SignedDataObjectProperties sdop;
-        UnsignedSignatureProperties usp;
 
         try
         {
@@ -386,25 +373,25 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
                             ssp = getSignedSignatureProperties(qp);
                             ssp.setSigner((Signer) value);
                         }
-                        else if (XAdES.Element.SIGNING_CERTIFICATE.equals(key))
+                        else if (XAdES.Element.SIGNING_CERTIFICATE_V2.equals(key))
                         {
                             ssp = getSignedSignatureProperties(qp);
-                            ssp.setSigningCertificate((SigningCertificate) value);
+                            ssp.setSigningCertificateV2((SigningCertificateV2) value);
                         }
                         else if (XAdES.Element.SIGNATURE_POLICY_IDENTIFIER.equals(key))
                         {
                             ssp = getSignedSignatureProperties(qp);
                             ssp.setSignaturePolicyIdentifier((SignaturePolicyIdentifier) value);
                         }
-                        else if (XAdES.Element.SIGNATURE_PRODUCTION_PLACE.equals(key))
+                        else if (XAdES.Element.SIGNATURE_PRODUCTION_PLACE_V2.equals(key))
                         {
                             ssp = getSignedSignatureProperties(qp);
-                            ssp.setSignatureProductionPlace((SignatureProductionPlace) value);
+                            ssp.setSignatureProductionPlaceV2((SignatureProductionPlaceV2) value);
                         }
-                        else if (XAdES.Element.SIGNER_ROLE.equals(key))
+                        else if (XAdES.Element.SIGNER_ROLE_V2.equals(key))
                         {
                             ssp = getSignedSignatureProperties(qp);
-                            ssp.setSignerRole((SignerRole) value);
+                            ssp.setSignerRoleV2((SignerRoleV2) value);
                         }
                         else if (XAdES.Element.DATA_OBJECT_FORMATS.equals(key))
                         {
@@ -416,12 +403,6 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
                             // TODO: Manage CommitmentTypeIndication as a ArrayList
                             sdop = getSignedDataObjectProperties(qp);
                             sdop.setCommitmentTypeIndications((ArrayList<CommitmentTypeIndication>) value);
-                        }
-                        else if (XAdES.Element.COMPLETE_CERTIFICATE_REFS.equals(key))
-                        {
-                            usp = getUnsignedSignatureProperties(qp);
-                            usp.setCompleteCertificateRefs((Collection<X509Certificate>) value,
-                                    signatureIdPrefix);
                         }
                     }
                 }
@@ -449,5 +430,29 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	public String getXadesNamespace()
     {
         return this.xadesNamespace;
+    }
+    
+    @Override
+	public void setSignaturePolicyIdentifier(SignaturePolicyIdentifier signaturePolicyIdentifier)
+    {
+        if (this.readOnlyMode)
+        {
+            throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
+        }
+
+        if (signaturePolicyIdentifier != null)
+        {
+            this.data.put(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER, signaturePolicyIdentifier);
+        }
+        else
+        {
+            this.data.remove(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER);
+        }
+    }
+
+    @Override
+	public SignaturePolicyIdentifier getSignaturePolicyIdentifier()
+    {
+        return (SignaturePolicyIdentifier) this.data.get(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER);
     }
 }
