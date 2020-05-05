@@ -43,11 +43,11 @@ public class ValidateSchemaTest
                 "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
                 "http://www.w3.org/2001/XMLSchema");
         documentBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource",
-                new File("src/main/resources/" + schemaFile));
+                new File("src/test/resources/" + schemaFile));
 
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         documentBuilder.setErrorHandler(new JUnitXMLErrorHandler());
 
-        documentBuilder.parse(new FileInputStream("src/main/resources/detached-jxades.xml"));
+        documentBuilder.parse(new FileInputStream("src/test/resources/detached-jxades.xml"));
     }
 }
