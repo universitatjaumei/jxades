@@ -15,9 +15,15 @@ public class XadesElementsEnumeration extends TreeMap<ObjectId, XadesElement>
     {
         for (XadesElement element : xadesElements)
         {
-            XAdES xades = element.getXAdES();
-            if (xades != null && xades.equals(xadesFilter))
-                put(element.getObjectId(), element);
+            XAdES[] xadesProfiles = element.getXAdES();
+            if (xadesProfiles != null) {
+            	for (XAdES xades : xadesProfiles) {
+            		if (xades != null && xades.equals(xadesFilter)) {
+            			put(element.getObjectId(), element);
+            			break;
+            		}
+            	}
+            }
         }
     }
 

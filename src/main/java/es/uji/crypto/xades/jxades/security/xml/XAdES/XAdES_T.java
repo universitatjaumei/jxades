@@ -56,7 +56,5 @@ import java.util.List;
  *         &lt;/ds:Signature&gt;
  * </pre>
  * @author miro */
-public interface XAdES_T extends XAdES_EPES {
-    List<SignatureTimeStamp> getSignatureTimeStamps();
-    void setSignatureTimeStamps(List<SignatureTimeStamp> signatureTimeStamps);
+public interface XAdES_T extends XAdES_EPES, XadesWithSignatureTimeStamp {
 }

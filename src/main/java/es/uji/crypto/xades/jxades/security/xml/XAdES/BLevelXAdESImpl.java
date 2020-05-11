@@ -135,12 +135,6 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
         return (List<CounterSignature>) this.data.get(XAdES.Element.COUNTER_SIGNATURES);
     }
 
-    @SuppressWarnings("unchecked")
-    public List<SignatureTimeStamp> getSignatureTimeStamps()
-    {
-        return (List<SignatureTimeStamp>) this.data.get(XAdES.Element.SIGNATURE_TIME_STAMP);
-    }
-
     @Override
 	public void setSigningTime(final Date signingTime)
     {
@@ -285,23 +279,6 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level
 		} else {
 			this.data.remove(XAdES.Element.COUNTER_SIGNATURES);
 		}
-    }
-
-    public void setSignatureTimeStamps(final List<SignatureTimeStamp> signatureTimeStamps)
-    {
-        if (this.readOnlyMode)
-        {
-            throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
-        }
-
-        if (signatureTimeStamps != null && signatureTimeStamps.size() > 0)
-        {
-            this.data.put(XAdES.Element.SIGNATURE_TIME_STAMP, signatureTimeStamps);
-        }
-        else
-        {
-            this.data.remove(XAdES.Element.SIGNATURE_TIME_STAMP);
-        }
     }
 
     // Each implementation have to inherit this method
