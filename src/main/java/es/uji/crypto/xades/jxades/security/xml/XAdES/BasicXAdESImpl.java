@@ -151,7 +151,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
     }
 
     @Override
-    public void setSigningCertificate(X509Certificate certificate) {
+    public void setSigningCertificate(final X509Certificate certificate) {
         if (this.readOnlyMode) {
 			throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
 		}
@@ -163,7 +163,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 			this.data.put(XAdES.Element.SIGNING_CERTIFICATE, sci);
 		}
     }
-    
+
     @Override
 	public void setSignatureProductionPlace(final SignatureProductionPlace productionPlace)
     {
@@ -335,7 +335,8 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
         return qp.getUnsignedProperties().getUnsignedSignatureProperties();
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+	@SuppressWarnings("unchecked")
     protected void marshalQualifyingProperties(final QualifyingProperties qp, final String signatureIdPrefix,
             final List referencesIdList) throws MarshalException
     {
@@ -390,7 +391,6 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
                         }
                         else if (XAdES.Element.COMMITMENT_TYPE_INDICATIONS.equals(key))
                         {
-                            // TODO: Manage CommitmentTypeIndication as a ArrayList
                             sdop = getSignedDataObjectProperties(qp);
                             sdop.setCommitmentTypeIndications((ArrayList<CommitmentTypeIndication>) value);
                         }
