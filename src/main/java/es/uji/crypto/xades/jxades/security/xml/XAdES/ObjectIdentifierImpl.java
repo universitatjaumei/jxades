@@ -17,41 +17,49 @@ public class ObjectIdentifierImpl implements ObjectIdentifier
 		this.documentationReferences = documentationReferences;
 	}
 
+	@Override
 	public String getQualifier() 
 	{
-		return qualifier;
+		return this.qualifier;
 	}
 
+	@Override
 	public void setQualifier(String qualifier) 
 	{
 		this.qualifier = qualifier;
 	}
 
+	@Override
 	public String getIdentifier() 
 	{
-		return identifier;
+		return this.identifier;
 	}
 
+	@Override
 	public void setIdentifier(String identifier) 
 	{
 		this.identifier = identifier;
 	}
 
+	@Override
 	public String getDescription() 
 	{
-		return description;
+		return this.description;
 	}
 
+	@Override
 	public void setDescription(String description) 
 	{
 		this.description = description;
 	}
 
+	@Override
 	public ArrayList<String> getDocumentationReferences() 
 	{
-		return documentationReferences;
+		return this.documentationReferences;
 	}
 
+	@Override
 	public void setDocumentationReferences(ArrayList<String> documentationReferences) 
 	{
 		this.documentationReferences = documentationReferences;

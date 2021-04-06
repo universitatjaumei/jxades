@@ -28,16 +28,16 @@ import javax.xml.crypto.dsig.keyinfo.X509Data;
 import org.w3c.dom.Element;
 
 /**
- * 
+ *
  * @author miro
  */
 public class XMLSignatureElement
 {
-    private Element signatureElement;
+    private final Element signatureElement;
     private XMLSignatureFactory xmlSignatureFactory;
     private KeySelector keySelector;
 
-    public XMLSignatureElement(Element signatureElement)
+    public XMLSignatureElement(final Element signatureElement)
     {
         if (signatureElement == null)
         {
@@ -48,32 +48,32 @@ public class XMLSignatureElement
 
     protected XMLSignatureFactory getXMLSignatureFactory()
     {
-        if (xmlSignatureFactory == null)
+        if (this.xmlSignatureFactory == null)
         {
-            xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
+            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
         }
-        return xmlSignatureFactory;
+        return this.xmlSignatureFactory;
     }
 
     protected KeySelector getKeySelector()
     {
-        if (keySelector == null)
+        if (this.keySelector == null)
         {
-            keySelector = new KeyValueKeySelector();
+            this.keySelector = new KeyValueKeySelector();
         }
-        return keySelector;
+        return this.keySelector;
     }
 
     public XMLSignature getXMLSignature() throws MarshalException
     {
-        DOMValidateContext valContext = new DOMValidateContext(getKeySelector(), signatureElement);
-        XMLSignatureFactory fac = getXMLSignatureFactory();
+        final DOMValidateContext valContext = new DOMValidateContext(getKeySelector(), this.signatureElement);
+        final XMLSignatureFactory fac = getXMLSignatureFactory();
         return fac.unmarshalXMLSignature(valContext);
     }
 
     public KeyInfo getKeyInfo() throws MarshalException
     {
-        XMLSignature xmlSignature = getXMLSignature();
+        final XMLSignature xmlSignature = getXMLSignature();
         if (xmlSignature != null)
         {
             return xmlSignature.getKeyInfo();
@@ -84,10 +84,10 @@ public class XMLSignatureElement
 
     public X509Data getX509Data() throws MarshalException
     {
-        KeyInfo keyInfo = getKeyInfo();
+        final KeyInfo keyInfo = getKeyInfo();
         if (keyInfo != null)
         {
-            for (Object o1 : keyInfo.getContent())
+            for (final Object o1 : keyInfo.getContent())
             {
                 if (o1 instanceof X509Data)
                 {
@@ -101,10 +101,10 @@ public class XMLSignatureElement
 
     public X509Certificate getX509Certificate() throws MarshalException
     {
-        X509Data x509Data = getX509Data();
+        final X509Data x509Data = getX509Data();
         if (x509Data != null)
         {
-            for (Object o1 : x509Data.getContent())
+            for (final Object o1 : x509Data.getContent())
             {
                 if (o1 instanceof X509Certificate)
                 {
@@ -118,50 +118,51 @@ public class XMLSignatureElement
 
     public SignatureStatus validate()
     {
-        DOMValidateContext valContext = new DOMValidateContext(getKeySelector(), signatureElement);
-        XMLSignatureFactory fac = getXMLSignatureFactory();
-        String signatureId = signatureElement.getAttribute("Id");
+        final DOMValidateContext valContext = new DOMValidateContext(getKeySelector(), this.signatureElement);
+        final XMLSignatureFactory fac = getXMLSignatureFactory();
+        String signatureId = this.signatureElement.getAttribute("Id");
         XMLSignature signature = null;
         try
         {
             signature = fac.unmarshalXMLSignature(valContext);
         }
-        catch (NullPointerException ex)
+        catch (final NullPointerException ex)
         {
             return new SignatureStatus(signatureId, ex);
         }
-        catch (ClassCastException ex)
+        catch (final ClassCastException ex)
         {
             return new SignatureStatus(signatureId, ex);
         }
-        catch (MarshalException ex)
+        catch (final MarshalException ex)
         {
             return new SignatureStatus(signatureId, ex);
         }
 
-        String signId = signature.getId();
-        if (signatureId == null || (signId != null && !signId.equals(signatureId)))
-            signatureId = signId;
+        final String signId = signature.getId();
+        if (signatureId == null || signId != null && !signId.equals(signatureId)) {
+			signatureId = signId;
+		}
 
         boolean status = false;
         try
         {
             status = signature.validate(valContext);
         }
-        catch (ClassCastException ex)
+        catch (final ClassCastException ex)
         {
-            InvalidSignatureReason reason = new InvalidSignatureReason(
+            final InvalidSignatureReason reason = new InvalidSignatureReason(
                     InvalidSignature.NOT_COMPATIBLE_VALIDATE_CONTEXT, ex);
             return new SignatureStatus(signatureId, ValidateResult.INVALID, reason);
         }
-        catch (NullPointerException ex)
+        catch (final NullPointerException ex)
         {
-            InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex);
+            final InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex);
             return new SignatureStatus(signatureId, ValidateResult.INVALID, reason);
         }
-        catch (XMLSignatureException ex)
+        catch (final XMLSignatureException ex)
         {
-            InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex);
+            final InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex);
             return new SignatureStatus(signatureId, ValidateResult.INVALID, reason);
         }
 
@@ -170,46 +171,46 @@ public class XMLSignatureElement
         if (!status)
         {
             validateResult = new SignatureStatus(signatureId, ValidateResult.INVALID);
-            SignatureValue sv = signature.getSignatureValue();
+            final SignatureValue sv = signature.getSignatureValue();
             try
             {
                 if (!sv.validate(valContext))
                 {
-                    InvalidSignatureReason reason = new InvalidSignatureReason(sv);
+                    final InvalidSignatureReason reason = new InvalidSignatureReason(sv);
                     validateResult.addInvalidSignatureReason(reason);
                 }
             }
-            catch (NullPointerException ex)
+            catch (final NullPointerException ex)
             {
-                InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex);
+                final InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex);
                 validateResult.addInvalidSignatureReason(reason);
             }
-            catch (XMLSignatureException ex)
+            catch (final XMLSignatureException ex)
             {
-                InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex);
+                final InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex);
                 validateResult.addInvalidSignatureReason(reason);
             }
 
-            Iterator iter = signature.getSignedInfo().getReferences().iterator();
+            final Iterator iter = signature.getSignedInfo().getReferences().iterator();
             for (int i = 0; iter.hasNext(); i++)
             {
-                Reference ref = (Reference) iter.next();
+                final Reference ref = (Reference) iter.next();
                 try
                 {
                     if (!ref.validate(valContext))
                     {
-                        InvalidSignatureReason reason = new InvalidSignatureReason(ref);
+                        final InvalidSignatureReason reason = new InvalidSignatureReason(ref);
                         validateResult.addInvalidSignatureReason(reason);
                     }
                 }
-                catch (NullPointerException ex)
+                catch (final NullPointerException ex)
                 {
-                    InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex);
+                    final InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex);
                     validateResult.addInvalidSignatureReason(reason);
                 }
-                catch (XMLSignatureException ex)
+                catch (final XMLSignatureException ex)
                 {
-                    InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex);
+                    final InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex);
                     validateResult.addInvalidSignatureReason(reason);
                 }
             }
@@ -222,21 +223,26 @@ public class XMLSignatureElement
         return validateResult;
     }
 
-    private static class KeyValueKeySelector extends KeySelector
-    {
-        public KeySelectorResult select(KeyInfo keyInfo, KeySelector.Purpose purpose,
-                AlgorithmMethod method, XMLCryptoContext context) throws KeySelectorException
+    private static class KeyValueKeySelector extends KeySelector {
+
+        KeyValueKeySelector() {
+			// Vacio
+		}
+
+		@Override
+		public KeySelectorResult select(final KeyInfo keyInfo, final KeySelector.Purpose purpose,
+                final AlgorithmMethod method, final XMLCryptoContext context) throws KeySelectorException
         {
             if (keyInfo == null)
             {
                 throw new KeySelectorException("Null KeyInfo object!");
             }
-            SignatureMethod sm = (SignatureMethod) method;
-            List list = keyInfo.getContent();
+            final SignatureMethod sm = (SignatureMethod) method;
+            final List list = keyInfo.getContent();
 
             for (int i = 0; i < list.size(); i++)
             {
-                XMLStructure xmlStructure = (XMLStructure) list.get(i);
+                final XMLStructure xmlStructure = (XMLStructure) list.get(i);
                 if (xmlStructure instanceof KeyValue)
                 {
                     PublicKey pk = null;
@@ -244,7 +250,7 @@ public class XMLSignatureElement
                     {
                         pk = ((KeyValue) xmlStructure).getPublicKey();
                     }
-                    catch (KeyException ke)
+                    catch (final KeyException ke)
                     {
                         throw new KeySelectorException(ke);
                     }
@@ -257,15 +263,16 @@ public class XMLSignatureElement
                 else if (xmlStructure instanceof X509Data)
                 {
                     X509Certificate cert = null;
-                    List dataList = ((X509Data) xmlStructure).getContent();
-                    for (Object dataObject : dataList)
+                    final List dataList = ((X509Data) xmlStructure).getContent();
+                    for (final Object dataObject : dataList)
                     {
-                        if (dataObject instanceof X509Certificate)
-                            cert = (X509Certificate) dataObject;
+                        if (dataObject instanceof X509Certificate) {
+							cert = (X509Certificate) dataObject;
+						}
                     }
                     if (cert != null)
                     {
-                        PublicKey pk = cert.getPublicKey();
+                        final PublicKey pk = cert.getPublicKey();
 
                         if (algEquals(sm.getAlgorithm(), pk.getAlgorithm()))
                         {
@@ -277,38 +284,36 @@ public class XMLSignatureElement
             throw new KeySelectorException("No KeyValue element found!");
         }
 
-        static boolean algEquals(String algURI, String algName)
+        static boolean algEquals(final String algURI, final String algName)
         {
             if (algName.equalsIgnoreCase("DSA") && algURI.toUpperCase().contains("DSA"))
             {
                 return true;
             }
-            else
-            {
-                if (algName.equalsIgnoreCase("RSA") && algURI.toUpperCase().contains("RSA"))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+			if (algName.equalsIgnoreCase("RSA") && algURI.toUpperCase().contains("RSA"))
+			{
+			    return true;
+			}
+			else
+			{
+			    return false;
+			}
         }
     }
 
     private static class SimpleKeySelectorResult implements KeySelectorResult
     {
-        private PublicKey pk;
+        private final PublicKey pk;
 
-        SimpleKeySelectorResult(PublicKey pk)
+        SimpleKeySelectorResult(final PublicKey pk)
         {
             this.pk = pk;
         }
 
-        public Key getKey()
+        @Override
+		public Key getKey()
         {
-            return pk;
+            return this.pk;
         }
     }
 

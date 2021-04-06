@@ -55,39 +55,39 @@ public class ArchivalXAdESImpl extends ExtendedLongXAdESImpl
 
                 for (XAdES.Element key : XAdES.Element.values())
                 {
-                    NodeList nl = qpElement.getElementsByTagNameNS(xadesNamespace, key
+                    NodeList nl = qpElement.getElementsByTagNameNS(this.xadesNamespace, key
                             .getElementName());
                     int size;
                     if (nl != null && (size = nl.getLength()) > 0)
                     {
                         if (XAdES.Element.SIGNING_TIME.equals(key))
                         {
-                            SigningTime signingTime = new SigningTime(nl.item(0), xadesPrefix,
-                                    xadesNamespace, xmlSignaturePrefix);
+                            SigningTime signingTime = new SigningTime(nl.item(0), this.xadesPrefix,
+                                    this.xadesNamespace, this.xmlSignaturePrefix);
                             Date date = signingTime.getSigningTime();
                             if (date != null)
-                                data.put(XAdES.Element.SIGNING_TIME, date);
+                                this.data.put(XAdES.Element.SIGNING_TIME, date);
                         }
                         else if (XAdES.Element.SIGNER_DETAILS.equals(key))
                         {
                             SignerDetails signerDetails = new SignerDetails(nl.item(0),
-                                    xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-                            data.put(XAdES.Element.SIGNER, signerDetails.getSigner());
+                                    this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
+                            this.data.put(XAdES.Element.SIGNER, signerDetails.getSigner());
                         }
                         else if (XAdES.Element.COMPLETE_CERTIFICATE_REFS.equals(key))
                         {
                             CompleteCertificateRefsImpl completeCertificateRefs;
                             completeCertificateRefs = new CompleteCertificateRefsImpl(nl.item(0),
-                                    xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-                            data.put(XAdES.Element.COMPLETE_CERTIFICATE_REFS,
+                                    this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
+                            this.data.put(XAdES.Element.COMPLETE_CERTIFICATE_REFS,
                                     completeCertificateRefs);
                         }
                         else if (XAdES.Element.COMPLETE_REVOCATION_REFS.equals(key))
                         {
                             CompleteRevocationRefsImpl completeRevocationRefs;
                             completeRevocationRefs = new CompleteRevocationRefsImpl(nl.item(0),
-                                    xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-                            data
+                                    this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
+                            this.data
                                     .put(XAdES.Element.COMPLETE_REVOCATION_REFS,
                                             completeRevocationRefs);
                         }

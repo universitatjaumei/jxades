@@ -15,10 +15,11 @@ public enum XmlWrappedKeyInfo
 
     public String getWrappedKeyInfoName()
     {
-        return wrappedKeyInfoName;
+        return this.wrappedKeyInfoName;
     }
 
-    public String toString()
+    @Override
+	public String toString()
     {
         return getWrappedKeyInfoName();
     }

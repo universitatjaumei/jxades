@@ -28,7 +28,7 @@ public class CompleteCertificateRefsImpl extends XAdESStructure implements Compl
             throw new IllegalArgumentException(
                     "The CA Certificates collection can not be NULL or empty.");
 
-        certRefs = new CertRefs(document, this, caCertificates, signatureIdPrefix, xadesPrefix,
+        this.certRefs = new CertRefs(document, this, caCertificates, signatureIdPrefix, xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
     }
 
@@ -38,17 +38,18 @@ public class CompleteCertificateRefsImpl extends XAdESStructure implements Compl
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
-    public CertRefs getCertRefs()
+    @Override
+	public CertRefs getCertRefs()
     {
-        if (certRefs == null)
+        if (this.certRefs == null)
         {
             Element element = getChildElementNS("CertRefs");
             if (element != null)
             {
-                certRefs = new CertRefs(element, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+                this.certRefs = new CertRefs(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
             }
         }
 
-        return certRefs;
+        return this.certRefs;
     }
 }

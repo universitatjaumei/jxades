@@ -19,31 +19,37 @@ public class CommitmentTypeIndicationImpl implements CommitmentTypeIndication
 		this.commitmentTypeQualifiers = commitmentTypeQualifiers;
 	}
 
+	@Override
 	public CommitmentTypeId getCommitmentTypeId() 
 	{
-		return commitmentTypeId;
+		return this.commitmentTypeId;
 	}
 
+	@Override
 	public void setCommitmentTypeId(CommitmentTypeId commitmentTypeId) 
 	{
 		this.commitmentTypeId = commitmentTypeId;
 	}
 
+	@Override
 	public String getObjectReference() 
 	{
-		return objectReference;
+		return this.objectReference;
 	}
 
+	@Override
 	public void setObjectReference(String objectReference) 
 	{
 		this.objectReference = objectReference;
 	}
 
+	@Override
 	public ArrayList<String> getCommitmentTypeQualifiers() 
 	{
-		return commitmentTypeQualifiers;
+		return this.commitmentTypeQualifiers;
 	}
 
+	@Override
 	public void setCommitmentTypeQualifiers(ArrayList<String> commitmentTypeQualifiers) 
 	{
 		this.commitmentTypeQualifiers = commitmentTypeQualifiers;

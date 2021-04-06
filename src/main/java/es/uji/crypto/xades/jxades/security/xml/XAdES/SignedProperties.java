@@ -51,23 +51,23 @@ public class SignedProperties extends XAdESStructure
 
     public SignedSignatureProperties getSignedSignatureProperties()
     {
-        if (signedSignatureProperties == null)
+        if (this.signedSignatureProperties == null)
         {
-            signedSignatureProperties = new SignedSignatureProperties(document, this, xadesPrefix,
-                    xadesNamespace, xmlSignaturePrefix);
+            this.signedSignatureProperties = new SignedSignatureProperties(this.document, this, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
         }
 
-        return signedSignatureProperties;
+        return this.signedSignatureProperties;
     }
 
     public SignedDataObjectProperties getSignedDataObjectProperties()
     {
-        if (signedDataObjectProperties == null)
+        if (this.signedDataObjectProperties == null)
         {
-            signedDataObjectProperties = new SignedDataObjectProperties(document, this, xadesPrefix,
-                    xadesNamespace, xmlSignaturePrefix);
+            this.signedDataObjectProperties = new SignedDataObjectProperties(this.document, this, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
         }
 
-        return signedDataObjectProperties;
+        return this.signedDataObjectProperties;
     }
 }

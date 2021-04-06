@@ -5,11 +5,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import es.uji.crypto.xades.jxades.util.ObjectId;
-import es.uji.crypto.xades.jxades.util.OccursRequirement;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import es.uji.crypto.xades.jxades.util.ObjectId;
+import es.uji.crypto.xades.jxades.util.OccursRequirement;
 
 /**
  * Xml Advanced Electronic Signature (XAdES) profiles are
@@ -27,11 +27,10 @@ import org.w3c.dom.NodeList;
  **/
 
 /**
- * 
+ *
  * @author miro
  */
-public enum XAdES
-{
+public enum XAdES {
     /**
      * 4.4 Electronic signature forms The current clause specifies four forms of XML advanced
      * electronic signatures, namely the Basic Electronic Signature (XAdES-BES), the Explicit Policy
@@ -40,10 +39,10 @@ public enum XAdES
      * of these formats. The informative annex B defines extended forms of XAdES. Conformance to the
      * present document does not mandate the signer to create any of the forms defined in annex B.
      **/
-    BES("XAdES-BES", "4.4.1", "Basic Electronic Signature"),
-    EPES("XAdES-EPES", "4.4.2", "Explicit Policy Electronic Signatures"),
-    T("XAdES-T", "4.4.3.1", "Electronic Signature with Time"),
-    C("XAdES-C", "4.4.3.2", "Electronic Signature with Complete Validation Data References"),
+    BES("XAdES-BES", "4.4.1", "Basic Electronic Signature"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    EPES("XAdES-EPES", "4.4.2", "Explicit Policy Electronic Signatures"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    T("XAdES-T", "4.4.3.1", "Electronic Signature with Time"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    C("XAdES-C", "4.4.3.2", "Electronic Signature with Complete Validation Data References"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     /**
      * 4.5 Validation process The Validation Process validates an electronic signature, the output
@@ -62,7 +61,7 @@ public enum XAdES
      * indicates that the signature has passed verification and it complies with the signature
      * validation policy. Informative annex G gives details on technical rules that verifiers should
      * follow for verifying XAdES signatures.
-     * 
+     *
      * 4.6 Arbitration In case of arbitration, a XAdES-C form provides reliable evidence for a valid
      * electronic signature, provided that: - the arbitrator knows where to retrieve the signer's
      * certificate (if not already present), all the required certificates and CRLs, ACRLs or OCSP
@@ -77,7 +76,7 @@ public enum XAdES
      * was built has not been broken at the time the arbitration is performed. If the signature
      * policy can be explicitly or implicitly identified then an arbitrator is able to determine the
      * rules required to validate the electronic signature.
-     * 
+     *
      * Annex B (informative): Extended electronic signature forms The XAdES forms specified in
      * clause 4.4 can be extended by addition of certain unsigned properties that are defined in the
      * present document. These properties are applicable for very long term verification, and for
@@ -85,10 +84,10 @@ public enum XAdES
      * present document. The clauses below give an overview of the various forms of extended
      * signature formats in the present document.
      **/
-    X("XAdES-X", "B.1", "Extended Signatures with Time Forms"),
-    X_L("XAdES-X-L", "B.2", "Extended Long Electronic Signatures with Time"),
-    A("XAdES-A", "B.3", "Archival Electronic Signatures"),
-    
+    X("XAdES-X", "B.1", "Extended Signatures with Time Forms"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    X_L("XAdES-X-L", "B.2", "Extended Long Electronic Signatures with Time"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    A("XAdES-A", "B.3", "Archival Electronic Signatures"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
     /**
      * ETSI EN 319 132-1 V1.1.1 6.3<br>
      * <br>
@@ -107,10 +106,10 @@ public enum XAdES
      * validation material.</li>
      * </ol>
      */
-    B_LEVEL("B-B-LEVEL", "ETSI EN 319 132-1 V1.1.1 6.3", "XAdES BASELINE B-LEVEL"),
-	T_LEVEL("B-T-LEVEL", "ETSI EN 319 132-1 V1.1.1 6.3", "XAdES BASELINE T-LEVEL");
+    B_LEVEL("B-B-LEVEL", "ETSI EN 319 132-1 V1.1.1 6.3", "XAdES BASELINE B-LEVEL"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+	T_LEVEL("B-T-LEVEL", "ETSI EN 319 132-1 V1.1.1 6.3", "XAdES BASELINE T-LEVEL"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-    private XAdES(String nickname, String contentsId, String title)
+    XAdES(final String nickname, final String contentsId, final String title)
     {
         this.nickname = nickname;
         this.contentsId = contentsId;
@@ -123,69 +122,69 @@ public enum XAdES
 
     public String getNickname()
     {
-        return nickname;
+        return this.nickname;
     }
 
     public String getContentsId()
     {
-        return contentsId;
+        return this.contentsId;
     }
 
     public String getTitle()
     {
-        return title;
+        return this.title;
     }
 
     public enum Element implements XadesElement
     {
-        OBJECT(null, "Object"),
-        QUALIFYING_PROPERTIES(OBJECT, "QualifyingProperties"),
-        SIGNED_PROPERTIES(QUALIFYING_PROPERTIES, "SignedProperties"),
-        SIGNED_SIGNATURE_PROPERTIES(SIGNED_PROPERTIES, "SignedSignatureProperties"),
-        SIGNING_TIME(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "SigningTime", OccursRequirement.ZERO_OR_ONE),
-        SIGNING_CERTIFICATE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificate", OccursRequirement.ZERO_OR_ONE),
-        SIGNATURE_POLICY_IDENTIFIER(new XAdES[] {XAdES.EPES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "SignaturePolicyIdentifier", OccursRequirement.EXACTLY_ONE),
-        SIGNATURE_PRODUCTION_PLACE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlace", OccursRequirement.ZERO_OR_ONE),
-        SIGNER_ROLE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignerRole", OccursRequirement.ZERO_OR_ONE),
-        CLAIMED_ROLES(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNER_ROLE, "ClaimedRoles", OccursRequirement.ZERO_OR_MORE),
-        CERTIFIED_ROLES(XAdES.BES, SIGNER_ROLE, "CertifiedRoles", OccursRequirement.ZERO_OR_MORE),
-        SIGNER(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "Signer", OccursRequirement.ZERO_OR_ONE),
-        SIGNER_DETAILS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "SignerDetails", OccursRequirement.ZERO_OR_ONE),
-        SIGNED_DATA_OBJECT_PROPERTIES(SIGNED_PROPERTIES, "SignedDataObjectProperties"),
-        DATA_OBJECT_FORMATS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "DataObjectFormat", OccursRequirement.ZERO_OR_MORE),
-        COMMITMENT_TYPE_INDICATIONS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "CommitmentTypeIndication", OccursRequirement.ZERO_OR_MORE),
-        ALL_DATA_OBJECTS_TIMESTAMPS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "AllDataObjectsTimeStamp", OccursRequirement.ZERO_OR_MORE),
-        INDIVIDUAL_DATA_OBJECTS_TIMESTAMPS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "IndividualDataObjectsTimeStamp", OccursRequirement.ZERO_OR_MORE),
-        UNSIGNED_PROPERTIES(QUALIFYING_PROPERTIES, "UnsignedProperties"),
-        UNSIGNED_SIGNATURE_PROPERTIES(UNSIGNED_PROPERTIES, "UnsignedSignatureProperties"),
-        COUNTER_SIGNATURES(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, UNSIGNED_SIGNATURE_PROPERTIES, "CounterSignature", OccursRequirement.ZERO_OR_MORE),
-        SIGNATURE_TIME_STAMP(new XAdES[] {XAdES.T, XAdES.T_LEVEL}, UNSIGNED_SIGNATURE_PROPERTIES, "SignatureTimeStamp", OccursRequirement.ONE_OR_MORE),
-        COMPLETE_CERTIFICATE_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs", OccursRequirement.EXACTLY_ONE),
-        COMPLETE_REVOCATION_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteRevocationRefs", OccursRequirement.EXACTLY_ONE),
-        ATTRIBUTE_CERTIFICATE_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "AttributeCertificateRefs", OccursRequirement.ZERO_OR_ONE),
-        ATTRIBUTE_REVOCATION_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs", OccursRequirement.ZERO_OR_ONE),
-        QUALIFYING_PROPERTIES_REFERENCE(OBJECT, "QualifyingPropertiesReference"),
-        
+        OBJECT(null, "Object"), //$NON-NLS-1$
+        QUALIFYING_PROPERTIES(OBJECT, "QualifyingProperties"), //$NON-NLS-1$
+        SIGNED_PROPERTIES(QUALIFYING_PROPERTIES, "SignedProperties"), //$NON-NLS-1$
+        SIGNED_SIGNATURE_PROPERTIES(SIGNED_PROPERTIES, "SignedSignatureProperties"), //$NON-NLS-1$
+        SIGNING_TIME(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "SigningTime", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        SIGNING_CERTIFICATE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificate", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        SIGNATURE_POLICY_IDENTIFIER(new XAdES[] {XAdES.EPES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "SignaturePolicyIdentifier", OccursRequirement.EXACTLY_ONE), //$NON-NLS-1$
+        SIGNATURE_PRODUCTION_PLACE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlace", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        SIGNER_ROLE(XAdES.BES, SIGNED_SIGNATURE_PROPERTIES, "SignerRole", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        CLAIMED_ROLES(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNER_ROLE, "ClaimedRoles", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        CERTIFIED_ROLES(XAdES.BES, SIGNER_ROLE, "CertifiedRoles", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        SIGNER(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "Signer", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        SIGNER_DETAILS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_SIGNATURE_PROPERTIES, "SignerDetails", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        SIGNED_DATA_OBJECT_PROPERTIES(SIGNED_PROPERTIES, "SignedDataObjectProperties"), //$NON-NLS-1$
+        DATA_OBJECT_FORMATS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "DataObjectFormat", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        COMMITMENT_TYPE_INDICATIONS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "CommitmentTypeIndication", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        ALL_DATA_OBJECTS_TIMESTAMPS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "AllDataObjectsTimeStamp", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        INDIVIDUAL_DATA_OBJECTS_TIMESTAMPS(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, SIGNED_DATA_OBJECT_PROPERTIES, "IndividualDataObjectsTimeStamp", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        UNSIGNED_PROPERTIES(QUALIFYING_PROPERTIES, "UnsignedProperties"), //$NON-NLS-1$
+        UNSIGNED_SIGNATURE_PROPERTIES(UNSIGNED_PROPERTIES, "UnsignedSignatureProperties"), //$NON-NLS-1$
+        COUNTER_SIGNATURES(new XAdES[] {XAdES.BES, XAdES.B_LEVEL}, UNSIGNED_SIGNATURE_PROPERTIES, "CounterSignature", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+        SIGNATURE_TIME_STAMP(new XAdES[] {XAdES.T, XAdES.T_LEVEL}, UNSIGNED_SIGNATURE_PROPERTIES, "SignatureTimeStamp", OccursRequirement.ONE_OR_MORE), //$NON-NLS-1$
+        COMPLETE_CERTIFICATE_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs", OccursRequirement.EXACTLY_ONE), //$NON-NLS-1$
+        COMPLETE_REVOCATION_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteRevocationRefs", OccursRequirement.EXACTLY_ONE), //$NON-NLS-1$
+        ATTRIBUTE_CERTIFICATE_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "AttributeCertificateRefs", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        ATTRIBUTE_REVOCATION_REFS(XAdES.C, UNSIGNED_SIGNATURE_PROPERTIES, "CompleteCertificateRefs", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        QUALIFYING_PROPERTIES_REFERENCE(OBJECT, "QualifyingPropertiesReference"), //$NON-NLS-1$
+
         /** XAdES Baseline attributes */
-        SIGNING_CERTIFICATE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificateV2", OccursRequirement.EXACTLY_ONE),
-        SIGNATURE_PRODUCTION_PLACE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlaceV2", OccursRequirement.ZERO_OR_ONE),
-        SIGNER_ROLE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SignerRoleV2", OccursRequirement.ZERO_OR_ONE),
-    	CERTIFIED_ROLES_V2(XAdES.B_LEVEL, SIGNER_ROLE_V2, "CertifiedRolesV2", OccursRequirement.ZERO_OR_MORE),
-    	SIGNED_ASSERTIONS(XAdES.B_LEVEL, SIGNER_ROLE_V2, "SignedAssertions", OccursRequirement.ZERO_OR_MORE);
-    	
-        private Element(XadesElement parent, String elementName)
+        SIGNING_CERTIFICATE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SigningCertificateV2", OccursRequirement.EXACTLY_ONE), //$NON-NLS-1$
+        SIGNATURE_PRODUCTION_PLACE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SignatureProductionPlaceV2", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+        SIGNER_ROLE_V2(XAdES.B_LEVEL, SIGNED_SIGNATURE_PROPERTIES, "SignerRoleV2", OccursRequirement.ZERO_OR_ONE), //$NON-NLS-1$
+    	CERTIFIED_ROLES_V2(XAdES.B_LEVEL, SIGNER_ROLE_V2, "CertifiedRolesV2", OccursRequirement.ZERO_OR_MORE), //$NON-NLS-1$
+    	SIGNED_ASSERTIONS(XAdES.B_LEVEL, SIGNER_ROLE_V2, "SignedAssertions", OccursRequirement.ZERO_OR_MORE); //$NON-NLS-1$
+
+        Element(final XadesElement parent, final String elementName)
         {
             this((XAdES[]) null, parent, elementName, OccursRequirement.EXACTLY_ONE);
         }
 
-        private Element(XAdES xades, XadesElement parent, String elementName,
-                OccursRequirement occursRequirement)
+        Element(final XAdES xades, final XadesElement parent, final String elementName,
+                final OccursRequirement occursRequirement)
         {
 			this(xades != null ? new XAdES[] { xades } : (XAdES[]) null, parent, elementName, OccursRequirement.EXACTLY_ONE);
         }
-        
-        private Element(XAdES[] xades, XadesElement parent, String elementName,
-                OccursRequirement occursRequirement)
+
+        Element(final XAdES[] xades, final XadesElement parent, final String elementName,
+                final OccursRequirement occursRequirement)
         {
             this.xades = xades;
             this.parent = parent;
@@ -193,20 +192,22 @@ public enum XAdES
             this.occursRequirement = OccursRequirement.EXACTLY_ONE;
         }
 
-        public XAdES[] getXAdES()
+        @Override
+		public XAdES[] getXAdES()
         {
             return this.xades == null ? null : (XAdES[]) this.xades.clone();
         }
 
-        public ObjectId getObjectId()
+        @Override
+		public ObjectId getObjectId()
         {
-            if (objectId == null)
+            if (this.objectId == null)
             {
                 int components[];
-                if (parent != null)
+                if (this.parent != null)
                 {
-                    int[] parentComps = parent.getObjectId().getComponents();
-                    int size = parentComps.length;
+                    final int[] parentComps = this.parent.getObjectId().getComponents();
+                    final int size = parentComps.length;
                     components = new int[size + 1];
                     System.arraycopy(parentComps, 0, components, 0, size);
                     components[size] = ordinal() + 1;
@@ -215,30 +216,34 @@ public enum XAdES
                 {
                     components = new int[] { 0, ordinal() + 1 };
                 }
-                objectId = new ObjectId(components);
+                this.objectId = new ObjectId(components);
             }
 
-            return objectId;
+            return this.objectId;
         }
 
-        public String getElementName()
+        @Override
+		public String getElementName()
         {
-            return elementName;
+            return this.elementName;
         }
 
-        public OccursRequirement getOccursRequirement()
+        @Override
+		public OccursRequirement getOccursRequirement()
         {
-            return occursRequirement;
+            return this.occursRequirement;
         }
 
-        public XadesElement getParent()
+        @Override
+		public XadesElement getParent()
         {
-            return parent;
+            return this.parent;
         }
 
-        public String toString()
+        @Override
+		public String toString()
         {
-            return "[" + getObjectId() + "] " + getElementName();
+            return "[" + getObjectId() + "] " + getElementName(); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         private XAdES[] xades;
@@ -270,34 +275,34 @@ public enum XAdES
     public static final XadesElementsEnumeration XAdES_T_LEVEL_ELEMENTS = new XadesElementsEnumeration(
             Element.values(), XAdES.T_LEVEL);
 
-    public static XAdESBase newInstance(XAdES xades, org.w3c.dom.Element baseElement)
+    public static XAdESBase newInstance(final XAdES xades, final org.w3c.dom.Element baseElement)
     {
-        return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign",
+        return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign", //$NON-NLS-1$ //$NON-NLS-2$
                 DigestMethod.SHA1, baseElement.getOwnerDocument(), baseElement);
     }
 
-    public static XAdESBase newInstance(XAdES xades)
+    public static XAdESBase newInstance(final XAdES xades)
     {
         try
         {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setNamespaceAware(true);
             DocumentBuilder documentBuilder;
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
+            final Document document = documentBuilder.newDocument();
 
-            return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign",
+            return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign", //$NON-NLS-1$ //$NON-NLS-2$
                     DigestMethod.SHA1, document, null);
         }
-        catch (ParserConfigurationException e)
+        catch (final ParserConfigurationException e)
         {
             return null;
         }
     }
 
-    public static XAdESBase newInstance(XAdES xades, String xadesNamespace, String xadesPrefix,
-            String xmlSignaturePrefix, String digestMethod, Document document,
-            org.w3c.dom.Element baseElement)
+    public static XAdESBase newInstance(final XAdES xades, final String xadesNamespace, final String xadesPrefix,
+            final String xmlSignaturePrefix, final String digestMethod, final Document document,
+            final org.w3c.dom.Element baseElement)
     {
         setDefinedIdAttributesAsDOMIds(document);
 
@@ -306,40 +311,52 @@ public enum XAdES
             return new BasicXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);
         }
-        else if (EPES.equals(xades))
+		if (EPES.equals(xades))
         {
             return new ExplicitPolicyXAdESImpl(document, baseElement, false, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
-        else if (T.equals(xades))
+		if (T.equals(xades))
         {
             return new TimestampXAdESImpl(document, baseElement, false, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
-        else if (C.equals(xades))
+		if (C.equals(xades))
         {
             return new CompleteValidationXAdESImpl(document, baseElement, false, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
-        else if (X.equals(xades))
+		if (X.equals(xades))
         {
             return new ExtendedXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);
         }
-        else if (X_L.equals(xades))
+		if (X_L.equals(xades))
         {
             return new ExtendedLongXAdESImpl(document, baseElement, false, xadesPrefix,
                     xadesNamespace, xmlSignaturePrefix, digestMethod);
         }
-        else if (A.equals(xades))
-        {
-            return new ArchivalXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, digestMethod);
+		if (A.equals(xades)) {
+            return new ArchivalXAdESImpl(
+        		document,
+        		baseElement,
+        		false,
+        		xadesPrefix,
+        		xadesNamespace,
+                xmlSignaturePrefix,
+                digestMethod
+            );
         }
-        else if (B_LEVEL.equals(xades))
-        {
-            return new BLevelXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, digestMethod);
+        else if (B_LEVEL.equals(xades)) {
+            return new BLevelXAdESImpl(
+        		document,
+        		baseElement,
+        		false,
+        		xadesPrefix,
+        		xadesNamespace,
+                xmlSignaturePrefix,
+                digestMethod
+            );
         }
         else if (T_LEVEL.equals(xades))
         {
@@ -347,20 +364,20 @@ public enum XAdES
                     xmlSignaturePrefix, digestMethod);
         }
 
-        throw new IllegalArgumentException("Unknown XAdES type: " + xades);
+        throw new IllegalArgumentException("Unknown XAdES type: " + xades); //$NON-NLS-1$
     }
 
-    private static void setDefinedIdAttributesAsDOMIds(Document document)
+    private static void setDefinedIdAttributesAsDOMIds(final Document document)
     {
-        NodeList nodes = document.getElementsByTagName("*");
+        final NodeList nodes = document.getElementsByTagName("*"); //$NON-NLS-1$
 
         for (int i=0 ; i<nodes.getLength() ; i++)
         {
-            org.w3c.dom.Element node = (org.w3c.dom.Element) nodes.item(i);
+            final org.w3c.dom.Element node = (org.w3c.dom.Element) nodes.item(i);
 
-            if (node.getAttribute("Id") != null && !node.getAttribute("Id").isEmpty())
+            if (node.getAttribute("Id") != null && !node.getAttribute("Id").isEmpty()) //$NON-NLS-1$ //$NON-NLS-2$
             {
-                node.setIdAttributeNS(null, "Id", true);
+                node.setIdAttributeNS(null, "Id", true); //$NON-NLS-1$
             }
         }
     }

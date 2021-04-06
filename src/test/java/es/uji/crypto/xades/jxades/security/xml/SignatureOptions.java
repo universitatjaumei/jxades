@@ -12,7 +12,7 @@ public class SignatureOptions
 
     public KeyStore getKeystore()
     {
-        return keystore;
+        return this.keystore;
     }
 
     public void setKeystore(KeyStore keystore)
@@ -22,7 +22,7 @@ public class SignatureOptions
 
     public X509Certificate getCertificate()
     {
-        return certificate;
+        return this.certificate;
     }
 
     public void setCertificate(X509Certificate certificate)
@@ -32,7 +32,7 @@ public class SignatureOptions
 
     public PrivateKey getPrivateKey()
     {
-        return privateKey;
+        return this.privateKey;
     }
 
     public void setPrivateKey(PrivateKey privateKey)

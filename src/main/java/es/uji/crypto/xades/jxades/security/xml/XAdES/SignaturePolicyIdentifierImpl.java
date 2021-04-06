@@ -38,12 +38,14 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
         return baos.toByteArray();
     }
     
-    public void setIdentifier(final String identifier) throws IOException, NoSuchAlgorithmException
+    @Override
+	public void setIdentifier(final String identifier) throws IOException, NoSuchAlgorithmException
     {
         setIdentifier(identifier, null, null);
     }
     
-    public void setIdentifier(final String identifier, final String hashBase64, final String hashAlgorithm) throws IOException, NoSuchAlgorithmException
+    @Override
+	public void setIdentifier(final String identifier, final String hashBase64, final String hashAlgorithm) throws IOException, NoSuchAlgorithmException
     {
         if (hashBase64 == null || "".equals(hashBase64) || hashAlgorithm == null || "".equals(hashAlgorithm)) //$NON-NLS-1$ //$NON-NLS-2$
         {
@@ -62,47 +64,56 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
         this.sigPolicyId = identifier;
     }
     
-    public boolean isImplied()
+    @Override
+	public boolean isImplied()
     {
         return this.implied;
     }
 
-    public void setImplied(boolean implied)
+    @Override
+	public void setImplied(boolean implied)
     {
         this.implied = implied;
     }
 
-    public String getIdentifier()
+    @Override
+	public String getIdentifier()
     {
         return this.sigPolicyId;
     }
 
-    public String getHashBase64()
+    @Override
+	public String getHashBase64()
     {
         return this.sigPolicyHashBase64;
     }
 
-    public String getDescription()
+    @Override
+	public String getDescription()
     {
         return this.description;
     }
 
-    public void setDescription(String description)
+    @Override
+	public void setDescription(String description)
     {
         this.description = description;        
     }
     
-    public String getQualifier()
+    @Override
+	public String getQualifier()
     {
         return this.sigPolicyQualifierSPURI;
     }
 
-    public void setQualifier(String qualifier)
+    @Override
+	public void setQualifier(String qualifier)
     {
         this.sigPolicyQualifierSPURI = qualifier;        
     }
 
-    public String getHashAlgorithm() {
+    @Override
+	public String getHashAlgorithm() {
         return this.sigPolicyHashHashAlgorithm;
     }    
 }

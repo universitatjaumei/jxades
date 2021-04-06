@@ -39,7 +39,7 @@ public class XAdESStructure extends DOMStructure
     {
         this(document.createElementNS(xadesNamespace, elementName), xadesPrefix, xadesNamespace,
                 xmlSignaturePrefix);
-        baseDocument = document;
+        this.baseDocument = document;
 
         this.xadesPrefix = xadesPrefix;
         this.xadesNamespace = xadesNamespace;
@@ -109,7 +109,7 @@ public class XAdESStructure extends DOMStructure
 
     protected Element getChildElementNS(String elementName)
     {
-        return XMLUtils.getChildElementByTagNameNS(getElement(), elementName, xadesNamespace);
+        return XMLUtils.getChildElementByTagNameNS(getElement(), elementName, this.xadesNamespace);
     }
 
     protected Element getChildElementNS(String elementName, String namespace)
@@ -124,18 +124,18 @@ public class XAdESStructure extends DOMStructure
 
     protected List<Element> getChildElementsNS(String elementName)
     {
-        return XMLUtils.getChildElementsByTagNameNS(getElement(), elementName, xadesNamespace);
+        return XMLUtils.getChildElementsByTagNameNS(getElement(), elementName, this.xadesNamespace);
     }
 
     protected Document getDocument()
     {
-        return baseDocument;
+        return this.baseDocument;
     }
 
     protected Element createElement(String elementName)
     {
-        Element element = getDocument().createElementNS(xadesNamespace, elementName);
-        element.setPrefix(xadesPrefix);
+        Element element = getDocument().createElementNS(this.xadesNamespace, elementName);
+        element.setPrefix(this.xadesPrefix);
 
         return element;
     }

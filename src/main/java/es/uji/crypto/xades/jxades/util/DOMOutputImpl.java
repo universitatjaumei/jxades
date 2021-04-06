@@ -1,12 +1,12 @@
 /*
  * Copyright 2001, 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,9 +35,9 @@ import org.w3c.dom.ls.LSOutput;
  * be used: 1.LSOutput.characterStream 2.LSOutput.byteStream 3.LSOutput.systemId LSOutput objects
  * belong to the application. The DOM implementation will never modify them (though it may make
  * copies and modify the copies, if necessary).
- * 
+ *
  * @xerces.internal
- * 
+ *
  * @author Arun Yadav, Sun Microsytems
  * @author Gopal Sharma, Sun Microsystems
  **/
@@ -64,10 +64,11 @@ public class DOMOutputImpl implements LSOutput
      * an XML declaration in the data.
      */
 
-    public Writer getCharacterStream()
+    @Override
+	public Writer getCharacterStream()
     {
-        return fCharStream;
-    };
+        return this.fCharStream;
+    }
 
     /**
      * An attribute of a language and binding dependent type that represents a writable stream of
@@ -76,10 +77,11 @@ public class DOMOutputImpl implements LSOutput
      * an XML declaration in the data.
      */
 
-    public void setCharacterStream(Writer characterStream)
+    @Override
+	public void setCharacterStream(final Writer characterStream)
     {
-        fCharStream = characterStream;
-    };
+        this.fCharStream = characterStream;
+    }
 
     /**
      * Depending on the language binding in use, this attribute may not be available. An attribute
@@ -88,10 +90,11 @@ public class DOMOutputImpl implements LSOutput
      * [Unicode] and Amendment 1 of [ISO/IEC 10646]).
      */
 
-    public OutputStream getByteStream()
+    @Override
+	public OutputStream getByteStream()
     {
-        return fByteStream;
-    };
+        return this.fByteStream;
+    }
 
     /**
      * Depending on the language binding in use, this attribute may not be available. An attribute
@@ -100,10 +103,11 @@ public class DOMOutputImpl implements LSOutput
      * [Unicode] and Amendment 1 of [ISO/IEC 10646]).
      */
 
-    public void setByteStream(OutputStream byteStream)
+    @Override
+	public void setByteStream(final OutputStream byteStream)
     {
-        fByteStream = byteStream;
-    };
+        this.fByteStream = byteStream;
+    }
 
     /**
      * The system identifier, a URI reference [IETF RFC 2396], for this output destination. If the
@@ -112,10 +116,11 @@ public class DOMOutputImpl implements LSOutput
      * reference (see section 5 in [IETF RFC 2396]), the behavior is implementation dependent.
      */
 
-    public String getSystemId()
+    @Override
+	public String getSystemId()
     {
-        return fSystemId;
-    };
+        return this.fSystemId;
+    }
 
     /**
      * The system identifier, a URI reference [IETF RFC 2396], for this output destination. If the
@@ -124,10 +129,11 @@ public class DOMOutputImpl implements LSOutput
      * reference (see section 5 in [IETF RFC 2396]), the behavior is implementation dependent.
      */
 
-    public void setSystemId(String systemId)
+    @Override
+	public void setSystemId(final String systemId)
     {
-        fSystemId = systemId;
-    };
+        this.fSystemId = systemId;
+    }
 
     /**
      * The character encoding, if known. The encoding must be a string acceptable for an XML
@@ -138,10 +144,11 @@ public class DOMOutputImpl implements LSOutput
      * from a higher level protocol, such as HTTP [IETF RFC 2616].
      */
 
-    public String getEncoding()
+    @Override
+	public String getEncoding()
     {
-        return fEncoding;
-    };
+        return this.fEncoding;
+    }
 
     /**
      * The character encoding, if known. The encoding must be a string acceptable for an XML
@@ -152,9 +159,10 @@ public class DOMOutputImpl implements LSOutput
      * from a higher level protocol, such as HTTP [IETF RFC 2616].
      */
 
-    public void setEncoding(String encoding)
+    @Override
+	public void setEncoding(final String encoding)
     {
-        fEncoding = encoding;
-    };
+        this.fEncoding = encoding;
+    }
 
 }// DOMOutputImpl

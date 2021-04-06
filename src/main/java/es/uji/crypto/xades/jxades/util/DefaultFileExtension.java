@@ -71,38 +71,44 @@ public enum DefaultFileExtension
         this.extensions = exts;
     }
 
-    public String getDescription()
+    @Override
+	public String getDescription()
     {
-        return description;
+        return this.description;
     }
 
-    public String getExtension()
+    @Override
+	public String getExtension()
     {
-        return extension;
+        return this.extension;
     }
 
-    public String getFileFilterName()
+    @Override
+	public String getFileFilterName()
     {
-        return fileFilterName;
+        return this.fileFilterName;
     }
 
-    public String getFileFilterPattern()
+    @Override
+	public String getFileFilterPattern()
     {
-        return fileFilterPattern;
+        return this.fileFilterPattern;
     }
 
-    public List<FileExtension> getExtensions()
+    @Override
+	public List<FileExtension> getExtensions()
     {
-        return extensions;
+        return this.extensions;
     }
 
-    public boolean contains(FileExtension object)
+    @Override
+	public boolean contains(FileExtension object)
     {
-        if(extension != null)
+        if(this.extension != null)
             return equals(object);
-        else if(extensions != null)
+        else if(this.extensions != null)
         {
-            Iterator<FileExtension> iter = extensions.iterator();
+            Iterator<FileExtension> iter = this.extensions.iterator();
             while(iter.hasNext())
             {
                 if(iter.next().equals(object))

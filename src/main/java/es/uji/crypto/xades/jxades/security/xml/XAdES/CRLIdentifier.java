@@ -39,49 +39,49 @@ public class CRLIdentifier extends XAdESStructure
 
     public X500Principal getIssuer()
     {
-        if (issuer == null)
+        if (this.issuer == null)
         {
             String value = getChildElementTextContent("Issuer");
             if (value != null)
-                issuer = new X500Principal(value);
+                this.issuer = new X500Principal(value);
         }
 
-        return issuer;
+        return this.issuer;
     }
 
     public Date getIssueTime() throws ParseException
     {
-        if (issueTime == null)
+        if (this.issueTime == null)
         {
             String value = getChildElementTextContent("IssueTime");
             if (value != null)
-                issueTime = SystemUtils.parseDate(value);
+                this.issueTime = SystemUtils.parseDate(value);
         }
 
-        return issueTime;
+        return this.issueTime;
     }
 
     public BigInteger getCRLNumber()
     {
-        if (crlNumber == null)
+        if (this.crlNumber == null)
         {
             String value = getChildElementTextContent("Number");
             if (value != null)
-                crlNumber = new BigInteger(value);
+                this.crlNumber = new BigInteger(value);
         }
 
-        return crlNumber;
+        return this.crlNumber;
     }
 
     public URI getCrlURI() throws URISyntaxException
     {
-        if (crlURI == null)
+        if (this.crlURI == null)
         {
             String value = getAttribute("URI");
             if (value != null)
-                crlURI = new URI(value);
+                this.crlURI = new URI(value);
         }
 
-        return crlURI;
+        return this.crlURI;
     }
 }

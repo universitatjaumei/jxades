@@ -17,42 +17,50 @@ class SignerImpl
     {
     }
 
-    public String getUserId()
+    @Override
+	public String getUserId()
     {
-        return userId;
+        return this.userId;
     }
 
-    public void setUserId(String userId)
+    @Override
+	public void setUserId(String userId)
     {
         this.userId = userId;
     }
 
-    public String getUsername()
+    @Override
+	public String getUsername()
     {
-        return username;
+        return this.username;
     }
 
-    public void setUsername(String username)
+    @Override
+	public void setUsername(String username)
     {
         this.username = username;
     }
 
-    public String getPersonName()
+    @Override
+	public String getPersonName()
     {
-        return personName;
+        return this.personName;
     }
 
-    public void setPersonName(String personName)
+    @Override
+	public void setPersonName(String personName)
     {
         this.personName = personName;
     }
 
-    public RoleType getRoleType()
+    @Override
+	public RoleType getRoleType()
     {
-        return roleType;
+        return this.roleType;
     }
 
-    public void setRoleType(RoleType roleType)
+    @Override
+	public void setRoleType(RoleType roleType)
     {
         this.roleType = roleType;
     }

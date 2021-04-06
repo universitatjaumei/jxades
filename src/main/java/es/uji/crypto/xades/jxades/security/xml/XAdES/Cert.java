@@ -34,8 +34,8 @@ public class Cert extends XAdESStructure
     {
         super(document, parent, "Cert", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
 
-        certDigest = new CertDigest(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-        issuerSerial = new IssuerSerial(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this.certDigest = new CertDigest(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this.issuerSerial = new IssuerSerial(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public Cert(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
@@ -45,27 +45,27 @@ public class Cert extends XAdESStructure
 
     public CertDigest getCertDigest()
     {
-        if (certDigest == null)
+        if (this.certDigest == null)
         {
             Element element = getChildElementNS("CertDigest");
             if (element != null)
-                certDigest = new CertDigest(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.certDigest = new CertDigest(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return certDigest;
+        return this.certDigest;
     }
 
     public IssuerSerial getIssuerSerial()
     {
-        if (issuerSerial == null)
+        if (this.issuerSerial == null)
         {
             Element element = getChildElementNS("IssuerSerial");
             if (element != null)
-                issuerSerial = new IssuerSerial(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.issuerSerial = new IssuerSerial(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return issuerSerial;
+        return this.issuerSerial;
     }
 }

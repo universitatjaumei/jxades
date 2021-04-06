@@ -41,25 +41,27 @@ public class ExplicitPolicyXAdESImpl extends BasicXAdESImpl implements XAdES_EPE
                 digestMethod);
     }
 
-    public void setSignaturePolicyIdentifier(SignaturePolicyIdentifier signaturePolicyIdentifier)
+    @Override
+	public void setSignaturePolicyIdentifier(SignaturePolicyIdentifier signaturePolicyIdentifier)
     {
-        if (readOnlyMode)
+        if (this.readOnlyMode)
         {
             throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
         }
 
         if (signaturePolicyIdentifier != null)
         {
-            data.put(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER, signaturePolicyIdentifier);
+            this.data.put(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER, signaturePolicyIdentifier);
         }
         else
         {
-            data.remove(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER);
+            this.data.remove(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER);
         }
     }
 
-    public SignaturePolicyIdentifier getSignaturePolicyIdentifier()
+    @Override
+	public SignaturePolicyIdentifier getSignaturePolicyIdentifier()
     {
-        return (SignaturePolicyIdentifier) data.get(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER);
+        return (SignaturePolicyIdentifier) this.data.get(XAdES.Element.SIGNATURE_POLICY_IDENTIFIER);
     }
 }

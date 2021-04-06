@@ -45,24 +45,26 @@ public class CompleteValidationXAdESImpl extends TimestampXAdESImpl implements X
                 digestMethod);
     }
 
-    public CompleteCertificateRefs getCompleteCertificateRefs()
+    @Override
+	public CompleteCertificateRefs getCompleteCertificateRefs()
     {
-        return (CompleteCertificateRefs) data.get(XAdES.Element.COMPLETE_CERTIFICATE_REFS);
+        return (CompleteCertificateRefs) this.data.get(XAdES.Element.COMPLETE_CERTIFICATE_REFS);
     }
 
-    public void setCompleteCertificateRefs(Collection<X509Certificate> caCertificates)
+    @Override
+	public void setCompleteCertificateRefs(Collection<X509Certificate> caCertificates)
     {
-        if (readOnlyMode)
+        if (this.readOnlyMode)
         {
             throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
         }
 
-        data.put(XAdES.Element.COMPLETE_CERTIFICATE_REFS, caCertificates);
+        this.data.put(XAdES.Element.COMPLETE_CERTIFICATE_REFS, caCertificates);
     }
 
     public CompleteRevocationRefs getCompleteRevocationRefs()
     {
-        return (CompleteRevocationRefs) data.get(XAdES.Element.COMPLETE_REVOCATION_REFS);
+        return (CompleteRevocationRefs) this.data.get(XAdES.Element.COMPLETE_REVOCATION_REFS);
     }
 
     // public void setCompleteRevocationRefs(CertValidationInfo certValidationInfo)

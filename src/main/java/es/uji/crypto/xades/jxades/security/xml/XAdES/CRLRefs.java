@@ -64,25 +64,25 @@ public class CRLRefs extends XAdESStructure
 
     public List<CRLRef> getCRLRefs()
     {
-        if (crlRefs == null)
+        if (this.crlRefs == null)
         {
             List<Element> elements = getChildElementsNS("CRLRef");
             if (elements != null && elements.size() > 0)
             {
-                crlRefs = new ArrayList<CRLRef>(elements.size());
+                this.crlRefs = new ArrayList<CRLRef>(elements.size());
                 for (Element element : elements)
                 {
-                    crlRefs
-                            .add(new CRLRef(element, xadesPrefix, xadesNamespace,
-                                    xmlSignaturePrefix));
+                    this.crlRefs
+                            .add(new CRLRef(element, this.xadesPrefix, this.xadesNamespace,
+                                    this.xmlSignaturePrefix));
                 }
             }
             else
             {
-                crlRefs = Collections.<CRLRef> emptyList();
+                this.crlRefs = Collections.<CRLRef> emptyList();
             }
         }
 
-        return crlRefs;
+        return this.crlRefs;
     }
 }

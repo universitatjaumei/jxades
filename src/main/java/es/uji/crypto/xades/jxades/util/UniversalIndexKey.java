@@ -19,18 +19,19 @@ public class UniversalIndexKey
         if(size < 1)
             throw new IllegalArgumentException("The minimum number of parameters for constructing of UniversalIndexKey is 1.");
 
-        indexKeys = new Vector<Comparable>(size);
-        Collections.addAll(indexKeys, comparableValues);
+        this.indexKeys = new Vector<Comparable>(size);
+        Collections.addAll(this.indexKeys, comparableValues);
     }
 
-    public int compareTo(UniversalIndexKey other)
+    @Override
+	public int compareTo(UniversalIndexKey other)
     {
         if(other == null)
         {
             throw new NullPointerException();
         }
 
-        int thisSize = indexKeys.size();
+        int thisSize = this.indexKeys.size();
         int otherSize = other.indexKeys.size();
 
 //System.out.println("compareTo: indexKeys.size(): " + indexKeys.size() + ", other.indexKeys.size(): " + other.indexKeys.size());
@@ -38,7 +39,7 @@ public class UniversalIndexKey
         int size = thisSize <= otherSize ? thisSize : otherSize;
         for(int i = 0; i < size; i++)
         {
-            Comparable firstComparable = indexKeys.get(i);
+            Comparable firstComparable = this.indexKeys.get(i);
             Comparable secondComparable = other.indexKeys.get(i);
 
             if(firstComparable == null)
@@ -76,7 +77,8 @@ public class UniversalIndexKey
         return 0;
     }
 
-    public boolean equals(Object otherObject)
+    @Override
+	public boolean equals(Object otherObject)
     {
         if(otherObject == null || !(otherObject instanceof UniversalIndexKey))
         {
@@ -85,7 +87,7 @@ public class UniversalIndexKey
 
         UniversalIndexKey other = (UniversalIndexKey)otherObject;
 
-        int thisSize = indexKeys.size();
+        int thisSize = this.indexKeys.size();
         int otherSize = other.indexKeys.size();
 
 //System.out.println("equals: indexKeys.size(): " + indexKeys.size() + ", other.indexKeys.size(): " + other.indexKeys.size());
@@ -95,7 +97,7 @@ public class UniversalIndexKey
 
         for(int i = 0; i < thisSize; i++)
         {
-            Comparable firstComparable = indexKeys.get(i);
+            Comparable firstComparable = this.indexKeys.get(i);
             Comparable secondComparable = other.indexKeys.get(i);
 
             if(firstComparable == null && secondComparable == null)
@@ -117,12 +119,12 @@ public class UniversalIndexKey
 
     public List<Comparable> getKeys()
     {
-        return indexKeys;
+        return this.indexKeys;
     }
 
     public Comparable getKey(int keyIndex)
     {
-        return indexKeys.get(keyIndex);
+        return this.indexKeys.get(keyIndex);
     }
 
 

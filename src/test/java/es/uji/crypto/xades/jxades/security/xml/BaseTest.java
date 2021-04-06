@@ -48,7 +48,7 @@ public class BaseTest
 
         if (certificateAlias == null)
         {
-            certificateAlias = (String) keystore.aliases().nextElement();
+            certificateAlias = keystore.aliases().nextElement();
         }
 
         // Certificado de firma

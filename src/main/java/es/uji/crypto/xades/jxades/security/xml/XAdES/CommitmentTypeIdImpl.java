@@ -17,9 +17,10 @@ public class CommitmentTypeIdImpl implements CommitmentTypeId
 		this.documentationReferences = documentationReferences;
 	}
 
+	@Override
 	public String getQualifier() 
 	{
-		return qualifier;
+		return this.qualifier;
 	}
 
 	public void setQualifier(String qualifier) 
@@ -27,9 +28,10 @@ public class CommitmentTypeIdImpl implements CommitmentTypeId
 		this.qualifier = qualifier;
 	}
 
+	@Override
 	public String getIdentifier() 
 	{
-		return identifier;
+		return this.identifier;
 	}
 
 	public void setIdentifier(String identifier) 
@@ -37,9 +39,10 @@ public class CommitmentTypeIdImpl implements CommitmentTypeId
 		this.identifier = identifier;
 	}
 
+	@Override
 	public String getDescription() 
 	{
-		return description;
+		return this.description;
 	}
 
 	public void setDescription(String description) 
@@ -47,9 +50,10 @@ public class CommitmentTypeIdImpl implements CommitmentTypeId
 		this.description = description;
 	}
 
+	@Override
 	public ArrayList<String> getDocumentationReferences() 
 	{
-		return documentationReferences;
+		return this.documentationReferences;
 	}
 
 	public void setDocumentationReferences(ArrayList<String> documentationReferences) 

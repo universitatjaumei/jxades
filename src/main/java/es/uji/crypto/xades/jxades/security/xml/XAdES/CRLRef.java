@@ -54,41 +54,41 @@ public class CRLRef extends XAdESStructure
 
     public CRLIdentifier getCRLIdentifier()
     {
-        if (crlIdentifier == null)
+        if (this.crlIdentifier == null)
         {
             Element element = getChildElementNS("CRLIdentifier");
             if (element != null)
-                crlIdentifier = new CRLIdentifier(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.crlIdentifier = new CRLIdentifier(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return crlIdentifier;
+        return this.crlIdentifier;
     }
 
     public DigestAlgAndValue getDigestAlgAndValue()
     {
-        if (digestAlgAndValue == null)
+        if (this.digestAlgAndValue == null)
         {
             Element element = getChildElementNS("DigestAlgAndValue");
             if (element != null)
-                digestAlgAndValue = new DigestAlgAndValue(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.digestAlgAndValue = new DigestAlgAndValue(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return digestAlgAndValue;
+        return this.digestAlgAndValue;
     }
 
     public ValidationResult getValidationResult()
     {
-        if (validationResult == null)
+        if (this.validationResult == null)
         {
             Element element = getChildElementNS("ValidationResult");
             if (element != null)
-                validationResult = new ValidationResult(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return validationResult;
+        return this.validationResult;
     }
 
 }

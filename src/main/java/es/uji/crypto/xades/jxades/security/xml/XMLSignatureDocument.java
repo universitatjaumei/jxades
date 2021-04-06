@@ -79,26 +79,26 @@ public class XMLSignatureDocument
 
     public Element getBaseElement()
     {
-        return baseElement;
+        return this.baseElement;
     }
 
     protected XMLSignatureFactory getXMLSignatureFactory()
     {
-        if(xmlSignatureFactory == null)
+        if(this.xmlSignatureFactory == null)
         {
-            xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
+            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
         }
-        return xmlSignatureFactory;
+        return this.xmlSignatureFactory;
     }
 
     public DigestMethod getDigestMethod()
         throws GeneralSecurityException
     {
-        if(digestMethod == null)
+        if(this.digestMethod == null)
         {
-            digestMethod = getXMLSignatureFactory().newDigestMethod(DigestMethod.SHA1, null);
+            this.digestMethod = getXMLSignatureFactory().newDigestMethod(DigestMethod.SHA1, null);
         }
-        return digestMethod;
+        return this.digestMethod;
     }
 
     public void setDigestMethod(DigestMethod digestMethod)
@@ -108,7 +108,7 @@ public class XMLSignatureDocument
 
     public List<XMLSignatureElement> getXMLSignatureElements()
     {
-        NodeList nl = baseElement.getElementsByTagNameNS(XMLSignature.XMLNS,
+        NodeList nl = this.baseElement.getElementsByTagNameNS(XMLSignature.XMLNS,
                                                          XMLAdvancedSignature.ELEMENT_SIGNATURE);
         int size = nl.getLength();
         ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
@@ -122,7 +122,7 @@ public class XMLSignatureDocument
 
     public XmlWrappedKeyInfo getXmlWrappedKeyInfo()
     {
-        return wrappedKeyInfo;
+        return this.wrappedKeyInfo;
     }
 
     public void setXmlWrappedKeyInfo(XmlWrappedKeyInfo wrappedKeyInfo)
@@ -236,7 +236,7 @@ public class XMLSignatureDocument
                                                      signatureId,
                                                      signatureValueId);
 
-        DOMSignContext signContext = new DOMSignContext(privateKey, baseElement);
+        DOMSignContext signContext = new DOMSignContext(privateKey, this.baseElement);
         signContext.putNamespacePrefix(XMLSignature.XMLNS, xmlSignaturePrefix);
         signContext.putNamespacePrefix(xadesNamespace, xadesPrefix);
 
@@ -276,8 +276,8 @@ public class XMLSignatureDocument
 
     public List<SignatureProperties> getListOfSignatureProperties()
     {
-        listOfSignatureProperties.add(getDefaultSignatureProperties());
-        return listOfSignatureProperties;
+        this.listOfSignatureProperties.add(getDefaultSignatureProperties());
+        return this.listOfSignatureProperties;
     }
 
     public void setListOfSignatureProperties(List<SignatureProperties> listOfSignatureProperties)
@@ -287,7 +287,7 @@ public class XMLSignatureDocument
 
     public void addSignatureProperty(SignatureProperty signatureProperty)
     {
-        defaultSignatureProperties.add(signatureProperty);
+        this.defaultSignatureProperties.add(signatureProperty);
     }
 
     public void addSignatureProperty(List<DOMStructure> content,
@@ -301,17 +301,17 @@ public class XMLSignatureDocument
     public SignatureProperties getDefaultSignatureProperties()
     {
         XMLSignatureFactory fac = getXMLSignatureFactory();
-        return fac.newSignatureProperties(defaultSignatureProperties, defaultSignaturePropertiesId);
+        return fac.newSignatureProperties(this.defaultSignatureProperties, this.defaultSignaturePropertiesId);
     }
 
     public void setDefaultSignaturePropertiesId(String id)
     {
-        defaultSignaturePropertiesId = id;
+        this.defaultSignaturePropertiesId = id;
     }
 
     public String getDefaultSignaturePropertiesId()
     {
-        return defaultSignaturePropertiesId;
+        return this.defaultSignaturePropertiesId;
     }
 
     public XMLObject newXMLObject(List<XMLStructure> xmlObjects)
@@ -349,18 +349,18 @@ public class XMLSignatureDocument
 
     public XMLObject addXMLObject(XMLObject xmlObject)
     {
-        xmlObjects.add(xmlObject);
+        this.xmlObjects.add(xmlObject);
         return xmlObject;
     }
 
     public List<XMLObject> getXMLObjects()
     {
-        return xmlObjects;
+        return this.xmlObjects;
     }
 
     public void addXMLObjectItem(XMLStructure xmlObjectItem)
     {
-        defaultXMLObjectItems.add(xmlObjectItem);
+        this.defaultXMLObjectItems.add(xmlObjectItem);
     }
 
     public XMLObject getDefaultXMLObject()
@@ -374,7 +374,7 @@ public class XMLSignatureDocument
 
     public List<XMLStructure> getXMLObjectItems()
     {
-        return defaultXMLObjectItems;
+        return this.defaultXMLObjectItems;
     }
 
     public void setDefaultXMLObjectId(String defaultXMLObjectId)
@@ -384,7 +384,7 @@ public class XMLSignatureDocument
 
     public String getDefaultXMLObjectId()
     {
-        return defaultXMLObjectId;
+        return this.defaultXMLObjectId;
     }
 
     public void setDefaultXMLObjectMimeType(String defaultXMLObjectMimeType)
@@ -394,7 +394,7 @@ public class XMLSignatureDocument
 
     public String getDefaultXMLObjectMimeType()
     {
-        return defaultXMLObjectMimeType;
+        return this.defaultXMLObjectMimeType;
     }
 
     public void setDefaultXMLObjectEncoding(String defaultXMLObjectEncoding)
@@ -404,7 +404,7 @@ public class XMLSignatureDocument
 
     public String getDefaultXMLObjectEncoding()
     {
-        return defaultXMLObjectEncoding;
+        return this.defaultXMLObjectEncoding;
     }
 
     private static Document loadEncryptionDocument()

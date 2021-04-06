@@ -13,31 +13,37 @@ public class SignerRoleImpl implements SignerRole
 		this.certifiedRole = new ArrayList<String>();
 	}
 
+	@Override
 	public ArrayList<String> getCertifiedRole()
 	{
-		return certifiedRole;
+		return this.certifiedRole;
 	}
 
+	@Override
 	public void setCertifiedRole(ArrayList<String> certifiedRole)
 	{
 		this.certifiedRole = certifiedRole;
 	}
 
+	@Override
 	public ArrayList<String> getClaimedRole()
 	{
-		return claimedRole;
+		return this.claimedRole;
 	}
 
+	@Override
 	public void setClaimedRole(ArrayList<String> claimedRole)
 	{
 		this.claimedRole = claimedRole;
 	}
 
+	@Override
 	public void addClaimedRole(String role)
 	{
 		this.claimedRole.add(role);
 	}
 
+	@Override
 	public void addCertifiedRole(String role)
 	{
 		this.certifiedRole.add(role);

@@ -57,41 +57,41 @@ public class OCSPRef extends XAdESStructure
 
     public OCSPIdentifier getOCSPIdentifier()
     {
-        if (ocspIdentifier == null)
+        if (this.ocspIdentifier == null)
         {
             Element element = getChildElementNS("OCSPIdentifier");
             if (element != null)
-                ocspIdentifier = new OCSPIdentifier(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.ocspIdentifier = new OCSPIdentifier(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return ocspIdentifier;
+        return this.ocspIdentifier;
     }
 
     public DigestAlgAndValue getDigestAlgAndValue()
     {
-        if (digestAlgAndValue == null)
+        if (this.digestAlgAndValue == null)
         {
             Element element = getChildElementNS("DigestAlgAndValue");
             if (element != null)
-                digestAlgAndValue = new DigestAlgAndValue(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.digestAlgAndValue = new DigestAlgAndValue(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return digestAlgAndValue;
+        return this.digestAlgAndValue;
     }
 
     public ValidationResult getValidationResult()
     {
-        if (validationResult == null)
+        if (this.validationResult == null)
         {
             Element element = getChildElementNS("ValidationResult");
             if (element != null)
-                validationResult = new ValidationResult(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+                this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
         }
 
-        return validationResult;
+        return this.validationResult;
     }
 
 }

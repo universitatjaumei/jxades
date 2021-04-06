@@ -21,9 +21,10 @@ public class DataObjectFormatImpl implements DataObjectFormat
 		this.objectReference = objectReference;
 	}
 
+	@Override
 	public String getDescription() 
 	{
-		return description;
+		return this.description;
 	}
 	
 	public void setDescription(String description) 
@@ -31,9 +32,10 @@ public class DataObjectFormatImpl implements DataObjectFormat
 		this.description = description;
 	}
 	
+	@Override
 	public ObjectIdentifier getObjectIdentifier() 
 	{
-		return objectIdentifier;
+		return this.objectIdentifier;
 	}
 	
 	public void setObjectIdentifier(ObjectIdentifier objectIdentifier) 
@@ -41,9 +43,10 @@ public class DataObjectFormatImpl implements DataObjectFormat
 		this.objectIdentifier = objectIdentifier;
 	}
 	
+	@Override
 	public String getMimeType() 
 	{
-		return mimeType;
+		return this.mimeType;
 	}
 	
 	public void setMimeType(String mimeType) 
@@ -51,9 +54,10 @@ public class DataObjectFormatImpl implements DataObjectFormat
 		this.mimeType = mimeType;
 	}
 	
+	@Override
 	public String getEncoding() 
 	{
-		return encoding;
+		return this.encoding;
 	}
 	
 	public void setEncoding(String encoding) 
@@ -61,8 +65,9 @@ public class DataObjectFormatImpl implements DataObjectFormat
 		this.encoding = encoding;
 	}
 
+	@Override
 	public String getObjectReference() {
-		return objectReference;
+		return this.objectReference;
 	}
 
 	public void setObjectReference(String objectReference) {

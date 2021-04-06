@@ -34,7 +34,7 @@ public enum InvalidSignature
 
     public String getDescription()
     {
-        return description;
+        return this.description;
     }
 
     private String description;

@@ -23,25 +23,35 @@ import org.w3c.dom.Node;
  *
  */
 
-public class SigningCertificateV2Details extends XAdESStructure
-{
-    public SigningCertificateV2Details(final Document document, final SignedSignatureProperties ssp,
-            final SigningCertificateV2 signingCertificate, final String xadesPrefix, final String xadesNamespace,
-            final String xmlSignaturePrefix) throws GeneralSecurityException
-    {
-        super(document, ssp, "SigningCertificateV2", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+public final class SigningCertificateV2Details extends XAdESStructure {
+
+    public SigningCertificateV2Details(final Document document,
+    		                           final SignedSignatureProperties ssp,
+    		                           final SigningCertificateV2 signingCertificate,
+    		                           final String xadesPrefix,
+    		                           final String xadesNamespace,
+    		                           final String xmlSignaturePrefix) throws GeneralSecurityException {
+
+        super(document, ssp, "SigningCertificateV2", xadesPrefix, xadesNamespace, xmlSignaturePrefix); //$NON-NLS-1$
 
         // TODO: Unimplemented URI parameter
-        final Element cert = createElement("Cert");
+        final Element cert = createElement("Cert"); //$NON-NLS-1$
 
-        final Element certDigest = createElement("CertDigest");
+        final Element certDigest = createElement("CertDigest"); //$NON-NLS-1$
 
-        final Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
-                "DigestMethod");
+        final Element digestMethod = createElementNS(
+    		XMLSignature.XMLNS,
+    		xmlSignaturePrefix,
+            "DigestMethod" //$NON-NLS-1$
+		);
         digestMethod.setPrefix(xmlSignaturePrefix);
-        digestMethod.setAttributeNS(xmlSignaturePrefix, "Algorithm", signingCertificate.getDigestMethodAlgorithm());
+        digestMethod.setAttributeNS(
+    		xmlSignaturePrefix,
+    		"Algorithm", //$NON-NLS-1$
+    		signingCertificate.getDigestMethodAlgorithm()
+		);
 
-        final Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestValue");
+        final Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestValue"); //$NON-NLS-1$
         digestValue.setPrefix(xmlSignaturePrefix);
         digestValue.setTextContent(signingCertificate.getDigestValue());
 
@@ -49,7 +59,7 @@ public class SigningCertificateV2Details extends XAdESStructure
         certDigest.appendChild(digestValue);
 
 
-        final Element issuerSerial = createElement("IssuerSerialV2");
+        final Element issuerSerial = createElement("IssuerSerialV2"); //$NON-NLS-1$
         issuerSerial.setTextContent(signingCertificate.getIssuerSerialV2());
 
         cert.appendChild(certDigest);
@@ -58,9 +68,10 @@ public class SigningCertificateV2Details extends XAdESStructure
         getNode().appendChild(cert);
     }
 
-    public SigningCertificateV2Details(final Node node, final String xadesPrefix, final String xadesNamespace,
-            final String xmlSignaturePrefix)
-    {
+    public SigningCertificateV2Details(final Node node,
+    		                           final String xadesPrefix,
+    		                           final String xadesNamespace,
+    		                           final String xmlSignaturePrefix) {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 }

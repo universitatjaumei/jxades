@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class UnsignedSignatureProperties extends XAdESStructure
@@ -22,56 +22,59 @@ public class UnsignedSignatureProperties extends XAdESStructure
     private CompleteRevocationRefs completeRevocationRefs;
     private Document document;
 
-    public UnsignedSignatureProperties(Document document, UnsignedProperties up,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public UnsignedSignatureProperties(final Document document, final UnsignedProperties up,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(document, up, XAdES.Element.UNSIGNED_SIGNATURE_PROPERTIES.getElementName(),
                 xadesPrefix, xadesNamespace, xmlSignaturePrefix);
         this.document = document;
     }
 
-    public UnsignedSignatureProperties(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public UnsignedSignatureProperties(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public CompleteCertificateRefs getCompleteCertificateRefs()
     {
-        if (completeCertificateRefs == null)
+        if (this.completeCertificateRefs == null)
         {
-            Element element = getChildElementNS("CompleteCertificateRefs");
-            if (element != null)
-                completeCertificateRefs = new CompleteCertificateRefsImpl(element, xadesPrefix,
-                        xadesNamespace, xmlSignaturePrefix);
+            final Element element = getChildElementNS("CompleteCertificateRefs"); //$NON-NLS-1$
+            if (element != null) {
+				this.completeCertificateRefs = new CompleteCertificateRefsImpl(element, this.xadesPrefix,
+                        this.xadesNamespace, this.xmlSignaturePrefix);
+			}
         }
 
-        return completeCertificateRefs;
+        return this.completeCertificateRefs;
     }
 
-    public void setCompleteCertificateRefs(Collection<X509Certificate> caCertificates,
-            String signatureIdPrefix) throws GeneralSecurityException
+    public void setCompleteCertificateRefs(final Collection<X509Certificate> caCertificates,
+            final String signatureIdPrefix) throws GeneralSecurityException
     {
-        completeCertificateRefs = getCompleteCertificateRefs();
-        if (completeCertificateRefs != null)
-            throw new UnsupportedOperationException(
-                    "The collection of CA Certificates already exists.");
+        this.completeCertificateRefs = getCompleteCertificateRefs();
+        if (this.completeCertificateRefs != null) {
+			throw new UnsupportedOperationException(
+                    "The collection of CA Certificates already exists."); //$NON-NLS-1$
+		}
 
-        completeCertificateRefs = new CompleteCertificateRefsImpl(document, this, caCertificates,
-                signatureIdPrefix, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        this.completeCertificateRefs = new CompleteCertificateRefsImpl(this.document, this, caCertificates,
+                signatureIdPrefix, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
     }
 
     public CompleteRevocationRefs getCompleteRevocationRefs()
     {
-        if (completeRevocationRefs == null)
+        if (this.completeRevocationRefs == null)
         {
-            Element element = getChildElementNS("CompleteRevocationRefs");
-            if (element != null)
-                completeRevocationRefs = new CompleteRevocationRefsImpl(element, xadesPrefix,
-                        xadesNamespace, xmlSignaturePrefix);
+            final Element element = getChildElementNS("CompleteRevocationRefs"); //$NON-NLS-1$
+            if (element != null) {
+				this.completeRevocationRefs = new CompleteRevocationRefsImpl(element, this.xadesPrefix,
+                        this.xadesNamespace, this.xmlSignaturePrefix);
+			}
         }
 
-        return completeRevocationRefs;
+        return this.completeRevocationRefs;
     }
 
     // public void setCompleteRevocationRefs(CertValidationInfo certValidationInfo,
@@ -87,13 +90,13 @@ public class UnsignedSignatureProperties extends XAdESStructure
     // signatureIdPrefix);
     // }
 
-    public void setSignatureTimeStamp(ArrayList<SignatureTimeStamp> signatureTimeStamp,
-            String tsaURL)
+    public void setSignatureTimeStamp(final ArrayList<SignatureTimeStamp> signatureTimeStamp,
+            final String tsaURL)
     {
-        for (SignatureTimeStamp sts : signatureTimeStamp)
+        for (final SignatureTimeStamp sts : signatureTimeStamp)
         {
-            new SignatureTimeStampDetails(document, this, sts, xadesPrefix, xadesNamespace,
-                    xmlSignaturePrefix, tsaURL);
+            new SignatureTimeStampDetails(this.document, this, sts, this.xadesPrefix, this.xadesNamespace,
+                    this.xmlSignaturePrefix, tsaURL);
         }
     }
 }

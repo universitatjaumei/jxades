@@ -67,24 +67,24 @@ public class OCSPRefs extends XAdESStructure
 
     public List<OCSPRef> getOCSPRefs()
     {
-        if (ocspRefs == null)
+        if (this.ocspRefs == null)
         {
             List<Element> elements = getChildElementsNS("OCSPRef");
             if (elements != null && elements.size() > 0)
             {
-                ocspRefs = new ArrayList<OCSPRef>(elements.size());
+                this.ocspRefs = new ArrayList<OCSPRef>(elements.size());
                 for (Element element : elements)
                 {
-                    ocspRefs.add(new OCSPRef(element, xadesPrefix, xadesNamespace,
-                            xmlSignaturePrefix));
+                    this.ocspRefs.add(new OCSPRef(element, this.xadesPrefix, this.xadesNamespace,
+                            this.xmlSignaturePrefix));
                 }
             }
             else
             {
-                ocspRefs = Collections.<OCSPRef> emptyList();
+                this.ocspRefs = Collections.<OCSPRef> emptyList();
             }
         }
 
-        return ocspRefs;
+        return this.ocspRefs;
     }
 }

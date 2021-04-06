@@ -1,12 +1,5 @@
 package es.uji.crypto.xades.jxades.security.xml.XAdES;
 
-import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 /**
  * ETSI EN 319 132-1 V1.1.1 Electronic Signatures and Infrastructures (ESI);
  *
@@ -94,6 +87,6 @@ https://uri.etsi.org/01903/v1.3.2/XAdES01903v132-201601.xsd
  *
  * @author miro
  */
-public interface XAdES_B_Level extends XAdESBase, XadesWithBaselineAttributes, XadesWithExplicitPolicy
-{
+public interface XAdES_B_Level extends XAdESBase, XadesWithBaselineAttributes, XadesWithExplicitPolicy {
+	// Vacio
 }

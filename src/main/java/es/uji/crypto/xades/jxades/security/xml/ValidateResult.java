@@ -15,10 +15,11 @@ public enum ValidateResult
 
     public String getResultName()
     {
-        return resultName;
+        return this.resultName;
     }
 
-    public String toString()
+    @Override
+	public String toString()
     {
         return getResultName();
     }

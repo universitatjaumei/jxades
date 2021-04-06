@@ -27,59 +27,60 @@ public class X509DataKeySelectorResult implements KeySelectorResult
     public X509DataKeySelectorResult(X509Data data)
     {
         List content = data.getContent();
-        unrecognizedObjects = new ArrayList<XMLStructure>(content.size());
+        this.unrecognizedObjects = new ArrayList<XMLStructure>(content.size());
         for (Object obj : content)
         {
             if (obj instanceof X509IssuerSerial)
-                x509IssuerSerial = (X509IssuerSerial) obj;
+                this.x509IssuerSerial = (X509IssuerSerial) obj;
             else if (obj instanceof X509Certificate)
-                x509Certificate = (X509Certificate) obj;
+                this.x509Certificate = (X509Certificate) obj;
             else if (obj instanceof X509CRL)
-                x509CRL = (X509CRL) obj;
+                this.x509CRL = (X509CRL) obj;
             else if (obj instanceof String)
-                subjectName = (String) obj;
+                this.subjectName = (String) obj;
             else if (obj instanceof byte[])
-                subjectKeyId = (byte[]) obj;
+                this.subjectKeyId = (byte[]) obj;
             else
-                unrecognizedObjects.add((XMLStructure) obj);
+                this.unrecognizedObjects.add((XMLStructure) obj);
         }
     }
 
-    public Key getKey()
+    @Override
+	public Key getKey()
     {
-        if (x509Certificate != null)
-            return x509Certificate.getPublicKey();
+        if (this.x509Certificate != null)
+            return this.x509Certificate.getPublicKey();
         else
             return null;
     }
 
     public X509IssuerSerial getX509IssuerSerial()
     {
-        return x509IssuerSerial;
+        return this.x509IssuerSerial;
     }
 
     public X509Certificate getX509Certificate()
     {
-        return x509Certificate;
+        return this.x509Certificate;
     }
 
     public X509CRL getX509CRL()
     {
-        return x509CRL;
+        return this.x509CRL;
     }
 
     public String getSubjectName()
     {
-        return subjectName;
+        return this.subjectName;
     }
 
     public byte[] getSubjectKeyId()
     {
-        return subjectKeyId;
+        return this.subjectKeyId;
     }
 
     public List<XMLStructure> getUnrecognizedObjects()
     {
-        return unrecognizedObjects;
+        return this.unrecognizedObjects;
     }
 }

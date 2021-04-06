@@ -20,88 +20,94 @@ import java.util.jar.JarFile;
  */
 public class ResourceHelper
 {
-    private String classFileName;
-    private String resourceFolderName;
+    private final String classFileName;
+    private final String resourceFolderName;
     private URL resourceURL;
     private Enumeration<ResourceEntry> resourceEntries;
-    
-    public ResourceHelper(Class clazz)
+
+    public ResourceHelper(final Class clazz)
         throws IOException
     {
         this(clazz, null);
     }
 
-    public ResourceHelper(Class clazz, String resourceFolderName)
+    public ResourceHelper(final Class clazz, final String resourceFolderName)
         throws IOException
     {
         this.resourceFolderName = resourceFolderName;
-        classFileName = clazz.getName().replace('.', '/') + ".class";
-        ClassLoader classLoader = clazz.getClassLoader();
-        resourceURL = classLoader.getSystemResource(classFileName);
-        if(resourceURL == null)
+        this.classFileName = clazz.getName().replace('.', '/') + ".class"; //$NON-NLS-1$
+        final ClassLoader classLoader = clazz.getClassLoader();
+        this.resourceURL = ClassLoader.getSystemResource(this.classFileName);
+        if(this.resourceURL == null)
         {
-            resourceURL = classLoader.getResource(classFileName);
+            this.resourceURL = classLoader.getResource(this.classFileName);
         }
-        if(resourceURL == null)
-            throw new IOException("Impossible to find Resource URL.");
+        if(this.resourceURL == null) {
+			throw new IOException("Impossible to find Resource URL."); //$NON-NLS-1$
+		}
     }
 
     public URL getResourceURL()
     {
-        return resourceURL;
+        return this.resourceURL;
     }
 
     public Enumeration<ResourceEntry> resourceEntries()
         throws IOException
     {
-        if(resourceEntries == null)
+        if(this.resourceEntries == null)
         {
-            String protocol = resourceURL.getProtocol().toLowerCase();
-            if("file".equals(protocol))
+            final String protocol = this.resourceURL.getProtocol().toLowerCase();
+            if("file".equals(protocol)) //$NON-NLS-1$
             {
-                String path = resourceURL.getPath();
-                int pos = path.length() - classFileName.length();
-                String basePath = path.substring(0, pos);
+                final String path = this.resourceURL.getPath();
+                final int pos = path.length() - this.classFileName.length();
+                final String basePath = path.substring(0, pos);
                 File baseFolder = new File(basePath);
-                if(resourceFolderName != null)
-                    baseFolder = new File(baseFolder, resourceFolderName);
-                List<File> fileStore = new ArrayList<File>();
+                if(this.resourceFolderName != null) {
+					baseFolder = new File(baseFolder, this.resourceFolderName);
+				}
+                final List<File> fileStore = new ArrayList<File>();
                 loadFiles(baseFolder, fileStore);
                 return new FileResourceEntries(fileStore);
             }
-            else if("jar".equals(protocol))
+			if("jar".equals(protocol)) //$NON-NLS-1$
             {
-                JarURLConnection jarConn = (JarURLConnection)resourceURL.openConnection();
-                JarFile jarFile = jarConn.getJarFile();
-                resourceEntries = new JarResourceEntries(jarFile, resourceFolderName);
-            }
-            else
-                resourceEntries = new EmptyResourceEntries();
+                final JarURLConnection jarConn = (JarURLConnection)this.resourceURL.openConnection();
+                final JarFile jarFile = jarConn.getJarFile();
+                this.resourceEntries = new JarResourceEntries(jarFile, this.resourceFolderName);
+            } else {
+				this.resourceEntries = new EmptyResourceEntries();
+			}
         }
 
-        return resourceEntries;
+        return this.resourceEntries;
     }
 
-    private void loadFiles(File folder, List<File> fileStore)
+    private void loadFiles(final File folder, final List<File> fileStore)
     {
-        for(File file : folder.listFiles())
+        for(final File file : folder.listFiles())
         {
             fileStore.add(file);
-            if(file.isDirectory())
-                loadFiles(file, fileStore);
+            if(file.isDirectory()) {
+				loadFiles(file, fileStore);
+			}
         }
     }
 
-    private static class EmptyResourceEntries
-        implements Enumeration<ResourceEntry>
-    {
-        public boolean hasMoreElements()
-        {
+    private static class EmptyResourceEntries implements Enumeration<ResourceEntry> {
+
+        EmptyResourceEntries() {
+			// vacio
+		}
+
+		@Override
+		public boolean hasMoreElements() {
             return false;
         }
 
-        public ResourceEntry nextElement()
-        {
+        @Override
+		public ResourceEntry nextElement() {
             throw new NoSuchElementException();
         }
     }
@@ -109,117 +115,128 @@ public class ResourceHelper
     private static class JarResourceEntries
         implements Enumeration<ResourceEntry>
     {
-        private JarFile jarFile;
-        private Iterator<JarEntry> entries;
+        private final JarFile jarFile;
+        private final Iterator<JarEntry> entries;
 
-        public JarResourceEntries(JarFile jarFile, String resourceFolderName)
+        public JarResourceEntries(final JarFile jarFile, final String resourceFolderName)
         {
             this.jarFile = jarFile;
-            List<JarEntry> jarEntryList = new ArrayList<JarEntry>();
-            Enumeration<JarEntry> jarEntries = jarFile.entries();
+            final List<JarEntry> jarEntryList = new ArrayList<JarEntry>();
+            final Enumeration<JarEntry> jarEntries = jarFile.entries();
             while(jarEntries.hasMoreElements())
             {
-                JarEntry entry = jarEntries.nextElement();
-                if(resourceFolderName == null || entry.getName().startsWith(resourceFolderName))
-                    jarEntryList.add(entry);
+                final JarEntry entry = jarEntries.nextElement();
+                if(resourceFolderName == null || entry.getName().startsWith(resourceFolderName)) {
+					jarEntryList.add(entry);
+				}
             }
 
-            entries = jarEntryList.iterator();
+            this.entries = jarEntryList.iterator();
         }
 
-        public boolean hasMoreElements()
+        @Override
+		public boolean hasMoreElements()
         {
-            return entries.hasNext();
+            return this.entries.hasNext();
         }
 
-        public ResourceEntry nextElement()
+        @Override
+		public ResourceEntry nextElement()
         {
-            return new JarResourceEntry(jarFile, entries.next());
+            return new JarResourceEntry(this.jarFile, this.entries.next());
         }
     }
 
     private static class FileResourceEntries
         implements Enumeration<ResourceEntry>
     {
-        private Iterator<File> entries;
+        private final Iterator<File> entries;
 
-        public FileResourceEntries(List<File> fileStore)
+        public FileResourceEntries(final List<File> fileStore)
         {
-            entries = fileStore.iterator();
+            this.entries = fileStore.iterator();
         }
 
-        public boolean hasMoreElements()
+        @Override
+		public boolean hasMoreElements()
         {
-            return entries.hasNext();
+            return this.entries.hasNext();
         }
 
-        public ResourceEntry nextElement()
+        @Override
+		public ResourceEntry nextElement()
         {
-            return new FileResourceEntry(entries.next());
+            return new FileResourceEntry(this.entries.next());
         }
     }
 
-    public static interface ResourceEntry
+    public interface ResourceEntry
     {
-        public String getPathName();
-        public boolean isDirectory();
-        public InputStream getInputStream()
+        String getPathName();
+        boolean isDirectory();
+        InputStream getInputStream()
             throws IOException;
     }
 
     private static class FileResourceEntry
         implements ResourceEntry
     {
-        private File file;
+        private final File file;
 
-        public FileResourceEntry(File file)
+        public FileResourceEntry(final File file)
         {
             this.file = file;
         }
 
-        public String getPathName()
+        @Override
+		public String getPathName()
         {
-            return file.getAbsolutePath();
+            return this.file.getAbsolutePath();
         }
 
-        public boolean isDirectory()
+        @Override
+		public boolean isDirectory()
         {
-            return file.isDirectory();
+            return this.file.isDirectory();
         }
 
-        public InputStream getInputStream()
+        @Override
+		public InputStream getInputStream()
             throws IOException
         {
-            return new FileInputStream(file);
+            return new FileInputStream(this.file);
         }
     }
 
     private static class JarResourceEntry
         implements ResourceEntry
     {
-        private JarFile jarFile;
-        private JarEntry entry;
+        private final JarFile jarFile;
+        private final JarEntry entry;
 
-        public JarResourceEntry(JarFile jarFile, JarEntry entry)
+        public JarResourceEntry(final JarFile jarFile, final JarEntry entry)
         {
             this.entry = entry;
             this.jarFile = jarFile;
         }
 
-        public String getPathName()
+        @Override
+		public String getPathName()
         {
-            return entry.getName();
+            return this.entry.getName();
         }
 
-        public boolean isDirectory()
+        @Override
+		public boolean isDirectory()
         {
-            return entry.isDirectory();
+            return this.entry.isDirectory();
         }
 
-        public InputStream getInputStream()
+        @Override
+		public InputStream getInputStream()
             throws IOException
         {
-            return jarFile.getInputStream(entry);
+            return this.jarFile.getInputStream(this.entry);
         }
     }
 }

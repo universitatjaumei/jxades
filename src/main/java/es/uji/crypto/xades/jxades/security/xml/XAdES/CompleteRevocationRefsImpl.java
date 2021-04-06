@@ -198,7 +198,7 @@ import org.w3c.dom.Node;
  **/
 
 /**
- * 
+ *
  * @author miro
  */
 public class CompleteRevocationRefsImpl extends XAdESStructure implements CompleteRevocationRefs
@@ -252,57 +252,61 @@ public class CompleteRevocationRefsImpl extends XAdESStructure implements Comple
     // ValidationResult validationResult = new ValidationResult(this, certValidationInfo);
     // }
 
-    public CompleteRevocationRefsImpl(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public CompleteRevocationRefsImpl(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
-    public List<OCSPRef> getOCSPRefs()
+    @Override
+	public List<OCSPRef> getOCSPRefs()
     {
-        if (ocspRefs == null)
+        if (this.ocspRefs == null)
         {
-            Element element = getChildElementNS("OCSPRefs");
+            final Element element = getChildElementNS("OCSPRefs"); //$NON-NLS-1$
             if (element != null)
             {
-                OCSPRefs refs = new OCSPRefs(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
-                ocspRefs = refs.getOCSPRefs();
-            }
-            else
-                ocspRefs = Collections.<OCSPRef> emptyList();
+                final OCSPRefs refs = new OCSPRefs(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
+                this.ocspRefs = refs.getOCSPRefs();
+            } else {
+				this.ocspRefs = Collections.<OCSPRef> emptyList();
+			}
         }
 
-        return ocspRefs;
+        return this.ocspRefs;
     }
 
-    public List<CRLRef> getCRLRefs()
+    @Override
+	public List<CRLRef> getCRLRefs()
     {
-        if (crlRefs == null)
+        if (this.crlRefs == null)
         {
-            Element element = getChildElementNS("CRLRefs");
+            final Element element = getChildElementNS("CRLRefs"); //$NON-NLS-1$
             if (element != null)
             {
-                CRLRefs refs = new CRLRefs(element, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
-                crlRefs = refs.getCRLRefs();
-            }
-            else
-                crlRefs = Collections.<CRLRef> emptyList();
+                final CRLRefs refs = new CRLRefs(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
+                this.crlRefs = refs.getCRLRefs();
+            } else {
+				this.crlRefs = Collections.<CRLRef> emptyList();
+			}
         }
 
-        return crlRefs;
+        return this.crlRefs;
     }
 
-    public ValidationResult getValidationResult()
+    @Override
+	public ValidationResult getValidationResult()
     {
-        if (validationResult == null)
+        if (this.validationResult == null)
         {
-            Element element = getChildElementNS("ValidationResult");
-            if (element != null)
-                validationResult = new ValidationResult(element, xadesPrefix, xadesNamespace,
-                        xmlSignaturePrefix);
+            final Element element = getChildElementNS("ValidationResult"); //$NON-NLS-1$
+            if (element != null) {
+				this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
+                        this.xmlSignaturePrefix);
+			}
         }
 
-        return validationResult;
+        return this.validationResult;
     }
 }

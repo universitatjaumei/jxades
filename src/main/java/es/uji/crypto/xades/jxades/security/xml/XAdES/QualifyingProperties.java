@@ -60,13 +60,13 @@ public class QualifyingProperties extends XAdESStructure
 
     public SignedProperties getSignedProperties()
     {
-        if (signedProperties == null)
+        if (this.signedProperties == null)
         {
-            signedProperties = new SignedProperties(document, this, signatureIdPrefix, xadesPrefix,
-                    xadesNamespace, xmlSignaturePrefix);
+            this.signedProperties = new SignedProperties(this.document, this, this.signatureIdPrefix, this.xadesPrefix,
+                    this.xadesNamespace, this.xmlSignaturePrefix);
         }
 
-        return signedProperties;
+        return this.signedProperties;
     }
 
     public UnsignedProperties getUnsignedProperties()
@@ -77,6 +77,6 @@ public class QualifyingProperties extends XAdESStructure
         // xmlSignaturePrefix);
         // }
 
-        return unsignedProperties;
+        return this.unsignedProperties;
     }
 }

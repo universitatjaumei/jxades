@@ -19,41 +19,49 @@ public class SignatureProductionPlaceImpl implements SignatureProductionPlace
 		this.countryName = countryName;
 	}
 	
+	@Override
 	public String getCity() 
 	{
-		return city;
+		return this.city;
 	}
 
+	@Override
 	public void setCity(String city) 
 	{
 		this.city = city;
 	}
 
+	@Override
 	public String getStateOrProvince() 
 	{
-		return stateOrProvince;
+		return this.stateOrProvince;
 	}
 
+	@Override
 	public void setStateOrProvince(String stateOrProvince) 
 	{
 		this.stateOrProvince = stateOrProvince;
 	}
 
+	@Override
 	public String getPostalCode() 
 	{
-		return postalCode;
+		return this.postalCode;
 	}
 
+	@Override
 	public void setPostalCode(String postalCode) 
 	{
 		this.postalCode = postalCode;
 	}
 
+	@Override
 	public String getCountryName() 
 	{
-		return countryName;
+		return this.countryName;
 	}
 
+	@Override
 	public void setCountryName(String countryName) 
 	{
 		this.countryName = countryName;

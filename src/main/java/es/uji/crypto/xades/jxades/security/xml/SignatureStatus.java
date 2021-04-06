@@ -52,22 +52,22 @@ public class SignatureStatus implements ComparableBean
 
     public ValidateResult getValidateResult()
     {
-        return validateResult;
+        return this.validateResult;
     }
 
     public String getSignatureId()
     {
-        return signatureId;
+        return this.signatureId;
     }
 
     public void addInvalidSignatureReason(InvalidSignatureReason reason)
     {
-        invalidSignatureReasons.add(reason);
+        this.invalidSignatureReasons.add(reason);
     }
 
     public List<InvalidSignatureReason> getInvalidSignatureReasons()
     {
-        return invalidSignatureReasons;
+        return this.invalidSignatureReasons;
     }
 
     public String getReasonsAsText()
@@ -91,9 +91,10 @@ public class SignatureStatus implements ComparableBean
         return sb.toString();
     }
 
-    public String toString()
+    @Override
+	public String toString()
     {
-        return validateResult.toString();
+        return this.validateResult.toString();
     }
 
     public static boolean isValid(List<SignatureStatus> validateResults)
@@ -107,7 +108,8 @@ public class SignatureStatus implements ComparableBean
         return true;
     }
 
-    public Comparable getIndexKey()
+    @Override
+	public Comparable getIndexKey()
     {
         return getSignatureId();
     }

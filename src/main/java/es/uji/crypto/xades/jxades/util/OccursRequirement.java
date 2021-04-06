@@ -31,12 +31,12 @@ public final class OccursRequirement
 
     public final int getMinOccurs()
     {
-        return components[0];
+        return this.components[0];
     }
 
     public final int getMaxOccurs()
     {
-        return components[1];
+        return this.components[1];
     }
 
     public final boolean isValid(Object object)
@@ -55,11 +55,11 @@ public final class OccursRequirement
             return isValid(1);
         }
 
-        return components[0] == 0;
+        return this.components[0] == 0;
     }
 
     public final boolean isValid(int count)
     {
-        return count >= components[0] && count <= components[1];
+        return count >= this.components[0] && count <= this.components[1];
     }
 }
