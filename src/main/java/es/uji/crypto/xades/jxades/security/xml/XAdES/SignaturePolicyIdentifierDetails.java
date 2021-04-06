@@ -56,7 +56,7 @@ public class SignaturePolicyIdentifierDetails extends XAdESStructure
 
             final Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
                     "DigestMethod"); //$NON-NLS-1$
-            digestMethod.setAttributeNS(xmlSignaturePrefix,
+            digestMethod.setAttributeNS(null,
                     "Algorithm", signaturePolicyIdentifier.getHashAlgorithm()); //$NON-NLS-1$
 
             final Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,

@@ -39,7 +39,7 @@ public class SigningCertificateDetails extends XAdESStructure
         Element digestMethod = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix,
                 "DigestMethod");
         digestMethod.setPrefix(xmlSignaturePrefix);
-        digestMethod.setAttributeNS(xmlSignaturePrefix, "Algorithm", signingCertificate.getDigestMethodAlgorithm());
+        digestMethod.setAttributeNS(null, "Algorithm", signingCertificate.getDigestMethodAlgorithm());
 
         Element digestValue = createElementNS(XMLSignature.XMLNS, xmlSignaturePrefix, "DigestValue");
         digestValue.setPrefix(xmlSignaturePrefix);
