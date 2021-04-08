@@ -6,7 +6,7 @@ import org.w3c.dom.Node;
 /*
  <CRLRef>
  <DigestAlgAndValue>
- <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+ <DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
  <DigestValue>...</DigestValue>
  </DigestAlgAndValue>
  <CRLIdentifier URI="#Signature_1_EncapsulatedCRLValue_1">
@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class CRLRef extends XAdESStructure
@@ -47,7 +47,7 @@ public class CRLRef extends XAdESStructure
     // validationResult = new ValidationResult(this, revocationStatus);
     // }
 
-    public CRLRef(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public CRLRef(final Node node, final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -56,10 +56,11 @@ public class CRLRef extends XAdESStructure
     {
         if (this.crlIdentifier == null)
         {
-            Element element = getChildElementNS("CRLIdentifier");
-            if (element != null)
-                this.crlIdentifier = new CRLIdentifier(element, this.xadesPrefix, this.xadesNamespace,
+            final Element element = getChildElementNS("CRLIdentifier");
+            if (element != null) {
+				this.crlIdentifier = new CRLIdentifier(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
 
         return this.crlIdentifier;
@@ -69,10 +70,11 @@ public class CRLRef extends XAdESStructure
     {
         if (this.digestAlgAndValue == null)
         {
-            Element element = getChildElementNS("DigestAlgAndValue");
-            if (element != null)
-                this.digestAlgAndValue = new DigestAlgAndValue(element, this.xadesPrefix, this.xadesNamespace,
+            final Element element = getChildElementNS("DigestAlgAndValue");
+            if (element != null) {
+				this.digestAlgAndValue = new DigestAlgAndValue(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
 
         return this.digestAlgAndValue;
@@ -82,10 +84,11 @@ public class CRLRef extends XAdESStructure
     {
         if (this.validationResult == null)
         {
-            Element element = getChildElementNS("ValidationResult");
-            if (element != null)
-                this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
+            final Element element = getChildElementNS("ValidationResult");
+            if (element != null) {
+				this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
 
         return this.validationResult;

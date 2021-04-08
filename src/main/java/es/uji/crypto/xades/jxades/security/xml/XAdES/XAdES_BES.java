@@ -1,12 +1,5 @@
 package es.uji.crypto.xades.jxades.security.xml.XAdES;
 
-import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 /**
  * 4.4.1 Basic electronic signature (XAdES-BES)
  * A Basic Electronic Signature (XAdES-BES) in accordance with
@@ -127,6 +120,6 @@ import org.w3c.dom.Element;
  *
  * @author miro
  */
-public interface XAdES_BES extends XAdESBase, XadesWithBasicAttributes
-{
+public interface XAdES_BES extends XAdESBase, XadesWithBasicAttributes {
+	// Vacio
 }

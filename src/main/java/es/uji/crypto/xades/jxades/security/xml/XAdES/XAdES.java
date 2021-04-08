@@ -277,8 +277,15 @@ public enum XAdES {
 
     public static XAdESBase newInstance(final XAdES xades, final org.w3c.dom.Element baseElement)
     {
-        return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign", //$NON-NLS-1$ //$NON-NLS-2$
-                DigestMethod.SHA1, baseElement.getOwnerDocument(), baseElement);
+        return newInstance(
+    		xades,
+    		XMLAdvancedSignature.XADES_v132,
+    		"xades", //$NON-NLS-1$
+    		"dsign", //$NON-NLS-1$
+            DigestMethod.SHA256,
+            baseElement.getOwnerDocument(),
+            baseElement
+        );
     }
 
     public static XAdESBase newInstance(final XAdES xades)
@@ -291,8 +298,15 @@ public enum XAdES {
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
             final Document document = documentBuilder.newDocument();
 
-            return newInstance(xades, XMLAdvancedSignature.XADES_v132, "xades", "dsign", //$NON-NLS-1$ //$NON-NLS-2$
-                    DigestMethod.SHA1, document, null);
+            return newInstance(
+        		xades,
+        		XMLAdvancedSignature.XADES_v132,
+        		"xades", //$NON-NLS-1$
+        		"dsign", //$NON-NLS-1$
+                DigestMethod.SHA256,
+                document,
+                null
+            );
         }
         catch (final ParserConfigurationException e)
         {
@@ -347,7 +361,7 @@ public enum XAdES {
                 digestMethod
             );
         }
-        else if (B_LEVEL.equals(xades)) {
+		if (B_LEVEL.equals(xades)) {
             return new BLevelXAdESImpl(
         		document,
         		baseElement,
@@ -358,7 +372,7 @@ public enum XAdES {
                 digestMethod
             );
         }
-        else if (T_LEVEL.equals(xades))
+		if (T_LEVEL.equals(xades))
         {
             return new TLevelXAdESImpl(document, baseElement, false, xadesPrefix, xadesNamespace,
                     xmlSignaturePrefix, digestMethod);

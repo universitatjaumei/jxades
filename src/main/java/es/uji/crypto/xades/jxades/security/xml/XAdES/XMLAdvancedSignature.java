@@ -331,7 +331,7 @@ public class XMLAdvancedSignature {
 
     protected DigestMethod getDigestMethod() throws GeneralSecurityException {
         if (this.digestMethod == null) {
-            this.digestMethod = getXMLSignatureFactory().newDigestMethod(DigestMethod.SHA1, null);
+            this.digestMethod = getXMLSignatureFactory().newDigestMethod(DigestMethod.SHA256, null);
         }
         return this.digestMethod;
     }

@@ -1,12 +1,19 @@
 package es.uji.crypto.xades.jxades.security.xml;
 
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.util.Collections;
 
 import javax.xml.crypto.XMLStructure;
 import javax.xml.crypto.dom.DOMStructure;
-import javax.xml.crypto.dsig.*;
+import javax.xml.crypto.dsig.CanonicalizationMethod;
+import javax.xml.crypto.dsig.DigestMethod;
+import javax.xml.crypto.dsig.Reference;
+import javax.xml.crypto.dsig.SignatureMethod;
+import javax.xml.crypto.dsig.SignedInfo;
+import javax.xml.crypto.dsig.XMLObject;
+import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMSignContext;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.KeyInfoFactory;
@@ -17,59 +24,66 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.util.Collections;
 
-public class GenEnvelopingObject
-{
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
+public final class GenEnvelopingObject {
     @Test
-    public void enveloping() throws Exception
-    {
+    public void enveloping() throws Exception {
         // Data
 
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
-        Document doc = dbf.newDocumentBuilder().newDocument();
-        Node text = doc.createTextNode("some text");
-        XMLStructure content = new DOMStructure(text);
+        final Document doc = dbf.newDocumentBuilder().newDocument();
+        final Node text = doc.createTextNode("some text"); //$NON-NLS-1$
+        final XMLStructure content = new DOMStructure(text);
 
         // XMLSignature
 
-        XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+        final XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM"); //$NON-NLS-1$
 
-        Reference ref = fac.newReference("#object", fac.newDigestMethod(DigestMethod.SHA1, null));
+        final Reference ref = fac.newReference("#object", fac.newDigestMethod(DigestMethod.SHA256, null)); //$NON-NLS-1$
 
-        SignedInfo si = fac.newSignedInfo(fac.newCanonicalizationMethod(CanonicalizationMethod.INCLUSIVE,
-                (C14NMethodParameterSpec) null), fac.newSignatureMethod(
-                SignatureMethod.RSA_SHA1, null), Collections.singletonList(ref));
+        final SignedInfo si = fac.newSignedInfo(
+    		fac.newCanonicalizationMethod(
+				CanonicalizationMethod.INCLUSIVE,
+                (C14NMethodParameterSpec) null
+            ),
+			fac.newSignatureMethod(
+				SignatureMethod.RSA_SHA256,
+				null
+			),
+			Collections.singletonList(ref)
+		);
 
-        XMLObject obj = fac.newXMLObject(Collections.singletonList(content), "object", null, null);
+        final XMLObject obj = fac.newXMLObject(Collections.singletonList(content), "object", null, null); //$NON-NLS-1$
 
         // KeyInfo
 
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+        final KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA"); //$NON-NLS-1$
         kpg.initialize(512);
-        KeyPair kp = kpg.generateKeyPair();
+        final KeyPair kp = kpg.generateKeyPair();
 
-        KeyInfoFactory kif = fac.getKeyInfoFactory();
-        KeyValue kv = kif.newKeyValue(kp.getPublic());
+        final KeyInfoFactory kif = fac.getKeyInfoFactory();
+        final KeyValue kv = kif.newKeyValue(kp.getPublic());
 
-        KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kv));
+        final KeyInfo ki = kif.newKeyInfo(Collections.singletonList(kv));
 
         // SignContext
 
-        DOMSignContext dsc = new DOMSignContext(kp.getPrivate(), doc);
+        final DOMSignContext dsc = new DOMSignContext(kp.getPrivate(), doc);
 
         // Signature
 
-        XMLSignature signature = fac.newXMLSignature(si, ki, Collections.singletonList(obj), null, null);
+        final XMLSignature signature = fac.newXMLSignature(si, ki, Collections.singletonList(obj), null, null);
         signature.sign(dsc);
 
         // Output
 
-        TransformerFactory tf = TransformerFactory.newInstance();
-        Transformer trans = tf.newTransformer();
+        final TransformerFactory tf = TransformerFactory.newInstance();
+        final Transformer trans = tf.newTransformer();
         trans.transform(new DOMSource(doc), new StreamResult(System.out));
     }
 }

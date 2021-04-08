@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
  <CRLRefs>
  <CRLRef>
  <DigestAlgAndValue>
- <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+ <DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
  <DigestValue>...</DigestValue>
  </DigestAlgAndValue>
  <CRLIdentifier URI="#Signature_1_EncapsulatedCRLValue_1">
@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class CRLRefs extends XAdESStructure
@@ -57,7 +57,7 @@ public class CRLRefs extends XAdESStructure
     // }
     // }
 
-    public CRLRefs(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public CRLRefs(final Node node, final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -66,11 +66,11 @@ public class CRLRefs extends XAdESStructure
     {
         if (this.crlRefs == null)
         {
-            List<Element> elements = getChildElementsNS("CRLRef");
+            final List<Element> elements = getChildElementsNS("CRLRef");
             if (elements != null && elements.size() > 0)
             {
                 this.crlRefs = new ArrayList<CRLRef>(elements.size());
-                for (Element element : elements)
+                for (final Element element : elements)
                 {
                     this.crlRefs
                             .add(new CRLRef(element, this.xadesPrefix, this.xadesNamespace,

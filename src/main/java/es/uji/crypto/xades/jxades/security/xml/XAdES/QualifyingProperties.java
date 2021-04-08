@@ -8,11 +8,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * 
+ *
  * @author miro
  */
-public class QualifyingProperties extends XAdESStructure
-{
+public class QualifyingProperties extends XAdESStructure {
+
     private String signatureIdPrefix;
 
     private SignedProperties signedProperties;
@@ -20,16 +20,26 @@ public class QualifyingProperties extends XAdESStructure
 
     private Document document;
 
-    public QualifyingProperties(Document document, Node node, String signatureIdPrefix,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
-    {
-        this(document, node, "QualifyingProperties", signatureIdPrefix, xadesPrefix,
-                xadesNamespace, xmlSignaturePrefix);
+    public QualifyingProperties(final Document document,
+    		                    final Node node,
+    		                    final String signatureIdPrefix,
+    		                    final String xadesPrefix,
+    		                    final String xadesNamespace,
+    		                    final String xmlSignaturePrefix) {
+        this(
+    		document,
+    		node,
+    		"QualifyingProperties", //$NON-NLS-1$
+    		signatureIdPrefix,
+    		xadesPrefix,
+            xadesNamespace,
+            xmlSignaturePrefix
+        );
     }
 
-    private QualifyingProperties(Document document, Node node, String elementName,
-            String signatureIdPrefix, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    private QualifyingProperties(final Document document, final Node node, final String elementName,
+            final String signatureIdPrefix, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         this(document.createElementNS(xadesNamespace, elementName), xadesPrefix, xadesNamespace,
                 xmlSignaturePrefix);
@@ -37,23 +47,23 @@ public class QualifyingProperties extends XAdESStructure
 
         this.signatureIdPrefix = signatureIdPrefix;
 
-        Element element = getElement();
+        final Element element = getElement();
 
-        element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:" + xmlSignaturePrefix,
+        element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:" + xmlSignaturePrefix, //$NON-NLS-1$
                 XMLSignature.XMLNS);
-        element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:" + xadesPrefix,
+        element.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI, "xmlns:" + xadesPrefix, //$NON-NLS-1$
                 xadesNamespace);
         element.setPrefix(xadesPrefix);
 
-        String target = "#" + signatureIdPrefix + "-" + SIGNATURE_ELEMENT_NAME;
+        final String target = "#" + signatureIdPrefix + "-" + SIGNATURE_ELEMENT_NAME; //$NON-NLS-1$ //$NON-NLS-2$
         setAttributeNS(null, TARGET_ATTRIBUTE, target);
 
-        String id = signatureIdPrefix + "-" + elementName;
+        final String id = signatureIdPrefix + "-" + elementName; //$NON-NLS-1$
         setAttributeNS(null, ID_ATTRIBUTE, id);
     }
 
-    public QualifyingProperties(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public QualifyingProperties(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }

@@ -13,29 +13,29 @@ import javax.xml.crypto.dsig.TransformException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.parsers.ParserConfigurationException;
 
-import es.uji.crypto.xades.jxades.security.xml.XAdES.XMLAdvancedSignature;
-
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-public class TestCosign extends BaseTest
+import es.uji.crypto.xades.jxades.security.xml.XAdES.XMLAdvancedSignature;
+
+public final class TestCosign extends BaseTest
 {
     @Test
     public void xades() throws FileNotFoundException, IOException, GeneralSecurityException,
             MarshalException, XMLSignatureException, TransformException,
             ParserConfigurationException, SAXException
     {
-        byte[] data = "<?xml version=\"1.0\"?><root><datafile Id=\"test\">contenido</datafile></root>"
+        final byte[] data = "<?xml version=\"1.0\"?><root><datafile Id=\"test\">contenido</datafile></root>" //$NON-NLS-1$
                 .getBytes();
 
         // Default signature options
-        SignatureOptions signatureOptions = getSignatureOptions(
-                "src/test/resources/catcert.p12", "PKCS12", null, "1234", "1234");
+        final SignatureOptions signatureOptions = getSignatureOptions(
+                "src/test/resources/catcert.p12", "PKCS12", null, "1234", "1234"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
         // Build XAdES-EPES signature
         XMLAdvancedSignature xmlSignature = createXAdES_EPES(signatureOptions, data);
         xmlSignature.sign(signatureOptions.getCertificate(), signatureOptions.getPrivateKey(),
-                SignatureMethod.RSA_SHA1, Arrays.asList(new Object[] { "test" }), "S0");
+                SignatureMethod.RSA_SHA256, Arrays.asList("test"), "S0"); //$NON-NLS-1$ //$NON-NLS-2$
 
         // Show results
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -48,7 +48,7 @@ public class TestCosign extends BaseTest
         // Cosign
         xmlSignature = createXAdES_EPES(signatureOptions, bos.toByteArray());
         xmlSignature.sign(signatureOptions.getCertificate(), signatureOptions.getPrivateKey(),
-                SignatureMethod.RSA_SHA1, Arrays.asList(new Object[] { "test" }), "S1");
+                SignatureMethod.RSA_SHA256, Arrays.asList("test"), "S1"); //$NON-NLS-1$ //$NON-NLS-2$
 
         // Show results
         bos = new ByteArrayOutputStream();
@@ -58,7 +58,11 @@ public class TestCosign extends BaseTest
         // Verify signature
         verify(xmlSignature);
 
-        showSignature(xmlSignature,
-                new FileOutputStream("src/test/resources/out-cosign-jxades.xml"));
+        try (final java.io.OutputStream fos = new FileOutputStream("src/test/resources/out-cosign-jxades.xml")) { //$NON-NLS-1$
+	        showSignature(
+	    		xmlSignature,
+	            fos
+			);
+        }
     }
 }

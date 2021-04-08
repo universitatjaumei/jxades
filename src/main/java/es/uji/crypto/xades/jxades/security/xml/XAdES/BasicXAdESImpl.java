@@ -153,7 +153,8 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 
         if (certificate == null) {
         	this.data.remove(XAdES.Element.SIGNING_CERTIFICATE);
-		} else {
+		}
+        else {
 			final SigningCertificateImpl sci = new SigningCertificateImpl(certificate, this.digestMethod);
 			this.data.put(XAdES.Element.SIGNING_CERTIFICATE, sci);
 		}

@@ -52,7 +52,7 @@ import org.w3c.dom.Node;
  <CRLRefs>
  <CRLRef>
  <DigestAlgAndValue>
- <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+ <DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
  <DigestValue>...</DigestValue>
  </DigestAlgAndValue>
  <CRLIdentifier URI="#Signature_1_EncapsulatedCRLValue_1">

@@ -66,39 +66,36 @@ public class SignedSignatureProperties extends XAdESStructure
         }
     }
 
-    public void setSigningCertificateV2(final SigningCertificateV2 signingCertificateV2)
-            throws GeneralSecurityException
-    {
-        if (signingCertificateV2 != null)
-        {
-            new SigningCertificateV2Details(this.document, this, signingCertificateV2, this.xadesPrefix, this.xadesNamespace,
-                    this.xmlSignaturePrefix);
+    public void setSigningCertificateV2(final SigningCertificateV2 signingCertificateV2) throws GeneralSecurityException {
+        if (signingCertificateV2 != null) {
+            new SigningCertificateV2Details(
+        		this.document,
+        		this,
+        		signingCertificateV2,
+        		this.xadesPrefix,
+        		this.xadesNamespace,
+                this.xmlSignaturePrefix
+            );
         }
     }
 
     public void setSignerRole(final SignerRole signerRole)
     {
-        if (signerRole != null)
-        {
-            if (signerRole.getClaimedRole().size() > 0 || signerRole.getCertifiedRole().size() > 0)
-            {
-                new SignerRoleDetails(this.document, this, signerRole, this.xadesPrefix, this.xadesNamespace,
-                        this.xmlSignaturePrefix);
-            }
-        }
+        if (signerRole != null && (signerRole.getClaimedRole().size() > 0 || signerRole.getCertifiedRole().size() > 0))
+		{
+		    new SignerRoleDetails(this.document, this, signerRole, this.xadesPrefix, this.xadesNamespace,
+		            this.xmlSignaturePrefix);
+		}
     }
-    
+
     public void setSignerRoleV2(final SignerRoleV2 signerRole)
     {
-        if (signerRole != null)
-        {
-            if (signerRole.getClaimedRoles().size() > 0 || signerRole.getCertifiedRolesV2().size() > 0
-            		 || signerRole.getSignedAssertions().size() > 0)
-            {
-                new SignerRoleV2Details(this.document, this, signerRole, this.xadesPrefix,
-                		this.xadesNamespace, this.xmlSignaturePrefix);
-            }
-        }
+        if (signerRole != null && (signerRole.getClaimedRoles().size() > 0 || signerRole.getCertifiedRolesV2().size() > 0
+				 || signerRole.getSignedAssertions().size() > 0))
+		{
+		    new SignerRoleV2Details(this.document, this, signerRole, this.xadesPrefix,
+		    		this.xadesNamespace, this.xmlSignaturePrefix);
+		}
     }
 
     public Signer getSigner()
@@ -118,9 +115,8 @@ public class SignedSignatureProperties extends XAdESStructure
         final Element element = getChildElementNS("SignerDetails");
         if (element != null) {
 			return new SignerDetails(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
-		} else {
-			return null;
 		}
+		return null;
     }
 
     public void setSignatureProductionPlace(final SignatureProductionPlace signatureProductionPlace)
@@ -131,7 +127,7 @@ public class SignedSignatureProperties extends XAdESStructure
                     this.xadesNamespace, this.xmlSignaturePrefix);
         }
     }
-    
+
     public void setSignatureProductionPlaceV2(final SignatureProductionPlaceV2 signatureProductionPlace)
     {
         if (signatureProductionPlace != null)

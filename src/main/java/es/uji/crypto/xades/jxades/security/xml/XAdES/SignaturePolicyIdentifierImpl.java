@@ -13,20 +13,20 @@ import javax.xml.crypto.dsig.DigestMethod;
 import es.uji.crypto.xades.jxades.util.Base64;
 
 public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
-{    
+{
     private boolean implied;
     private String sigPolicyId;
     private String description;
     private String sigPolicyQualifierSPURI;
     private String sigPolicyHashBase64;
     private String sigPolicyHashHashAlgorithm;
-    
+
     public SignaturePolicyIdentifierImpl(final boolean implied)
     {
         this.implied = implied;
     }
 
-    private byte[] inputStreamToByteArray(InputStream in) throws IOException
+    private byte[] inputStreamToByteArray(final InputStream in) throws IOException
     {
         final byte[] buffer = new byte[2048];
         int length = 0;
@@ -37,13 +37,13 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
         }
         return baos.toByteArray();
     }
-    
+
     @Override
 	public void setIdentifier(final String identifier) throws IOException, NoSuchAlgorithmException
     {
         setIdentifier(identifier, null, null);
     }
-    
+
     @Override
 	public void setIdentifier(final String identifier, final String hashBase64, final String hashAlgorithm) throws IOException, NoSuchAlgorithmException
     {
@@ -51,19 +51,19 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
         {
             final URLConnection conn = new URL(identifier).openConnection();
             final byte[] data = inputStreamToByteArray(conn.getInputStream());
-            final MessageDigest md = MessageDigest.getInstance("SHA1"); //$NON-NLS-1$
+            final MessageDigest md = MessageDigest.getInstance("SHA-256"); //$NON-NLS-1$
             md.update(data);
             this.sigPolicyHashBase64 = Base64.encodeBytes(md.digest());
-            this.sigPolicyHashHashAlgorithm = DigestMethod.SHA1;
+            this.sigPolicyHashHashAlgorithm = DigestMethod.SHA256;
         }
         else
         {
-            this.sigPolicyHashBase64 = hashBase64; 
+            this.sigPolicyHashBase64 = hashBase64;
             this.sigPolicyHashHashAlgorithm = hashAlgorithm;
         }
         this.sigPolicyId = identifier;
     }
-    
+
     @Override
 	public boolean isImplied()
     {
@@ -71,7 +71,7 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
     }
 
     @Override
-	public void setImplied(boolean implied)
+	public void setImplied(final boolean implied)
     {
         this.implied = implied;
     }
@@ -95,11 +95,11 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
     }
 
     @Override
-	public void setDescription(String description)
+	public void setDescription(final String description)
     {
-        this.description = description;        
+        this.description = description;
     }
-    
+
     @Override
 	public String getQualifier()
     {
@@ -107,13 +107,13 @@ public class SignaturePolicyIdentifierImpl implements SignaturePolicyIdentifier
     }
 
     @Override
-	public void setQualifier(String qualifier)
+	public void setQualifier(final String qualifier)
     {
-        this.sigPolicyQualifierSPURI = qualifier;        
+        this.sigPolicyQualifierSPURI = qualifier;
     }
 
     @Override
 	public String getHashAlgorithm() {
         return this.sigPolicyHashHashAlgorithm;
-    }    
+    }
 }

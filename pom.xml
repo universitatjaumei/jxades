@@ -6,6 +6,11 @@
   <artifactId>jxades</artifactId>
   <version>0.2.3-SNAPSHOT</version>
   <name>jXAdES</name>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
   <repositories>
     <repository>

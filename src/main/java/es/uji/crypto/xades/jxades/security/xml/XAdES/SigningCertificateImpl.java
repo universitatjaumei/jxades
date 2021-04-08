@@ -14,8 +14,7 @@ public class SigningCertificateImpl implements SigningCertificate
 	private final X509Certificate certificate;
 	private String digestMethod;
 
-	public SigningCertificateImpl(final X509Certificate certificate, final String digestMethod)
-	{
+	public SigningCertificateImpl(final X509Certificate certificate, final String digestMethod) {
 		this.certificate = certificate;
 		this.digestMethod = digestMethod;
 	}
@@ -72,14 +71,12 @@ public class SigningCertificateImpl implements SigningCertificate
 	}
 
 	@Override
-	public String getIssuerName()
-	{
+	public String getIssuerName() {
 		return this.certificate.getIssuerDN().getName();
 	}
 
 	@Override
-	public BigInteger getX509SerialNumber()
-	{
+	public BigInteger getX509SerialNumber() {
 		return this.certificate.getSerialNumber();
 	}
 }

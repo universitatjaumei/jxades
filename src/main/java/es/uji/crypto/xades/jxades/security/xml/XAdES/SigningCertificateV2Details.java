@@ -14,7 +14,7 @@ import org.w3c.dom.Node;
  * <xades:SigningCertificateV2>
  *     <xades:Cert>
  *         <xades:CertDigest>
- *             <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+ *             <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
  *             <ds:DigestValue>rFQEEAdlZJieHIdInK8bYoB6aMs=</ds:DigestValue>
  *         </xades:CertDigest>
  *         <xades:IssuerSerialV2>MIGeMIGQpIGNMIGKMQswCQYDVQQGEwJMSzEQMA4GA1UECBMHV2VzdGVybjEQMA4GA1UEBxMHQ29sb21ibzEWMBQGA1UEChMNU29mdHdhcmUgVmlldzERMA8GA1UECxMIVHJhaW5pbmcxLDAqBgNVBAMTI1NvZnR3YXJlIFZpZXcgQ2VydGlmaWNhdGUgQXV0aG9yaXR5AgkA9qs6c/ASQqU=</xades:IssuerSerialV2>

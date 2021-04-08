@@ -362,7 +362,6 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level {
                             sdop.setDataObjectFormat((ArrayList<DataObjectFormat>) value);
                         }
                         else if (XAdES.Element.COMMITMENT_TYPE_INDICATIONS.equals(key)) {
-                            // TODO: Manage CommitmentTypeIndication as a ArrayList
                             sdop = getSignedDataObjectProperties(qp);
                             sdop.setCommitmentTypeIndications((ArrayList<CommitmentTypeIndication>) value);
                         }
