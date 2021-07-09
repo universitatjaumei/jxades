@@ -8,7 +8,6 @@ import java.security.GeneralSecurityException;
 import java.util.Arrays;
 
 import javax.xml.crypto.MarshalException;
-import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.TransformException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +16,7 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import es.uji.crypto.xades.jxades.security.xml.XAdES.XMLAdvancedSignature;
+import es.uji.crypto.xades.jxades.util.XMLUtils;
 
 public final class TestCosign extends BaseTest
 {
@@ -35,7 +35,7 @@ public final class TestCosign extends BaseTest
         // Build XAdES-EPES signature
         XMLAdvancedSignature xmlSignature = createXAdES_EPES(signatureOptions, data);
         xmlSignature.sign(signatureOptions.getCertificate(), signatureOptions.getPrivateKey(),
-                SignatureMethod.RSA_SHA256, Arrays.asList("test"), "S0"); //$NON-NLS-1$ //$NON-NLS-2$
+    		XMLUtils.RSA_SHA256, Arrays.asList("test"), "S0"); //$NON-NLS-1$ //$NON-NLS-2$
 
         // Show results
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -48,7 +48,7 @@ public final class TestCosign extends BaseTest
         // Cosign
         xmlSignature = createXAdES_EPES(signatureOptions, bos.toByteArray());
         xmlSignature.sign(signatureOptions.getCertificate(), signatureOptions.getPrivateKey(),
-                SignatureMethod.RSA_SHA256, Arrays.asList("test"), "S1"); //$NON-NLS-1$ //$NON-NLS-2$
+        		XMLUtils.RSA_SHA256, Arrays.asList("test"), "S1"); //$NON-NLS-1$ //$NON-NLS-2$
 
         // Show results
         bos = new ByteArrayOutputStream();

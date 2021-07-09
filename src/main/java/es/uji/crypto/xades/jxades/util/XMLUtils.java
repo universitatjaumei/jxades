@@ -31,6 +31,21 @@ import org.w3c.dom.ls.LSSerializer;
  */
 public final class XMLUtils {
 
+	public static final String SHA224 = "http://www.w3.org/2001/04/xmldsig-more#sha224";
+	public static final String SHA384 = "http://www.w3.org/2001/04/xmldsig-more#sha384";
+
+	/** The <a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha224">
+     * RSA-SHA224</a> (PKCS #1) signature method algorithm URI. */
+    public static final String RSA_SHA224 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha224";
+
+	/** The <a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256">
+     * RSA-SHA256</a> (PKCS #1) signature method algorithm URI. */
+    public static final String RSA_SHA256 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
+
+    /** The <a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384">
+     * RSA-SHA384</a> (PKCS #1) signature method algorithm URI. */
+    public static final String RSA_SHA384 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384";
+
     private static Charset charset = StandardCharsets.UTF_8;
 
     /**
@@ -54,10 +69,7 @@ public final class XMLUtils {
         {
             return null;
         }
-        else
-        {
-            return attribute.getNodeValue().trim();
-        }
+		return attribute.getNodeValue().trim();
     }
 
     /**
@@ -74,10 +86,7 @@ public final class XMLUtils {
         {
             return text.getData();
         }
-        else
-        {
-            return null;
-        }
+		return null;
     }
 
     /**
@@ -138,10 +147,7 @@ public final class XMLUtils {
         {
             return text.getData().trim();
         }
-        else
-        {
-            return null;
-        }
+		return null;
     }
 
     /**
@@ -346,17 +352,14 @@ public final class XMLUtils {
         for (int i = 0; i < size; i++)
         {
             final Node node = nl.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
-            {
-                if (tagName.equals(node.getLocalName()))
-                {
-                    final String ns = node.getNamespaceURI();
-                    if (ns != null && ns.equals(nsName))
-                    {
-                        return (Element) node;
-                    }
-                }
-            }
+            if (node.getNodeType() == Node.ELEMENT_NODE && tagName.equals(node.getLocalName()))
+			{
+			    final String ns = node.getNamespaceURI();
+			    if (ns != null && ns.equals(nsName))
+			    {
+			        return (Element) node;
+			    }
+			}
         }
 
         return null;
@@ -405,17 +408,14 @@ public final class XMLUtils {
         for (int i = 0; i < size; i++)
         {
             final Node node = nl.item(i);
-            if (node.getNodeType() == Node.ELEMENT_NODE)
-            {
-                if (tagName.equals(node.getLocalName()))
-                {
-                    final String ns = node.getNamespaceURI();
-                    if (ns != null && ns.equals(nsName))
-                    {
-                        childElements.add((Element) node);
-                    }
-                }
-            }
+            if (node.getNodeType() == Node.ELEMENT_NODE && tagName.equals(node.getLocalName()))
+			{
+			    final String ns = node.getNamespaceURI();
+			    if (ns != null && ns.equals(nsName))
+			    {
+			        childElements.add((Element) node);
+			    }
+			}
         }
 
         return childElements;

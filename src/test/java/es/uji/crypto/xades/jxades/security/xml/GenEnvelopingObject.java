@@ -9,7 +9,6 @@ import javax.xml.crypto.dom.DOMStructure;
 import javax.xml.crypto.dsig.CanonicalizationMethod;
 import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.Reference;
-import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.SignedInfo;
 import javax.xml.crypto.dsig.XMLObject;
 import javax.xml.crypto.dsig.XMLSignature;
@@ -28,6 +27,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+import es.uji.crypto.xades.jxades.util.XMLUtils;
 
 public final class GenEnvelopingObject {
     @Test
@@ -52,7 +53,7 @@ public final class GenEnvelopingObject {
                 (C14NMethodParameterSpec) null
             ),
 			fac.newSignatureMethod(
-				SignatureMethod.RSA_SHA256,
+				XMLUtils.RSA_SHA256,
 				null
 			),
 			Collections.singletonList(ref)

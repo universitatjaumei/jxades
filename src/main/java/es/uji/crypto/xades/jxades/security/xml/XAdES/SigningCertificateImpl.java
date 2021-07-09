@@ -8,6 +8,7 @@ import java.security.cert.X509Certificate;
 import javax.xml.crypto.dsig.DigestMethod;
 
 import es.uji.crypto.xades.jxades.util.Base64;
+import es.uji.crypto.xades.jxades.util.XMLUtils;
 
 public class SigningCertificateImpl implements SigningCertificate
 {
@@ -47,10 +48,10 @@ public class SigningCertificateImpl implements SigningCertificate
 		    else if (DigestMethod.SHA256.equals(this.digestMethod)) {
                 algorithm = "SHA-256"; //$NON-NLS-1$
 		    }
-		    else if (DigestMethod.SHA224.equals(this.digestMethod)) {
+		    else if (XMLUtils.SHA224.equals(this.digestMethod)) {
                 algorithm = "SHA-224"; //$NON-NLS-1$
 		    }
-		    else if (DigestMethod.SHA384.equals(this.digestMethod)) {
+		    else if (XMLUtils.SHA384.equals(this.digestMethod)) {
                 algorithm = "SHA-384"; //$NON-NLS-1$
 		    }
 		    else {

@@ -8,7 +8,6 @@ import java.util.Collections;
 import javax.xml.crypto.dsig.CanonicalizationMethod;
 import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.Reference;
-import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.SignedInfo;
 import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
@@ -27,6 +26,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import es.uji.crypto.xades.jxades.util.XMLUtils;
 
 public class GenEnveloping
 {
@@ -75,7 +76,7 @@ public class GenEnveloping
 				CanonicalizationMethod.INCLUSIVE,
                 (C14NMethodParameterSpec) null),
     			fac.newSignatureMethod(
-					SignatureMethod.RSA_SHA256,
+					XMLUtils.RSA_SHA256,
 					null
 				),
 			Collections.singletonList(ref)
