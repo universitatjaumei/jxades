@@ -12,7 +12,7 @@ public class SignedDataObjectProperties extends XAdESStructure
     public SignedDataObjectProperties(final Document document, final SignedProperties signedProperties,
             final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
-        super(document, signedProperties, "SignedDataObjectProperties", xadesPrefix,
+        super(document, signedProperties, "SignedDataObjectProperties", xadesPrefix, //$NON-NLS-1$
                 xadesNamespace, xmlSignaturePrefix);
         this.document = document;
     }

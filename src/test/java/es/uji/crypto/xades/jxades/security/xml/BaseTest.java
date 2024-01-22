@@ -21,6 +21,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
 import es.uji.crypto.xades.jxades.security.xml.XAdES.SignaturePolicyIdentifier;
 import es.uji.crypto.xades.jxades.security.xml.XAdES.SignaturePolicyIdentifierImpl;
 import es.uji.crypto.xades.jxades.security.xml.XAdES.XAdES;
@@ -29,18 +32,15 @@ import es.uji.crypto.xades.jxades.security.xml.XAdES.XAdES_T;
 import es.uji.crypto.xades.jxades.security.xml.XAdES.XMLAdvancedSignature;
 import es.uji.crypto.xades.jxades.util.XMLUtils;
 
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
 public class BaseTest
 {
-    protected SignatureOptions getSignatureOptions(String keystorePath, String keystoreType,
-            String alias, String keystorePassword, String keyPassword) throws KeyStoreException,
+    protected SignatureOptions getSignatureOptions(final String keystorePath, final String keystoreType,
+            final String alias, final String keystorePassword, final String keyPassword) throws KeyStoreException,
             NoSuchAlgorithmException, UnrecoverableKeyException, CertificateException,
             FileNotFoundException, IOException
     {
         // Keystore
-        KeyStore keystore = KeyStore.getInstance(keystoreType);
+        final KeyStore keystore = KeyStore.getInstance(keystoreType);
         keystore.load(new FileInputStream(keystorePath), keystorePassword.toCharArray());
 
         // Alias del certificado de firma
@@ -52,13 +52,13 @@ public class BaseTest
         }
 
         // Certificado de firma
-        X509Certificate certificate = (X509Certificate) keystore.getCertificate(certificateAlias);
+        final X509Certificate certificate = (X509Certificate) keystore.getCertificate(certificateAlias);
 
         // Clave privada para firmar
-        PrivateKey privateKey = (PrivateKey) keystore.getKey(certificateAlias,
+        final PrivateKey privateKey = (PrivateKey) keystore.getKey(certificateAlias,
                 keyPassword.toCharArray());
 
-        SignatureOptions signatureOptions = new SignatureOptions();
+        final SignatureOptions signatureOptions = new SignatureOptions();
         signatureOptions.setKeystore(keystore);
         signatureOptions.setCertificate(certificate);
         signatureOptions.setPrivateKey(privateKey);
@@ -66,12 +66,12 @@ public class BaseTest
         return signatureOptions;
     }
 
-    protected Element getDocumentToSign(byte[] data) throws SAXException, IOException,
+    protected Element getDocumentToSign(final byte[] data) throws SAXException, IOException,
             ParserConfigurationException
     {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
-        DocumentBuilder db = dbf.newDocumentBuilder();
+        final DocumentBuilder db = dbf.newDocumentBuilder();
 
         return db.parse(new ByteArrayInputStream(data)).getDocumentElement();
     }
@@ -79,23 +79,23 @@ public class BaseTest
     protected Element getEmptyDocument() throws SAXException, IOException,
             ParserConfigurationException
     {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setNamespaceAware(true);
-        DocumentBuilder db = dbf.newDocumentBuilder();
+        final DocumentBuilder db = dbf.newDocumentBuilder();
         return db.newDocument().getDocumentElement();
     }
 
-    protected boolean verify(XMLAdvancedSignature xmlSignature)
+    protected boolean verify(final XMLAdvancedSignature xmlSignature)
     {
-        List<SignatureStatus> st = xmlSignature.validate();
+        final List<SignatureStatus> st = xmlSignature.validate();
 
         boolean validate = true;
 
-        for (SignatureStatus status : st)
+        for (final SignatureStatus status : st)
         {
             if (status.getValidateResult() != ValidateResult.VALID)
             {
-                System.out.println("Sign validation error: ");
+                System.out.println("Sign validation error: "); //$NON-NLS-1$
                 System.out.println(status.getReasonsAsText());
                 validate = false;
             }
@@ -103,18 +103,18 @@ public class BaseTest
 
         if (validate)
         {
-            System.out.println("OK");
+            System.out.println("OK"); //$NON-NLS-1$
         }
 
         return validate;
     }
 
-    protected void showSignature(XMLAdvancedSignature xmlSignature)
+    protected void showSignature(final XMLAdvancedSignature xmlSignature)
     {
         XMLUtils.writeXML(System.out, xmlSignature.getBaseElement(), false);
     }
 
-    protected void showSignature(XMLAdvancedSignature xmlSignature, OutputStream output)
+    protected void showSignature(final XMLAdvancedSignature xmlSignature, final OutputStream output)
     {
         if (xmlSignature.getBaseElement() != null)
         {
@@ -126,67 +126,67 @@ public class BaseTest
         }
     }
 
-    protected XMLAdvancedSignature createXAdES_EPES(SignatureOptions signatureOptions, byte[] data)
+    protected XMLAdvancedSignature createXAdES_EPES(final SignatureOptions signatureOptions, final byte[] data)
             throws SAXException, IOException, ParserConfigurationException,
             GeneralSecurityException
     {
         return createXAdES_EPES(signatureOptions, getDocumentToSign(data));
     }
 
-    protected XMLAdvancedSignature createXAdES_EPES(SignatureOptions signatureOptions, Element data)
+    protected XMLAdvancedSignature createXAdES_EPES(final SignatureOptions signatureOptions, final Element data)
             throws SAXException, IOException, ParserConfigurationException,
             GeneralSecurityException
     {
         // Build XAdES-EPES signature
-        XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES, data);
+        final XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES, data);
         xades.setSigningCertificate(signatureOptions.getCertificate());
 
         // Add implied policy
-        SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
+        final SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
         xades.setSignaturePolicyIdentifier(spi);
 
         // Enveloped signature
         return XMLAdvancedSignature.newInstance(xades);
     }
 
-    protected XMLAdvancedSignature createXadesEpesDetached(SignatureOptions signatureOptions)
+    protected XMLAdvancedSignature createXadesEpesDetached(final SignatureOptions signatureOptions)
             throws SAXException, IOException, ParserConfigurationException,
             GeneralSecurityException
     {
         // Build XAdES-EPES signature
-        XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES);
+        final XAdES_EPES xades = (XAdES_EPES) XAdES.newInstance(XAdES.EPES);
         xades.setSigningCertificate(signatureOptions.getCertificate());
 
         // Add implied policy
-        SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
+        final SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
         xades.setSignaturePolicyIdentifier(spi);
-        
+
         // Enveloped signature
         return XMLAdvancedSignature.newInstance(xades);
     }
 
-    protected XMLAdvancedSignature createXAdES_T(SignatureOptions signatureOptions, byte[] data)
+    protected XMLAdvancedSignature createXAdES_T(final SignatureOptions signatureOptions, final byte[] data)
             throws SAXException, IOException, ParserConfigurationException,
             GeneralSecurityException
     {
         // Build XAdES-T signature
-        XAdES_T xades = (XAdES_T) XAdES.newInstance(XAdES.T, getDocumentToSign(data));
+        final XAdES_T xades = (XAdES_T) XAdES.newInstance(XAdES.T, getDocumentToSign(data));
         xades.setSigningCertificate(signatureOptions.getCertificate());
 
         // Add implied policy
-        SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
+        final SignaturePolicyIdentifier spi = new SignaturePolicyIdentifierImpl(true);
         xades.setSignaturePolicyIdentifier(spi);
 
         // Enveloped signature
         return XMLAdvancedSignature.newInstance(xades);
     }
 
-    public static byte[] inputStreamToByteArray(InputStream in) throws IOException
+    public static byte[] inputStreamToByteArray(final InputStream in) throws IOException
     {
-        byte[] buffer = new byte[2048];
+        final byte[] buffer = new byte[2048];
         int length = 0;
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         while ((length = in.read(buffer)) >= 0)
         {

@@ -57,12 +57,12 @@ public class XMLSignatureDocument
 
     private XmlWrappedKeyInfo wrappedKeyInfo = XmlWrappedKeyInfo.CERTIFICATE;
 
-    private List<SignatureProperties> listOfSignatureProperties = new ArrayList<SignatureProperties>();
-    private final List<SignatureProperty> defaultSignatureProperties = new ArrayList<SignatureProperty>();
+    private List<SignatureProperties> listOfSignatureProperties = new ArrayList<>();
+    private final List<SignatureProperty> defaultSignatureProperties = new ArrayList<>();
     private String defaultSignaturePropertiesId;
 
-    private final List<XMLObject> xmlObjects = new ArrayList<XMLObject>();
-    private final List<XMLStructure> defaultXMLObjectItems = new ArrayList<XMLStructure>();
+    private final List<XMLObject> xmlObjects = new ArrayList<>();
+    private final List<XMLStructure> defaultXMLObjectItems = new ArrayList<>();
     private String defaultXMLObjectId;
     private String defaultXMLObjectMimeType;
     private String defaultXMLObjectEncoding;
@@ -111,7 +111,7 @@ public class XMLSignatureDocument
         final NodeList nl = this.baseElement.getElementsByTagNameNS(XMLSignature.XMLNS,
                                                          XMLAdvancedSignature.ELEMENT_SIGNATURE);
         final int size = nl.getLength();
-        final ArrayList<XMLSignatureElement> signatureElements = new ArrayList<XMLSignatureElement>(size);
+        final ArrayList<XMLSignatureElement> signatureElements = new ArrayList<>(size);
         for(int i = 0; i < size; i++)
         {
             signatureElements.add(new XMLSignatureElement((Element)nl.item(i)));
@@ -177,7 +177,7 @@ public class XMLSignatureDocument
     protected List<Reference> getReferences(final List idList)
         throws GeneralSecurityException
     {
-        final ArrayList<Reference> references = new ArrayList<Reference>(idList.size());
+        final ArrayList<Reference> references = new ArrayList<>(idList.size());
         for(final Object id : idList)
         {
             if(id instanceof Reference) {
@@ -195,7 +195,7 @@ public class XMLSignatureDocument
     {
         ArrayList<SignatureStatus> validateResult;
         final List<XMLSignatureElement> signatureElements = getXMLSignatureElements();
-        validateResult = new ArrayList<SignatureStatus>(signatureElements.size());
+        validateResult = new ArrayList<>(signatureElements.size());
         for(final XMLSignatureElement signatureElement : signatureElements)
         {
             validateResult.add(signatureElement.validate());

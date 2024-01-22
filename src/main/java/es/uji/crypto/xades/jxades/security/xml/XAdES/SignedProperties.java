@@ -4,7 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 /*
- * 
+ *
  * <SignedProperties>
  *   <SignedSignatureProperties>
  *     (SigningTime)?
@@ -21,11 +21,11 @@ import org.w3c.dom.Node;
  *     (IndividualDataObjectsTimeStamp)*
  *   </SignedDataObjectProperties>
  *   </SignedProperties>
- *   
+ *
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class SignedProperties extends XAdESStructure
@@ -34,17 +34,17 @@ public class SignedProperties extends XAdESStructure
     private SignedDataObjectProperties signedDataObjectProperties;
     private Document document;
 
-    public SignedProperties(Document document, QualifyingProperties qp, String signatureIdPrefix, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public SignedProperties(final Document document, final QualifyingProperties qp, final String signatureIdPrefix, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix)
     {
-        super(document, qp, "SignedProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, qp, "SignedProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix); //$NON-NLS-1$
         this.document = document;
 
-        setAttributeNS(null, ID_ATTRIBUTE, signatureIdPrefix + "-SignedProperties");
+        setAttributeNS(null, ID_ATTRIBUTE, signatureIdPrefix + "-SignedProperties"); //$NON-NLS-1$
     }
 
-    public SignedProperties(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public SignedProperties(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -62,10 +62,14 @@ public class SignedProperties extends XAdESStructure
 
     public SignedDataObjectProperties getSignedDataObjectProperties()
     {
-        if (this.signedDataObjectProperties == null)
-        {
-            this.signedDataObjectProperties = new SignedDataObjectProperties(this.document, this, this.xadesPrefix,
-                    this.xadesNamespace, this.xmlSignaturePrefix);
+        if (this.signedDataObjectProperties == null) {
+            this.signedDataObjectProperties = new SignedDataObjectProperties(
+        		this.document,
+        		this,
+        		this.xadesPrefix,
+                this.xadesNamespace,
+                this.xmlSignaturePrefix
+            );
         }
 
         return this.signedDataObjectProperties;

@@ -16,26 +16,26 @@ import org.w3c.dom.Element;
  *   <p:MimeType>p:MimeType</p:MimeType>
  *   <p:Encoding>http://tempuri.org</p:Encoding>
  * </p:DataObjectFormat>
- * 
+ *
  */
 
 public class DataObjectFormatDetails extends XAdESStructure
 {
-    public DataObjectFormatDetails(Document document,
-            SignedDataObjectProperties signedDataObjectProperties,
-            DataObjectFormat dataObjectFormat, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public DataObjectFormatDetails(final Document document,
+            final SignedDataObjectProperties signedDataObjectProperties,
+            final DataObjectFormat dataObjectFormat, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
-        super(document, signedDataObjectProperties, "DataObjectFormat", xadesPrefix,
+        super(document, signedDataObjectProperties, "DataObjectFormat", xadesPrefix, //$NON-NLS-1$
                 xadesNamespace, xmlSignaturePrefix);
 
-        Element description = createElement("Description");
+        final Element description = createElement("Description"); //$NON-NLS-1$
         description.setPrefix(xadesPrefix);
         description.setTextContent(dataObjectFormat.getDescription());
 
         getNode().appendChild(description);
 
-        ObjectIdentifier objectIdentifier = dataObjectFormat.getObjectIdentifier();
+        final ObjectIdentifier objectIdentifier = dataObjectFormat.getObjectIdentifier();
 
         if (objectIdentifier != null)
         {
@@ -43,13 +43,13 @@ public class DataObjectFormatDetails extends XAdESStructure
                     xadesNamespace, xmlSignaturePrefix);
         }
 
-        Element mimetype = createElement("MimeType");
+        final Element mimetype = createElement("MimeType"); //$NON-NLS-1$
         mimetype.setPrefix(xadesPrefix);
         mimetype.setTextContent(dataObjectFormat.getMimeType());
 
         getNode().appendChild(mimetype);
 
-        Element encoding = createElement("Encoding");
+        final Element encoding = createElement("Encoding"); //$NON-NLS-1$
         encoding.setPrefix(xadesPrefix);
         encoding.setTextContent(dataObjectFormat.getEncoding());
 
@@ -57,6 +57,6 @@ public class DataObjectFormatDetails extends XAdESStructure
 
         // TODO: must ensure that there is an ObjectReference attribute, otherwise an Exception
         // should be raised
-        setAttributeNS(xadesNamespace, "ObjectReference", dataObjectFormat.getObjectReference());
+        setAttributeNS(xadesNamespace, "ObjectReference", dataObjectFormat.getObjectReference()); //$NON-NLS-1$
     }
 }

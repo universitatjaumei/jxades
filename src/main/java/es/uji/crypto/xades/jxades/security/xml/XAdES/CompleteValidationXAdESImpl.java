@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class CompleteValidationXAdESImpl extends TimestampXAdESImpl implements XAdES_C
@@ -37,9 +37,9 @@ public class CompleteValidationXAdESImpl extends TimestampXAdESImpl implements X
      * super(baseElement, useExplicitPolicy); }
      */
 
-    public CompleteValidationXAdESImpl(Document document, Element baseElement, boolean readOnlyMode,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix,
-            String digestMethod)
+    public CompleteValidationXAdESImpl(final Document document, final Element baseElement, final boolean readOnlyMode,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix,
+            final String digestMethod)
     {
         super(document, baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
                 digestMethod);
@@ -52,11 +52,11 @@ public class CompleteValidationXAdESImpl extends TimestampXAdESImpl implements X
     }
 
     @Override
-	public void setCompleteCertificateRefs(Collection<X509Certificate> caCertificates)
+	public void setCompleteCertificateRefs(final Collection<X509Certificate> caCertificates)
     {
         if (this.readOnlyMode)
         {
-            throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode.");
+            throw new UnsupportedOperationException("Set Method is not allowed. Read-only mode."); //$NON-NLS-1$
         }
 
         this.data.put(XAdES.Element.COMPLETE_CERTIFICATE_REFS, caCertificates);

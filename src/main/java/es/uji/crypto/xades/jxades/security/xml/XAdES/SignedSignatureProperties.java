@@ -28,10 +28,12 @@ public class SignedSignatureProperties extends XAdESStructure
 {
     private Document document;
 
-    public SignedSignatureProperties(final Document document, final SignedProperties sp, final String xadesPrefix,
-            final String xadesNamespace, final String xmlSignaturePrefix)
-    {
-        super(document, sp, "SignedSignatureProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+    public SignedSignatureProperties(final Document document,
+    		                         final SignedProperties sp,
+    		                         final String xadesPrefix,
+    		                         final String xadesNamespace,
+    		                         final String xmlSignaturePrefix) {
+        super(document, sp, "SignedSignatureProperties", xadesPrefix, xadesNamespace, xmlSignaturePrefix); //$NON-NLS-1$
         this.document = document;
     }
 
@@ -103,8 +105,7 @@ public class SignedSignatureProperties extends XAdESStructure
         final SignerDetails details = getSignerDetails();
         if (details != null)
         {
-            final Signer signer = details.getSigner();
-            return signer;
+            return details.getSigner();
         }
 
         return null;

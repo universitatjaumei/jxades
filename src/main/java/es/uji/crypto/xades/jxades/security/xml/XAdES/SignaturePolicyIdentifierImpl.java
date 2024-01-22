@@ -55,12 +55,12 @@ public final class SignaturePolicyIdentifierImpl implements SignaturePolicyIdent
         if (hashBase64 == null || hashBase64.isEmpty() || hashAlgorithm == null || hashAlgorithm.isEmpty()) {
         	if (hashBase64 == null || hashBase64.isEmpty()) {
         		LOGGER.warning(
-    				"No se ha indicado huella digital de la politica de firma, se intentara una descarga y se calculara al vuelo con SHA-256"
+    				"No se ha indicado huella digital de la politica de firma, se intentara una descarga y se calculara al vuelo con SHA-256" //$NON-NLS-1$
 				);
         	}
         	else if (hashAlgorithm == null || hashAlgorithm.isEmpty()) {
         		LOGGER.warning(
-    				"No se ha indicado algoritmo de huella digital de la politica de firma, se intentara una descarga y se calculara una nueva huella al vuelo con SHA-256"
+    				"No se ha indicado algoritmo de huella digital de la politica de firma, se intentara una descarga y se calculara una nueva huella al vuelo con SHA-256" //$NON-NLS-1$
 				);
         	}
             final URLConnection conn = new URL(identifier).openConnection();

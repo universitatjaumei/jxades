@@ -6,12 +6,12 @@ import java.util.Date;
 
 import javax.security.auth.x500.X500Principal;
 
-import es.uji.crypto.xades.jxades.util.SystemUtils;
-import es.uji.crypto.xades.jxades.util.XMLUtils;
-import es.uji.crypto.xades.jxades.util.Base64;
-
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import es.uji.crypto.xades.jxades.util.Base64;
+import es.uji.crypto.xades.jxades.util.SystemUtils;
+import es.uji.crypto.xades.jxades.util.XMLUtils;
 
 /*
  <OCSPIdentifier URI="OCSPResponse1.der">
@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class OCSPIdentifier extends XAdESStructure
@@ -34,8 +34,8 @@ public class OCSPIdentifier extends XAdESStructure
     private byte[] responderKey;
     private Date producedAt;
 
-    public OCSPIdentifier(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public OCSPIdentifier(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -44,15 +44,14 @@ public class OCSPIdentifier extends XAdESStructure
     {
         if (this.responderName == null)
         {
-            Element element = getChildElementNS("ResponderID");
-            if (element != null)
-            {
-                element = XMLUtils.getChildElementByTagName(element, "ByName");
-                if (element != null)
-                {
+            Element element = getChildElementNS("ResponderID"); //$NON-NLS-1$
+            if (element != null) {
+                element = XMLUtils.getChildElementByTagName(element, "ByName"); //$NON-NLS-1$
+                if (element != null) {
                     String value = element.getTextContent();
-                    if (value != null && (value = value.trim()).length() > 0)
-                        this.responderName = new X500Principal(value);
+                    if (value != null && (value = value.trim()).length() > 0) {
+						this.responderName = new X500Principal(value);
+					}
                 }
             }
         }
@@ -60,35 +59,29 @@ public class OCSPIdentifier extends XAdESStructure
         return this.responderName;
     }
 
-    public byte[] getResponderKey() throws IOException
-    {
-        if (this.responderKey == null)
-        {
-            Element element = getChildElementNS("ResponderID");
-            if (element != null)
-            {
-                element = XMLUtils.getChildElementByTagName(element, "ByKey");
-                if (element != null)
-                {
+    public byte[] getResponderKey() throws IOException {
+        if (this.responderKey == null) {
+            Element element = getChildElementNS("ResponderID"); //$NON-NLS-1$
+            if (element != null) {
+                element = XMLUtils.getChildElementByTagName(element, "ByKey"); //$NON-NLS-1$
+                if (element != null) {
                     String value = element.getTextContent();
-                    if (value != null && (value = value.trim()).length() > 0)
-                        this.responderKey = Base64.decode(value);
+                    if (value != null && (value = value.trim()).length() > 0) {
+						this.responderKey = Base64.decode(value);
+					}
                 }
             }
         }
-
         return this.responderKey;
     }
 
-    public Date getProducedAt() throws ParseException
-    {
-        if (this.producedAt == null)
-        {
-            String value = getChildElementTextContent("ProducedAt");
-            if (value != null)
-                this.producedAt = SystemUtils.parseDate(value);
+    public Date getProducedAt() throws ParseException {
+        if (this.producedAt == null) {
+            final String value = getChildElementTextContent("ProducedAt"); //$NON-NLS-1$
+            if (value != null) {
+				this.producedAt = SystemUtils.parseDate(value);
+			}
         }
-
         return this.producedAt;
     }
 }

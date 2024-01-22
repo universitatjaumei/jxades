@@ -21,24 +21,24 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
-public class Cert extends XAdESStructure
-{
+public class Cert extends XAdESStructure {
+
     private CertDigest certDigest;
     private IssuerSerial issuerSerial;
 
-    public Cert(Document document, XAdESStructure parent, X509Certificate cert, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix) throws GeneralSecurityException
+    public Cert(final Document document, final XAdESStructure parent, final X509Certificate cert, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix) throws GeneralSecurityException
     {
-        super(document, parent, "Cert", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, parent, "Cert", xadesPrefix, xadesNamespace, xmlSignaturePrefix); //$NON-NLS-1$
 
         this.certDigest = new CertDigest(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
         this.issuerSerial = new IssuerSerial(document, this, cert, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
-    public Cert(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public Cert(final Node node, final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -47,10 +47,11 @@ public class Cert extends XAdESStructure
     {
         if (this.certDigest == null)
         {
-            Element element = getChildElementNS("CertDigest");
-            if (element != null)
-                this.certDigest = new CertDigest(element, this.xadesPrefix, this.xadesNamespace,
+            final Element element = getChildElementNS("CertDigest"); //$NON-NLS-1$
+            if (element != null) {
+				this.certDigest = new CertDigest(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
 
         return this.certDigest;
@@ -60,10 +61,11 @@ public class Cert extends XAdESStructure
     {
         if (this.issuerSerial == null)
         {
-            Element element = getChildElementNS("IssuerSerial");
-            if (element != null)
-                this.issuerSerial = new IssuerSerial(element, this.xadesPrefix, this.xadesNamespace,
+            final Element element = getChildElementNS("IssuerSerial"); //$NON-NLS-1$
+            if (element != null) {
+				this.issuerSerial = new IssuerSerial(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
 
         return this.issuerSerial;

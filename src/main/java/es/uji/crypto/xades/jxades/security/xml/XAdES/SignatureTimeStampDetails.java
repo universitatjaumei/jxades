@@ -1,31 +1,29 @@
 package es.uji.crypto.xades.jxades.security.xml.XAdES;
 
-import es.uji.crypto.xades.jxades.util.Base64;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import es.uji.crypto.xades.jxades.util.Base64;
+
 public class SignatureTimeStampDetails extends XAdESStructure
 {
-    public SignatureTimeStampDetails(Document document, XAdESStructure parent,
-            SignatureTimeStamp signatureTimeStamp, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix, String tsaURL)
+    public SignatureTimeStampDetails(final Document document, final XAdESStructure parent,
+            final SignatureTimeStamp signatureTimeStamp, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix, final String tsaURL)
     {
-        super(document, parent, "SignatureTimeStamp", xadesPrefix, xadesNamespace,
+        super(document, parent, "SignatureTimeStamp", xadesPrefix, xadesNamespace, //$NON-NLS-1$
                 xmlSignaturePrefix);
 
-        try
-        {
-            String tsBase64Data = Base64.encodeBytes(signatureTimeStamp
+        try {
+            final String tsBase64Data = Base64.encodeBytes(signatureTimeStamp
                     .generateEncapsulatedTimeStamp(getDocument(), tsaURL));
 
-            Element tsNode = createElement("EncapsulatedTimeStamp");
+            final Element tsNode = createElement("EncapsulatedTimeStamp"); //$NON-NLS-1$
             tsNode.appendChild(getDocument().createTextNode(tsBase64Data));
 
             getNode().appendChild(tsNode);
         }
-        catch (Exception e)
-        {
+        catch (final Exception e) {
             e.printStackTrace();
         }
     }

@@ -56,7 +56,7 @@ public class CRLRef extends XAdESStructure
     {
         if (this.crlIdentifier == null)
         {
-            final Element element = getChildElementNS("CRLIdentifier");
+            final Element element = getChildElementNS("CRLIdentifier"); //$NON-NLS-1$
             if (element != null) {
 				this.crlIdentifier = new CRLIdentifier(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
@@ -70,7 +70,7 @@ public class CRLRef extends XAdESStructure
     {
         if (this.digestAlgAndValue == null)
         {
-            final Element element = getChildElementNS("DigestAlgAndValue");
+            final Element element = getChildElementNS("DigestAlgAndValue"); //$NON-NLS-1$
             if (element != null) {
 				this.digestAlgAndValue = new DigestAlgAndValue(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
@@ -84,7 +84,7 @@ public class CRLRef extends XAdESStructure
     {
         if (this.validationResult == null)
         {
-            final Element element = getChildElementNS("ValidationResult");
+            final Element element = getChildElementNS("ValidationResult"); //$NON-NLS-1$
             if (element != null) {
 				this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);

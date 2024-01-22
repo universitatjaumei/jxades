@@ -6,7 +6,6 @@ import java.security.SignatureException;
 
 import org.w3c.dom.Document;
 
-public interface AllDataObjectsTimeStamp 
-{
-    public byte[] generateEncapsulatedTimeStamp(Document parent, String tsaURL) throws NoSuchAlgorithmException, SignatureException, IOException;
+public interface AllDataObjectsTimeStamp {
+    byte[] generateEncapsulatedTimeStamp(Document parent, String tsaURL) throws NoSuchAlgorithmException, SignatureException, IOException;
 }

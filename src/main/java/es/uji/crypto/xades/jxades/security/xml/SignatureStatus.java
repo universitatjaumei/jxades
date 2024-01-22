@@ -8,43 +8,43 @@ import javax.xml.crypto.MarshalException;
 import es.uji.crypto.xades.jxades.util.ComparableBean;
 
 /**
- * 
+ *
  * @author miro
  */
 public class SignatureStatus implements ComparableBean
 {
     private String signatureId;
     private ValidateResult validateResult;
-    private ArrayList<InvalidSignatureReason> invalidSignatureReasons = new ArrayList<InvalidSignatureReason>();
+    private final ArrayList<InvalidSignatureReason> invalidSignatureReasons = new ArrayList<>();
 
     public SignatureStatus()
     {
     }
 
-    public SignatureStatus(String signatureId, MarshalException ex)
+    public SignatureStatus(final String signatureId, final MarshalException ex)
     {
         this(signatureId, ValidateResult.INVALID, new InvalidSignatureReason(ex));
     }
 
-    public SignatureStatus(String signatureId, NullPointerException ex)
+    public SignatureStatus(final String signatureId, final NullPointerException ex)
     {
-        this(signatureId, ValidateResult.INVALID, new InvalidSignatureReason("XML", ex));
+        this(signatureId, ValidateResult.INVALID, new InvalidSignatureReason("XML", ex)); //$NON-NLS-1$
     }
 
-    public SignatureStatus(String signatureId, ClassCastException ex)
+    public SignatureStatus(final String signatureId, final ClassCastException ex)
     {
         this(signatureId, ValidateResult.INVALID, new InvalidSignatureReason(
                 InvalidSignature.INAPPROPRIATE_XML_CONTEXT, ex));
     }
 
-    public SignatureStatus(String signatureId, ValidateResult validateResult,
-            InvalidSignatureReason reason)
+    public SignatureStatus(final String signatureId, final ValidateResult validateResult,
+            final InvalidSignatureReason reason)
     {
         this(signatureId, validateResult);
         addInvalidSignatureReason(reason);
     }
 
-    public SignatureStatus(String signatureId, ValidateResult validateResult)
+    public SignatureStatus(final String signatureId, final ValidateResult validateResult)
     {
         this.signatureId = signatureId;
         this.validateResult = validateResult;
@@ -60,7 +60,7 @@ public class SignatureStatus implements ComparableBean
         return this.signatureId;
     }
 
-    public void addInvalidSignatureReason(InvalidSignatureReason reason)
+    public void addInvalidSignatureReason(final InvalidSignatureReason reason)
     {
         this.invalidSignatureReasons.add(reason);
     }
@@ -72,10 +72,10 @@ public class SignatureStatus implements ComparableBean
 
     public String getReasonsAsText()
     {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         boolean isFirst = true;
-        List<InvalidSignatureReason> reasons = getInvalidSignatureReasons();
-        for (InvalidSignatureReason reason : reasons)
+        final List<InvalidSignatureReason> reasons = getInvalidSignatureReasons();
+        for (final InvalidSignatureReason reason : reasons)
         {
             if (isFirst)
             {
@@ -84,7 +84,7 @@ public class SignatureStatus implements ComparableBean
             }
             else
             {
-                sb.append(", ").append(reason.getReason());
+                sb.append(", ").append(reason.getReason()); //$NON-NLS-1$
             }
         }
 
@@ -97,12 +97,13 @@ public class SignatureStatus implements ComparableBean
         return this.validateResult.toString();
     }
 
-    public static boolean isValid(List<SignatureStatus> validateResults)
+    public static boolean isValid(final List<SignatureStatus> validateResults)
     {
-        for (SignatureStatus signStatus : validateResults)
+        for (final SignatureStatus signStatus : validateResults)
         {
-            if (!ValidateResult.VALID.equals(signStatus.getValidateResult()))
-                return false;
+            if (!ValidateResult.VALID.equals(signStatus.getValidateResult())) {
+				return false;
+			}
         }
 
         return true;

@@ -11,34 +11,34 @@ import org.w3c.dom.Element;
  *     <p:DocumentationReference>http://tempuri.org</p:DocumentationReference>
  *   </p:DocumentationReferences>
  * </p:ObjectIdentifier>
- * 
+ *
  */
 
 public class ObjectIdentifierDetails extends XAdESStructure
 {
-    public ObjectIdentifierDetails(Document document,
-            DataObjectFormatDetails dataObjectFormatDetails, ObjectIdentifier objectIdentifier,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public ObjectIdentifierDetails(final Document document,
+            final DataObjectFormatDetails dataObjectFormatDetails, final ObjectIdentifier objectIdentifier,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
-        super(document, dataObjectFormatDetails, "ObjectIdentifier", xadesPrefix, xadesNamespace,
+        super(document, dataObjectFormatDetails, "ObjectIdentifier", xadesPrefix, xadesNamespace, //$NON-NLS-1$
                 xmlSignaturePrefix);
 
-        Element identifier = createElement("Identifier");
+        final Element identifier = createElement("Identifier"); //$NON-NLS-1$
         identifier.setTextContent(objectIdentifier.getIdentifier());
-        identifier.setAttributeNS(xadesNamespace, "Qualifier", objectIdentifier.getQualifier());
+        identifier.setAttributeNS(xadesNamespace, "Qualifier", objectIdentifier.getQualifier()); //$NON-NLS-1$
         getNode().appendChild(identifier);
 
-        Element description = createElement("Description");
+        final Element description = createElement("Description"); //$NON-NLS-1$
         description.setTextContent(objectIdentifier.getDescription());
         getNode().appendChild(description);
 
         if (objectIdentifier.getDocumentationReferences().size() > 0)
         {
-            Element documentationReferences = createElement("DocumentationReferences");
+            final Element documentationReferences = createElement("DocumentationReferences"); //$NON-NLS-1$
 
-            for (String reference : objectIdentifier.getDocumentationReferences())
+            for (final String reference : objectIdentifier.getDocumentationReferences())
             {
-                Element documentationReference = createElement("DocumentationReference");
+                final Element documentationReference = createElement("DocumentationReference"); //$NON-NLS-1$
                 documentationReference.setTextContent(reference);
                 documentationReferences.appendChild(documentationReference);
             }

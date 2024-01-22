@@ -26,30 +26,30 @@ public class CommitmentTypeIdDetails extends XAdESStructure
         super(
     		document,
     		commitmentTypeIndicationDetails,
-    		"CommitmentTypeId",
+    		"CommitmentTypeId", //$NON-NLS-1$
     		xadesPrefix,
             xadesNamespace,
             xmlSignaturePrefix
         );
 
-        final Element identifier = createElement("Identifier");
+        final Element identifier = createElement("Identifier"); //$NON-NLS-1$
         identifier.setTextContent(commitmentTypeId.getIdentifier());
         if (commitmentTypeId.getQualifier() != null) {
-        	identifier.setAttributeNS(xadesNamespace, "Qualifier", commitmentTypeId.getQualifier());
+        	identifier.setAttributeNS(xadesNamespace, "Qualifier", commitmentTypeId.getQualifier()); //$NON-NLS-1$
         }
         getNode().appendChild(identifier);
 
-        final Element description = createElement("Description");
+        final Element description = createElement("Description"); //$NON-NLS-1$
         description.setTextContent(commitmentTypeId.getDescription());
         getNode().appendChild(description);
 
         if (commitmentTypeId.getDocumentationReferences().size() > 0)
         {
-            final Element documentationReferences = createElement("DocumentationReferences");
+            final Element documentationReferences = createElement("DocumentationReferences"); //$NON-NLS-1$
 
             for (final String reference : commitmentTypeId.getDocumentationReferences())
             {
-                final Element documentationReference = createElement("DocumentationReference");
+                final Element documentationReference = createElement("DocumentationReference"); //$NON-NLS-1$
                 documentationReference.setTextContent(reference);
                 documentationReferences.appendChild(documentationReference);
             }

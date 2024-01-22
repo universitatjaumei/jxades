@@ -20,51 +20,51 @@ import org.w3c.dom.Node;
  */
 public class SignatureProductionPlaceV2Details extends XAdESStructure
 {
-    public SignatureProductionPlaceV2Details(Document document, SignedSignatureProperties ssp,
-            SignatureProductionPlaceV2 signatureProductionPlace, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public SignatureProductionPlaceV2Details(final Document document, final SignedSignatureProperties ssp,
+            final SignatureProductionPlaceV2 signatureProductionPlace, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix)
     {
-        super(document, ssp, "SignatureProductionPlaceV2", xadesPrefix, xadesNamespace,
+        super(document, ssp, "SignatureProductionPlaceV2", xadesPrefix, xadesNamespace, //$NON-NLS-1$
                 xmlSignaturePrefix);
 
         if (signatureProductionPlace.getCity() != null)
         {
-            Element city = createElement("City");
+            final Element city = createElement("City"); //$NON-NLS-1$
             city.setTextContent(signatureProductionPlace.getCity());
             getNode().appendChild(city);
         }
 
         if (signatureProductionPlace.getStreetAddress() != null)
         {
-            Element streetAddress = createElement("StreetAddress");
+            final Element streetAddress = createElement("StreetAddress"); //$NON-NLS-1$
             streetAddress.setTextContent(signatureProductionPlace.getStreetAddress());
             getNode().appendChild(streetAddress);
         }
 
         if (signatureProductionPlace.getStateOrProvince() != null)
         {
-            Element stateOrProvince = createElement("StateOrProvince");
+            final Element stateOrProvince = createElement("StateOrProvince"); //$NON-NLS-1$
             stateOrProvince.setTextContent(signatureProductionPlace.getStateOrProvince());
             getNode().appendChild(stateOrProvince);
         }
 
         if (signatureProductionPlace.getPostalCode() != null)
         {
-            Element postalCode = createElement("PostalCode");
+            final Element postalCode = createElement("PostalCode"); //$NON-NLS-1$
             postalCode.setTextContent(signatureProductionPlace.getPostalCode());
             getNode().appendChild(postalCode);
         }
 
         if (signatureProductionPlace.getCountryName() != null)
         {
-            Element countryName = createElement("CountryName");
+            final Element countryName = createElement("CountryName"); //$NON-NLS-1$
             countryName.setTextContent(signatureProductionPlace.getCountryName());
             getNode().appendChild(countryName);
         }
     }
 
-    public SignatureProductionPlaceV2Details(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public SignatureProductionPlaceV2Details(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }

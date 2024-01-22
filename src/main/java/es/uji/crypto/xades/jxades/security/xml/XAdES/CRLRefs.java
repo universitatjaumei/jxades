@@ -66,10 +66,10 @@ public class CRLRefs extends XAdESStructure
     {
         if (this.crlRefs == null)
         {
-            final List<Element> elements = getChildElementsNS("CRLRef");
+            final List<Element> elements = getChildElementsNS("CRLRef"); //$NON-NLS-1$
             if (elements != null && elements.size() > 0)
             {
-                this.crlRefs = new ArrayList<CRLRef>(elements.size());
+                this.crlRefs = new ArrayList<>(elements.size());
                 for (final Element element : elements)
                 {
                     this.crlRefs

@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class ArchivalXAdESImpl extends ExtendedLongXAdESImpl
@@ -37,40 +37,33 @@ public class ArchivalXAdESImpl extends ExtendedLongXAdESImpl
      * useExplicitPolicy); }
      */
 
-    public ArchivalXAdESImpl(Document document, Element baseElement, boolean readOnlyMode, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix, String digestMethod)
+    public ArchivalXAdESImpl(final Document document, final Element baseElement, final boolean readOnlyMode, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix, final String digestMethod)
     {
         super(document, baseElement, readOnlyMode, xadesPrefix, xadesNamespace, xmlSignaturePrefix,
                 digestMethod);
     }
 
-    protected void unmarshal() throws MarshalException
-    {
-        QualifyingProperties qp = getQualifyingProperties();
-        if (qp != null)
-        {
-            try
-            {
-                Element qpElement = qp.getElement();
+    protected void unmarshal() throws MarshalException {
+        final QualifyingProperties qp = getQualifyingProperties();
+        if (qp != null) {
+            try {
+                final Element qpElement = qp.getElement();
 
-                for (XAdES.Element key : XAdES.Element.values())
-                {
-                    NodeList nl = qpElement.getElementsByTagNameNS(this.xadesNamespace, key
-                            .getElementName());
+                for (final XAdES.Element key : XAdES.Element.values()) {
+                    final NodeList nl = qpElement.getElementsByTagNameNS(this.xadesNamespace, key.getElementName());
                     int size;
-                    if (nl != null && (size = nl.getLength()) > 0)
-                    {
-                        if (XAdES.Element.SIGNING_TIME.equals(key))
-                        {
-                            SigningTime signingTime = new SigningTime(nl.item(0), this.xadesPrefix,
+                    if (nl != null && (size = nl.getLength()) > 0) {
+                        if (XAdES.Element.SIGNING_TIME.equals(key)) {
+                            final SigningTime signingTime = new SigningTime(nl.item(0), this.xadesPrefix,
                                     this.xadesNamespace, this.xmlSignaturePrefix);
-                            Date date = signingTime.getSigningTime();
-                            if (date != null)
-                                this.data.put(XAdES.Element.SIGNING_TIME, date);
+                            final Date date = signingTime.getSigningTime();
+                            if (date != null) {
+								this.data.put(XAdES.Element.SIGNING_TIME, date);
+							}
                         }
-                        else if (XAdES.Element.SIGNER_DETAILS.equals(key))
-                        {
-                            SignerDetails signerDetails = new SignerDetails(nl.item(0),
+                        else if (XAdES.Element.SIGNER_DETAILS.equals(key)) {
+                            final SignerDetails signerDetails = new SignerDetails(nl.item(0),
                                     this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
                             this.data.put(XAdES.Element.SIGNER, signerDetails.getSigner());
                         }
@@ -95,7 +88,7 @@ public class ArchivalXAdESImpl extends ExtendedLongXAdESImpl
                     }
                 }
             }
-            catch (Exception ex)
+            catch (final Exception ex)
             {
                 throw new MarshalException(ex);
             }

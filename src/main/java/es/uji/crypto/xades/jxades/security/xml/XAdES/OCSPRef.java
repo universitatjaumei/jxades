@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class OCSPRef extends XAdESStructure
@@ -50,48 +50,46 @@ public class OCSPRef extends XAdESStructure
     // validationResult = new ValidationResult(this, revocationStatus);
     // }
 
-    public OCSPRef(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public OCSPRef(final Node node, final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
-    public OCSPIdentifier getOCSPIdentifier()
-    {
-        if (this.ocspIdentifier == null)
-        {
-            Element element = getChildElementNS("OCSPIdentifier");
-            if (element != null)
-                this.ocspIdentifier = new OCSPIdentifier(element, this.xadesPrefix, this.xadesNamespace,
+    public OCSPIdentifier getOCSPIdentifier() {
+        if (this.ocspIdentifier == null) {
+            final Element element = getChildElementNS("OCSPIdentifier"); //$NON-NLS-1$
+            if (element != null) {
+				this.ocspIdentifier = new OCSPIdentifier(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
-
         return this.ocspIdentifier;
     }
 
-    public DigestAlgAndValue getDigestAlgAndValue()
-    {
-        if (this.digestAlgAndValue == null)
-        {
-            Element element = getChildElementNS("DigestAlgAndValue");
-            if (element != null)
-                this.digestAlgAndValue = new DigestAlgAndValue(element, this.xadesPrefix, this.xadesNamespace,
-                        this.xmlSignaturePrefix);
+    public DigestAlgAndValue getDigestAlgAndValue() {
+        if (this.digestAlgAndValue == null) {
+            final Element element = getChildElementNS("DigestAlgAndValue"); //$NON-NLS-1$
+            if (element != null) {
+				this.digestAlgAndValue = new DigestAlgAndValue(
+					element,
+					this.xadesPrefix,
+					this.xadesNamespace,
+                    this.xmlSignaturePrefix
+                );
+			}
         }
 
         return this.digestAlgAndValue;
     }
 
-    public ValidationResult getValidationResult()
-    {
-        if (this.validationResult == null)
-        {
-            Element element = getChildElementNS("ValidationResult");
-            if (element != null)
-                this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
+    public ValidationResult getValidationResult() {
+        if (this.validationResult == null) {
+            final Element element = getChildElementNS("ValidationResult"); //$NON-NLS-1$
+            if (element != null) {
+				this.validationResult = new ValidationResult(element, this.xadesPrefix, this.xadesNamespace,
                         this.xmlSignaturePrefix);
+			}
         }
-
         return this.validationResult;
     }
-
 }

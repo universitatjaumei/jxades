@@ -9,31 +9,33 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * 
+ *
  * @author miro
  */
 public class CompleteCertificateRefsImpl extends XAdESStructure implements CompleteCertificateRefs
 {
     private CertRefs certRefs;
 
-    public CompleteCertificateRefsImpl(Document document, XAdESStructure parent,
-            Collection<X509Certificate> caCertificates, String signatureIdPrefix,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public CompleteCertificateRefsImpl(final Document document, final XAdESStructure parent,
+            final Collection<X509Certificate> caCertificates, final String signatureIdPrefix,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
             throws GeneralSecurityException
     {
-        super(document, parent, "CompleteCertificateRefs", xadesPrefix, xadesNamespace,
+        super(document, parent, "CompleteCertificateRefs", xadesPrefix, xadesNamespace, //$NON-NLS-1$
                 xmlSignaturePrefix);
 
         if (caCertificates == null || caCertificates.isEmpty())
-            throw new IllegalArgumentException(
-                    "The CA Certificates collection can not be NULL or empty.");
+		 {
+			throw new IllegalArgumentException(
+                    "The CA Certificates collection can not be NULL or empty."); //$NON-NLS-1$
+		}
 
         this.certRefs = new CertRefs(document, this, caCertificates, signatureIdPrefix, xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
     }
 
-    public CompleteCertificateRefsImpl(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public CompleteCertificateRefsImpl(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
@@ -43,7 +45,7 @@ public class CompleteCertificateRefsImpl extends XAdESStructure implements Compl
     {
         if (this.certRefs == null)
         {
-            Element element = getChildElementNS("CertRefs");
+            final Element element = getChildElementNS("CertRefs"); //$NON-NLS-1$
             if (element != null)
             {
                 this.certRefs = new CertRefs(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);

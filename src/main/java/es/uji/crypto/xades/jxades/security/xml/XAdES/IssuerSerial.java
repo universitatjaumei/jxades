@@ -17,48 +17,49 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class IssuerSerial extends XAdESStructure
 {
-    public IssuerSerial(Document document, XAdESStructure parent, X509Certificate cert,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public IssuerSerial(final Document document, final XAdESStructure parent, final X509Certificate cert,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         this(document, parent, cert.getIssuerX500Principal(), cert.getSerialNumber(), xadesPrefix,
                 xadesNamespace, xmlSignaturePrefix);
     }
 
-    public IssuerSerial(Document document, XAdESStructure parent, X500Principal issuer,
-            BigInteger serialNumber, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public IssuerSerial(final Document document, final XAdESStructure parent, final X500Principal issuer,
+            final BigInteger serialNumber, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
-        super(document, parent, "IssuerSerial", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, parent, "IssuerSerial", xadesPrefix, xadesNamespace, xmlSignaturePrefix); //$NON-NLS-1$
 
-        Element thisElement = getElement();
+        final Element thisElement = getElement();
 
-        Element element = createElement("X509IssuerName");
+        Element element = createElement("X509IssuerName"); //$NON-NLS-1$
         thisElement.appendChild(element);
         element.setTextContent(issuer.getName());
 
-        element = createElement("X509SerialNumber");
+        element = createElement("X509SerialNumber"); //$NON-NLS-1$
         thisElement.appendChild(element);
         element.setTextContent(serialNumber.toString());
     }
 
-    public IssuerSerial(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
-    {
+    public IssuerSerial(final Node node,
+    		            final String xadesPrefix,
+    		            final String xadesNamespace,
+    		            final String xmlSignaturePrefix) {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public String getIssuerName()
     {
-        return getChildElementTextContent("X509IssuerName");
+        return getChildElementTextContent("X509IssuerName"); //$NON-NLS-1$
     }
 
     public String getSerialNumber()
     {
-        return getChildElementTextContent("X509SerialNumber");
+        return getChildElementTextContent("X509SerialNumber"); //$NON-NLS-1$
     }
 }

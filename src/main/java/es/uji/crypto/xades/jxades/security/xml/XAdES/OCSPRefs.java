@@ -28,7 +28,7 @@ import org.w3c.dom.Node;
  */
 
 /**
- * 
+ *
  * @author miro
  */
 public class OCSPRefs extends XAdESStructure
@@ -60,31 +60,24 @@ public class OCSPRefs extends XAdESStructure
     // }
     // }
 
-    public OCSPRefs(Node node, String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
-    {
+    public OCSPRefs(final Node node, final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix) {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
-    public List<OCSPRef> getOCSPRefs()
-    {
-        if (this.ocspRefs == null)
-        {
-            List<Element> elements = getChildElementsNS("OCSPRef");
-            if (elements != null && elements.size() > 0)
-            {
-                this.ocspRefs = new ArrayList<OCSPRef>(elements.size());
-                for (Element element : elements)
-                {
+    public List<OCSPRef> getOCSPRefs() {
+        if (this.ocspRefs == null) {
+            final List<Element> elements = getChildElementsNS("OCSPRef"); //$NON-NLS-1$
+            if (elements != null && elements.size() > 0) {
+                this.ocspRefs = new ArrayList<>(elements.size());
+                for (final Element element : elements) {
                     this.ocspRefs.add(new OCSPRef(element, this.xadesPrefix, this.xadesNamespace,
                             this.xmlSignaturePrefix));
                 }
             }
-            else
-            {
+            else {
                 this.ocspRefs = Collections.<OCSPRef> emptyList();
             }
         }
-
         return this.ocspRefs;
     }
 }

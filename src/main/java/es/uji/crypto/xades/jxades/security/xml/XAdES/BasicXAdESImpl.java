@@ -45,7 +45,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
         this.baseElement = baseElement;
         this.readOnlyMode = readOnlyMode;
 
-        this.data = new TreeMap<XAdES.Element, Object>();
+        this.data = new TreeMap<>();
 
         this.xadesPrefix = xadesPrefix;
         this.xadesNamespace = xadesNamespace;
