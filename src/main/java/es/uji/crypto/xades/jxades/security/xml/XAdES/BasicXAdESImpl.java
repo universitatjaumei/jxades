@@ -331,7 +331,7 @@ public class BasicXAdESImpl extends BaseXAdESImpl implements XAdES_BES
 	@SuppressWarnings("unchecked")
     protected void marshalQualifyingProperties(final QualifyingProperties qp,
     		                                   final String signatureIdPrefix,
-    		                                   final List referencesIdList) throws MarshalException {
+    		                                   final List<Object> referencesIdList) throws MarshalException {
         SignedSignatureProperties ssp;
         SignedDataObjectProperties sdop;
         UnsignedSignatureProperties usp;

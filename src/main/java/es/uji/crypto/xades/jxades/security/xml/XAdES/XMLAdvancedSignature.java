@@ -107,7 +107,7 @@ public class XMLAdvancedSignature {
     public void sign(final X509Certificate signingCert,
     		         final PrivateKey privateKey,
     		         final String signatureMethod,
-    		         final List refsIdList,
+    		         final List<Object> refsIdList,
     		         final String signatureIdPrefix) throws MarshalException,
                                                             XMLSignatureException,
                                                             GeneralSecurityException {
@@ -124,12 +124,12 @@ public class XMLAdvancedSignature {
     public void sign(final X509Certificate certificate,
     		         final PrivateKey privateKey,
     		         final String signatureMethod,
-    		         final List<Reference> refsIdList,
+    		         final List<Object> refsIdList,
     		         final String signatureIdPrefix,
     		         final SigningCertificateInfo signingCertInfo) throws MarshalException,
                                                                           XMLSignatureException,
                                                                           GeneralSecurityException {
-        final List<Reference> referencesIdList = new ArrayList<>(refsIdList);
+        final List<Object> referencesIdList = new ArrayList<>(refsIdList);
 
         if (WrappedKeyStorePlace.SIGNING_CERTIFICATE_PROPERTY.equals(getWrappedKeyStorePlace())) {
         	if (this.xades instanceof XadesWithBasicAttributes) {
@@ -398,7 +398,7 @@ public class XMLAdvancedSignature {
     protected QualifyingProperties marshalQualifyingProperties(final String xmlNamespace,
     		                                                   final String signedPropertiesTypeUrl1,
     		                                                   final String signatureIdPrefix,
-    		                                                   final List<Reference> referencesIdList) throws GeneralSecurityException,
+    		                                                   final List<Object> referencesIdList) throws GeneralSecurityException,
                                                                                                    MarshalException {
     	return marshalQualifyingProperties(
 			xmlNamespace,
@@ -412,7 +412,7 @@ public class XMLAdvancedSignature {
     protected QualifyingProperties marshalQualifyingProperties(final String xmlNamespace,
                                                                final String signedPropertiesTypeUrl,
                                                                final String signatureIdPrefix,
-                                                               final List<Reference> referencesIdList,
+                                                               final List<Object> referencesIdList,
                                                                final List<Transform> transforms) throws GeneralSecurityException,
                                                                                                    MarshalException {
         final QualifyingProperties qp = new QualifyingProperties(
@@ -442,7 +442,7 @@ public class XMLAdvancedSignature {
     protected XMLObject marshalXMLSignature(final String xadesNamespace,
                                             final String signedPropertiesTypeUrl,
                                             final String signatureIdPrefix,
-                                            final List<Reference> referencesIdList) throws GeneralSecurityException,
+                                            final List<Object> referencesIdList) throws GeneralSecurityException,
                                                                                 MarshalException {
     	return marshalXMLSignature(
 			xadesNamespace,
@@ -456,7 +456,7 @@ public class XMLAdvancedSignature {
     protected XMLObject marshalXMLSignature(final String xadesNamespace,
     		                                final String signedPropertiesTypeUrl,
                                             final String signatureIdPrefix,
-                                            final List<Reference> referencesIdList,
+                                            final List<Object> referencesIdList,
                                             final List<Transform> SignedPropertiesTransforms) throws GeneralSecurityException,
                                                                                                      MarshalException {
         final QualifyingProperties qp = marshalQualifyingProperties(

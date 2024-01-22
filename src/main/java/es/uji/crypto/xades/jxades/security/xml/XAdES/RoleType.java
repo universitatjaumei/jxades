@@ -32,6 +32,6 @@ package es.uji.crypto.xades.jxades.security.xml.XAdES;
  *
  * @author miro
  */
-public interface RoleType
-{
+public interface RoleType {
+	// Vacio
 }

@@ -9,8 +9,8 @@ public class SignerRoleImpl implements SignerRole
 
 	public SignerRoleImpl()
 	{
-		this.claimedRole = new ArrayList<String>();
-		this.certifiedRole = new ArrayList<String>();
+		this.claimedRole = new ArrayList<>();
+		this.certifiedRole = new ArrayList<>();
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class SignerRoleImpl implements SignerRole
 	}
 
 	@Override
-	public void setCertifiedRole(ArrayList<String> certifiedRole)
+	public void setCertifiedRole(final ArrayList<String> certifiedRole)
 	{
 		this.certifiedRole = certifiedRole;
 	}
@@ -32,19 +32,19 @@ public class SignerRoleImpl implements SignerRole
 	}
 
 	@Override
-	public void setClaimedRole(ArrayList<String> claimedRole)
+	public void setClaimedRole(final ArrayList<String> claimedRole)
 	{
 		this.claimedRole = claimedRole;
 	}
 
 	@Override
-	public void addClaimedRole(String role)
+	public void addClaimedRole(final String role)
 	{
 		this.claimedRole.add(role);
 	}
 
 	@Override
-	public void addCertifiedRole(String role)
+	public void addCertifiedRole(final String role)
 	{
 		this.certifiedRole.add(role);
 	}

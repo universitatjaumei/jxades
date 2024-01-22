@@ -20,6 +20,7 @@ import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.SignatureProperties;
 import javax.xml.crypto.dsig.SignatureProperty;
 import javax.xml.crypto.dsig.SignedInfo;
+import javax.xml.crypto.dsig.Transform;
 import javax.xml.crypto.dsig.XMLObject;
 import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureException;
@@ -130,13 +131,12 @@ public class XMLSignatureDocument
         this.wrappedKeyInfo = wrappedKeyInfo;
     }
 
-    public WrappedKeyStorePlace getWrappedKeyStorePlace()
-    {
+    public static WrappedKeyStorePlace getWrappedKeyStorePlace() {
         return WrappedKeyStorePlace.KEY_INFO;
     }
 
-    public void setWrappedKeyStorePlace(final WrappedKeyStorePlace wrappedKeyStorePlace)
-    {
+    public void setWrappedKeyStorePlace(final WrappedKeyStorePlace wrappedKeyStorePlace) {
+    	// Vacio
     }
 
     protected Reference getReference(final String uri)
@@ -152,7 +152,7 @@ public class XMLSignatureDocument
     }
 
     protected Reference getReference(final String uri,
-                                     final List transforms,
+                                     final List<Transform> transforms,
                                      final String type)
         throws GeneralSecurityException
     {
@@ -160,11 +160,9 @@ public class XMLSignatureDocument
     }
 
     protected Reference getReference(String uri,
-                                     final List transforms,
+                                     final List<Transform> transforms,
                                      final String type,
-                                     final String referenceId)
-        throws GeneralSecurityException
-    {
+                                     final String referenceId) throws GeneralSecurityException {
         final XMLSignatureFactory fac = getXMLSignatureFactory();
         final DigestMethod dm = getDigestMethod();
         uri = uri.trim();
@@ -174,16 +172,14 @@ public class XMLSignatureDocument
         return fac.newReference(uri, dm, transforms, type, referenceId);
     }
 
-    protected List<Reference> getReferences(final List idList)
-        throws GeneralSecurityException
+    protected List<Reference> getReferences(final List<Object> idList) throws GeneralSecurityException
     {
         final ArrayList<Reference> references = new ArrayList<>(idList.size());
-        for(final Object id : idList)
-        {
+        for(final Object id : idList) {
             if(id instanceof Reference) {
 				references.add((Reference)id);
-			} else
-            {
+			}
+            else {
                 references.add(getReference((String)id));
             }
         }
@@ -191,13 +187,11 @@ public class XMLSignatureDocument
         return references;
     }
 
-    public List<SignatureStatus> validate()
-    {
+    public List<SignatureStatus> validate() {
         ArrayList<SignatureStatus> validateResult;
         final List<XMLSignatureElement> signatureElements = getXMLSignatureElements();
         validateResult = new ArrayList<>(signatureElements.size());
-        for(final XMLSignatureElement signatureElement : signatureElements)
-        {
+        for(final XMLSignatureElement signatureElement : signatureElements) {
             validateResult.add(signatureElement.validate());
         }
 
@@ -207,15 +201,13 @@ public class XMLSignatureDocument
     public void sign(final X509Certificate certificate,
                      final PrivateKey privateKey,
                      final String signatureMethod,
-                     final List referencesIdList,
+                     final List<Object> referencesIdList,
                      final String signatureIdPrefix,
                      final String xadesPrefix,
                      final String xadesNamespace,
-                     final String xmlSignaturePrefix)
-        throws MarshalException,
-               XMLSignatureException,
-               GeneralSecurityException
-    {
+                     final String xmlSignaturePrefix) throws MarshalException,
+               	                                             XMLSignatureException,
+               	                                             GeneralSecurityException {
         final String signatureId = getSignatureId(signatureIdPrefix);
         final String signatureValueId = getSignatureValueId(signatureIdPrefix);
 
@@ -231,11 +223,13 @@ public class XMLSignatureDocument
         final SignatureMethod sm = fac.newSignatureMethod(signatureMethod, null);
         final SignedInfo si = fac.newSignedInfo(cm, sm, documentReferences);
 
-        final XMLSignature signature = fac.newXMLSignature(si,
-                                                     newKeyInfo(certificate, keyInfoId),
-                                                     getXMLObjects(),
-                                                     signatureId,
-                                                     signatureValueId);
+        final XMLSignature signature = fac.newXMLSignature(
+    		si,
+            newKeyInfo(certificate, keyInfoId),
+            getXMLObjects(),
+            signatureId,
+            signatureValueId
+        );
 
         final DOMSignContext signContext = new DOMSignContext(privateKey, this.baseElement);
         signContext.putNamespacePrefix(XMLSignature.XMLNS, xmlSignaturePrefix);
@@ -244,24 +238,20 @@ public class XMLSignatureDocument
         signature.sign(signContext);
     }
 
-    protected String getSignatureId(final String idPrefix)
-    {
+    protected static String getSignatureId(final String idPrefix) {
         return idPrefix + "-Signature"; //$NON-NLS-1$
     }
 
-    protected String getSignatureValueId(final String idPrefix)
-    {
+    protected static String getSignatureValueId(final String idPrefix) {
         return idPrefix + "-SignatureValue"; //$NON-NLS-1$
     }
 
-    protected String getKeyInfoId(final String idPrefix)
-    {
+    protected static String getKeyInfoId(final String idPrefix) {
         return idPrefix + "-KeyInfo"; //$NON-NLS-1$
     }
 
-    public KeyInfo newKeyInfo(final X509Certificate certificate, final String keyInfoId)
-        throws KeyException
-    {
+    public KeyInfo newKeyInfo(final X509Certificate certificate, final String keyInfoId) throws KeyException {
+
         final KeyInfoFactory kif = getXMLSignatureFactory().getKeyInfoFactory();
         if(XmlWrappedKeyInfo.PUBLIC_KEY.equals(getXmlWrappedKeyInfo()))
         {

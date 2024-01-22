@@ -10,9 +10,9 @@ public class SignerRoleV2Impl implements SignerRoleV2
 
 	public SignerRoleV2Impl()
 	{
-		this.claimedRoles = new ArrayList<String>();
-		this.certifiedRolesV2 = new ArrayList<String>();
-		this.signedAssertions = new ArrayList<String>();
+		this.claimedRoles = new ArrayList<>();
+		this.certifiedRolesV2 = new ArrayList<>();
+		this.signedAssertions = new ArrayList<>();
 	}
 
 	@Override
@@ -22,17 +22,17 @@ public class SignerRoleV2Impl implements SignerRoleV2
 	}
 
 	@Override
-	public void setClaimedRoles(ArrayList<String> claimedRole)
+	public void setClaimedRoles(final ArrayList<String> claimedRole)
 	{
 		this.claimedRoles = claimedRole;
 	}
 
 	@Override
-	public void addClaimedRole(String role)
+	public void addClaimedRole(final String role)
 	{
 		this.claimedRoles.add(role);
 	}
-	
+
 	@Override
 	public ArrayList<String> getCertifiedRolesV2()
 	{
@@ -40,17 +40,17 @@ public class SignerRoleV2Impl implements SignerRoleV2
 	}
 
 	@Override
-	public void setCertifiedRolesV2(ArrayList<String> certifiedRole)
+	public void setCertifiedRolesV2(final ArrayList<String> certifiedRole)
 	{
 		this.certifiedRolesV2 = certifiedRole;
 	}
 
 	@Override
-	public void addCertifiedRoleV2(String role)
+	public void addCertifiedRoleV2(final String role)
 	{
 		this.certifiedRolesV2.add(role);
 	}
-	
+
 	@Override
 	public ArrayList<String> getSignedAssertions()
 	{
@@ -58,7 +58,7 @@ public class SignerRoleV2Impl implements SignerRoleV2
 	}
 
 	@Override
-	public void setSignedAssertions(ArrayList<String> signedAssertions)
+	public void setSignedAssertions(final ArrayList<String> signedAssertions)
 	{
 		this.signedAssertions = signedAssertions;
 	}

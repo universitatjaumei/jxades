@@ -4,22 +4,22 @@ import java.util.List;
 
 import javax.xml.crypto.dom.DOMStructure;
 
-import es.uji.crypto.xades.jxades.util.XMLUtils;
-
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.uji.crypto.xades.jxades.util.XMLUtils;
+
 /**
- * 
+ *
  * @author miro
  */
 public class XAdESStructure extends DOMStructure
 {
-    public static final String SIGNATURE_ELEMENT_NAME = "Signature";
-    public static final String ID_ATTRIBUTE = "Id";
-    public static final String TARGET_ATTRIBUTE = "Target";
+    public static final String SIGNATURE_ELEMENT_NAME = "Signature"; //$NON-NLS-1$
+    public static final String ID_ATTRIBUTE = "Id"; //$NON-NLS-1$
+    public static final String TARGET_ATTRIBUTE = "Target"; //$NON-NLS-1$
 
     private Document baseDocument;
 
@@ -27,15 +27,15 @@ public class XAdESStructure extends DOMStructure
     public String xadesNamespace;
     public String xmlSignaturePrefix;
 
-    public XAdESStructure(Document document, XAdESStructure parent, String elementName,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public XAdESStructure(final Document document, final XAdESStructure parent, final String elementName,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         this(document, parent.getElement(), elementName, xadesPrefix, xadesNamespace,
                 xmlSignaturePrefix);
     }
 
-    public XAdESStructure(Document document, Element parentElement, String elementName,
-            String xadesPrefix, String xadesNamespace, String xmlSignaturePrefix)
+    public XAdESStructure(final Document document, final Element parentElement, final String elementName,
+            final String xadesPrefix, final String xadesNamespace, final String xmlSignaturePrefix)
     {
         this(document.createElementNS(xadesNamespace, elementName), xadesPrefix, xadesNamespace,
                 xmlSignaturePrefix);
@@ -45,14 +45,14 @@ public class XAdESStructure extends DOMStructure
         this.xadesNamespace = xadesNamespace;
         this.xmlSignaturePrefix = xmlSignaturePrefix;
 
-        Element element = getElement();
+        final Element element = getElement();
         element.setPrefix(xadesPrefix);
 
         parentElement.appendChild(element);
     }
 
-    public XAdESStructure(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public XAdESStructure(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node);
 
@@ -71,23 +71,23 @@ public class XAdESStructure extends DOMStructure
         return getAttribute(ID_ATTRIBUTE);
     }
 
-    protected void setAttributeNS(String namespaceURI, String qualifiedName, String value)
+    protected void setAttributeNS(final String namespaceURI, final String qualifiedName, final String value)
             throws DOMException
     {
         getElement().setAttributeNS(namespaceURI, qualifiedName, value);
 
-        if ("Id".equals(qualifiedName))
+        if ("Id".equals(qualifiedName)) //$NON-NLS-1$
         {
-            getElement().setIdAttributeNS(null, "Id", true);
+            getElement().setIdAttributeNS(null, "Id", true); //$NON-NLS-1$
         }
     }
 
-    protected String getAttribute(String name)
+    protected String getAttribute(final String name)
     {
         return getElement().getAttribute(name);
     }
 
-    protected String getAttributeNS(String namespaceURI, String qualifiedName)
+    protected String getAttributeNS(final String namespaceURI, final String qualifiedName)
     {
         return getElement().getAttributeNS(namespaceURI, qualifiedName);
     }
@@ -97,32 +97,32 @@ public class XAdESStructure extends DOMStructure
         return getElement().getTextContent();
     }
 
-    protected void setTextContent(String textContent)
+    protected void setTextContent(final String textContent)
     {
         getElement().setTextContent(textContent);
     }
 
-    protected Element getChildElement(String elementName)
+    protected Element getChildElement(final String elementName)
     {
         return XMLUtils.getChildElementByTagName(getElement(), elementName);
     }
 
-    protected Element getChildElementNS(String elementName)
+    protected Element getChildElementNS(final String elementName)
     {
         return XMLUtils.getChildElementByTagNameNS(getElement(), elementName, this.xadesNamespace);
     }
 
-    protected Element getChildElementNS(String elementName, String namespace)
+    protected Element getChildElementNS(final String elementName, final String namespace)
     {
         return XMLUtils.getChildElementByTagNameNS(getElement(), elementName, namespace);
     }
 
-    protected List<Element> getChildElements(String elementName)
+    protected List<Element> getChildElements(final String elementName)
     {
         return XMLUtils.getChildElementsByTagName(getElement(), elementName);
     }
 
-    protected List<Element> getChildElementsNS(String elementName)
+    protected List<Element> getChildElementsNS(final String elementName)
     {
         return XMLUtils.getChildElementsByTagNameNS(getElement(), elementName, this.xadesNamespace);
     }
@@ -132,25 +132,25 @@ public class XAdESStructure extends DOMStructure
         return this.baseDocument;
     }
 
-    protected Element createElement(String elementName)
+    protected Element createElement(final String elementName)
     {
-        Element element = getDocument().createElementNS(this.xadesNamespace, elementName);
+        final Element element = getDocument().createElementNS(this.xadesNamespace, elementName);
         element.setPrefix(this.xadesPrefix);
 
         return element;
     }
 
-    protected Element createElementNS(String namespace, String prefix, String elementName)
+    protected Element createElementNS(final String namespace, final String prefix, final String elementName)
     {
-        Element element = getDocument().createElementNS(namespace, elementName);
+        final Element element = getDocument().createElementNS(namespace, elementName);
         element.setPrefix(prefix);
 
         return element;
     }
 
-    protected String getChildElementTextContent(String elementName)
+    protected String getChildElementTextContent(final String elementName)
     {
-        Element element = getChildElementNS(elementName);
+        final Element element = getChildElementNS(elementName);
 
         if (element != null)
         {

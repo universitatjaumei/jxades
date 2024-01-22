@@ -1,5 +1,9 @@
 package es.uji.crypto.xades.jxades.util;
 
+import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+
 /**
  * <p>Encodes and decodes to and from Base64 notation.</p>
  * <p>Homepage: <a href="http://iharder.net/base64">http://iharder.net/base64</a>.</p>
@@ -141,7 +145,6 @@ public class Base64
 
 /* ********  P U B L I C   F I E L D S  ******** */
 
-
     /** No options specified. Value is zero. */
     public final static int NO_OPTIONS = 0;
 
@@ -152,13 +155,11 @@ public class Base64
     /** Specify decoding in first bit. Value is zero. */
     public final static int DECODE = 0;
 
-
     /** Specify that data should be gzip-compressed in second bit. Value is two. */
     public final static int GZIP = 2;
 
     /** Specify that gzipped data should <em>not</em> be automatically gunzipped. */
     public final static int DONT_GUNZIP = 4;
-
 
     /** Do break lines when encoding. Value is 8. */
     public final static int DO_BREAK_LINES = 8;
@@ -172,7 +173,6 @@ public class Base64
      * was encoded using the URL- and Filename-safe dialect.
      */
      public final static int URL_SAFE = 16;
-
 
      /**
       * Encode using the special "ordered" dialect of Base64 described here:
@@ -638,8 +638,7 @@ public class Base64
      * @throws java.io.IOException if there is an error
      * @since 2.0
      */
-    public static String encodeObject( final java.io.Serializable serializableObject, final int options )
-    throws java.io.IOException {
+    public static String encodeObject(final java.io.Serializable serializableObject, final int options) throws IOException {
 
         if( serializableObject == null ){
             throw new NullPointerException( "Cannot serialize a null object." ); //$NON-NLS-1$
@@ -667,15 +666,14 @@ public class Base64
             oos.writeObject( serializableObject );
         }   // end try
         catch( final java.io.IOException e ) {
-            // Catch it and then throw it immediately so that
-            // the finally{} block is called for cleanup.
+            // Catch it and then throw it immediately so that the finally{} block is called for cleanup.
             throw e;
         }   // end catch
         finally {
-            try{ oos.close();   } catch( final Exception e ){}
-            try{ gzos.close();  } catch( final Exception e ){}
-            try{ b64os.close(); } catch( final Exception e ){}
-            try{ baos.close();  } catch( final Exception e ){}
+            try{ oos.close();   } catch( final Exception e ){ /* Vacio */ }
+            try{ gzos.close();  } catch( final Exception e ){ /* Vacio */ }
+            try{ b64os.close(); } catch( final Exception e ){ /* Vacio */ }
+            try{ baos.close();  } catch( final Exception e ){ /* Vacio */ }
         }   // end finally
 
         // Return value according to relevant encoding.
@@ -914,9 +912,9 @@ public class Base64
                 throw e;
             }   // end catch
             finally {
-                try{ gzos.close();  } catch( final Exception e ){}
-                try{ b64os.close(); } catch( final Exception e ){}
-                try{ baos.close();  } catch( final Exception e ){}
+                try{ gzos.close();  } catch( final Exception e ){ /* Vacio */ }
+                try{ b64os.close(); } catch( final Exception e ){ /* Vacio */ }
+                try{ baos.close();  } catch( final Exception e ){ /* Vacio */ }
             }   // end finally
 
             return baos.toByteArray();
@@ -1259,9 +1257,9 @@ public class Base64
                     // Just return originally-decoded bytes
                 }   // end catch
                 finally {
-                    try{ baos.close(); } catch( final Exception e ){}
-                    try{ gzis.close(); } catch( final Exception e ){}
-                    try{ bais.close(); } catch( final Exception e ){}
+                    try{ baos.close(); } catch( final Exception e ){ /* Vacio */ }
+                    try{ gzis.close(); } catch( final Exception e ){ /* Vacio */ }
+                    try{ bais.close(); } catch( final Exception e ){ /* Vacio */ }
                 }   // end finally
 
             }   // end if: gzipped
@@ -1347,8 +1345,8 @@ public class Base64
             throw e;    // Catch and throw in order to execute finally{}
         }   // end catch
         finally {
-            try{ bais.close(); } catch( final Exception e ){}
-            try{ ois.close();  } catch( final Exception e ){}
+            try{ bais.close(); } catch( final Exception e ){ /* Vacio */ }
+            try{ ois.close();  } catch( final Exception e ){ /* Vacio */ }
         }   // end finally
 
         return obj;
@@ -1370,26 +1368,14 @@ public class Base64
      * @throws NullPointerException if dataToEncode is null
      * @since 2.1
      */
-    public static void encodeToFile( final byte[] dataToEncode, final String filename )
-    throws java.io.IOException {
-
-        if( dataToEncode == null ){
+    public static void encodeToFile(final byte[] dataToEncode, final String filename) throws IOException {
+        if(dataToEncode == null){
             throw new NullPointerException( "Data to encode was null." ); //$NON-NLS-1$
         }   // end iff
 
-        Base64.OutputStream bos = null;
-        try {
-            bos = new Base64.OutputStream(
-                  new java.io.FileOutputStream( filename ), Base64.ENCODE );
+        try (Base64.OutputStream bos = new Base64.OutputStream(new FileOutputStream(filename), Base64.ENCODE )) {
             bos.write( dataToEncode );
         }   // end try
-        catch( final java.io.IOException e ) {
-            throw e; // Catch and throw to execute finally{} block
-        }   // end catch: java.io.IOException
-        finally {
-            try{ bos.close(); } catch( final Exception e ){}
-        }   // end finally
-
     }   // end encodeToFile
 
 
@@ -1419,7 +1405,7 @@ public class Base64
             throw e; // Catch and throw to execute finally{} block
         }   // end catch: java.io.IOException
         finally {
-                try{ bos.close(); } catch( final Exception e ){}
+                try{ bos.close(); } catch( final Exception e ){ /* Vacio */ }
         }   // end finally
 
     }   // end decodeToFile
@@ -1479,7 +1465,7 @@ public class Base64
             throw e; // Catch and release to execute finally{}
         }   // end catch: java.io.IOException
         finally {
-            try{ bis.close(); } catch( final Exception e) {}
+            try{ bis.close(); } catch( final Exception e) { /* Vacio */ }
         }   // end finally
 
         return decodedData;
@@ -1532,7 +1518,7 @@ public class Base64
             throw e; // Catch and release to execute finally{}
         }   // end catch: java.io.IOException
         finally {
-            try{ bis.close(); } catch( final Exception e) {}
+            try{ bis.close(); } catch( final Exception e) { /* Vacio */ }
         }   // end finally
 
         return encodedData;
@@ -1561,7 +1547,7 @@ public class Base64
         }   // end catch
         finally {
             try { out.close(); }
-            catch( final Exception ex ){}
+            catch( final Exception ex ) { /* Vacio */ }
         }   // end finally
     }   // end encodeFileToFile
 
@@ -1589,7 +1575,7 @@ public class Base64
         }   // end catch
         finally {
             try { out.close(); }
-            catch( final Exception ex ){}
+            catch( final Exception ex ) { /* Vacio */ }
         }   // end finally
     }   // end decodeFileToFile
 
@@ -1810,7 +1796,7 @@ public class Base64
      * @see Base64
      * @since 1.3
      */
-    public static class OutputStream extends java.io.FilterOutputStream {
+    public static class OutputStream extends FilterOutputStream {
 
         private final boolean encode;
         private int     position;

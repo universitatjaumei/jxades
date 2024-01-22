@@ -41,24 +41,20 @@ public class XMLSignatureElement
     {
         if (signatureElement == null)
         {
-            throw new IllegalArgumentException("Signature Element can not be NULL.");
+            throw new IllegalArgumentException("Signature Element can not be NULL."); //$NON-NLS-1$
         }
         this.signatureElement = signatureElement;
     }
 
-    protected XMLSignatureFactory getXMLSignatureFactory()
-    {
-        if (this.xmlSignatureFactory == null)
-        {
-            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM");
+    protected XMLSignatureFactory getXMLSignatureFactory() {
+        if (this.xmlSignatureFactory == null) {
+            this.xmlSignatureFactory = XMLSignatureFactory.getInstance("DOM"); //$NON-NLS-1$
         }
         return this.xmlSignatureFactory;
     }
 
-    protected KeySelector getKeySelector()
-    {
-        if (this.keySelector == null)
-        {
+    protected KeySelector getKeySelector() {
+        if (this.keySelector == null) {
             this.keySelector = new KeyValueKeySelector();
         }
         return this.keySelector;
@@ -120,7 +116,7 @@ public class XMLSignatureElement
     {
         final DOMValidateContext valContext = new DOMValidateContext(getKeySelector(), this.signatureElement);
         final XMLSignatureFactory fac = getXMLSignatureFactory();
-        String signatureId = this.signatureElement.getAttribute("Id");
+        String signatureId = this.signatureElement.getAttribute("Id"); //$NON-NLS-1$
         XMLSignature signature = null;
         try
         {
@@ -157,12 +153,12 @@ public class XMLSignatureElement
         }
         catch (final NullPointerException ex)
         {
-            final InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex);
+            final InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex); //$NON-NLS-1$
             return new SignatureStatus(signatureId, ValidateResult.INVALID, reason);
         }
         catch (final XMLSignatureException ex)
         {
-            final InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex);
+            final InvalidSignatureReason reason = new InvalidSignatureReason("XMLSignature", ex); //$NON-NLS-1$
             return new SignatureStatus(signatureId, ValidateResult.INVALID, reason);
         }
 
@@ -182,12 +178,12 @@ public class XMLSignatureElement
             }
             catch (final NullPointerException ex)
             {
-                final InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex);
+                final InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex); //$NON-NLS-1$
                 validateResult.addInvalidSignatureReason(reason);
             }
             catch (final XMLSignatureException ex)
             {
-                final InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex);
+                final InvalidSignatureReason reason = new InvalidSignatureReason("SignatureValue", ex); //$NON-NLS-1$
                 validateResult.addInvalidSignatureReason(reason);
             }
 
@@ -205,12 +201,12 @@ public class XMLSignatureElement
                 }
                 catch (final NullPointerException ex)
                 {
-                    final InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex);
+                    final InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex); //$NON-NLS-1$
                     validateResult.addInvalidSignatureReason(reason);
                 }
                 catch (final XMLSignatureException ex)
                 {
-                    final InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex);
+                    final InvalidSignatureReason reason = new InvalidSignatureReason("Reference", ex); //$NON-NLS-1$
                     validateResult.addInvalidSignatureReason(reason);
                 }
             }
@@ -235,14 +231,13 @@ public class XMLSignatureElement
         {
             if (keyInfo == null)
             {
-                throw new KeySelectorException("Null KeyInfo object!");
+                throw new KeySelectorException("Null KeyInfo object!"); //$NON-NLS-1$
             }
             final SignatureMethod sm = (SignatureMethod) method;
             final List list = keyInfo.getContent();
 
-            for (int i = 0; i < list.size(); i++)
-            {
-                final XMLStructure xmlStructure = (XMLStructure) list.get(i);
+            for (final Object element : list) {
+                final XMLStructure xmlStructure = (XMLStructure) element;
                 if (xmlStructure instanceof KeyValue)
                 {
                     PublicKey pk = null;
@@ -281,23 +276,16 @@ public class XMLSignatureElement
                     }
                 }
             }
-            throw new KeySelectorException("No KeyValue element found!");
+            throw new KeySelectorException("No KeyValue element found!"); //$NON-NLS-1$
         }
 
         static boolean algEquals(final String algURI, final String algName)
         {
-            if (algName.equalsIgnoreCase("DSA") && algURI.toUpperCase().contains("DSA"))
-            {
-                return true;
-            }
-			if (algName.equalsIgnoreCase("RSA") && algURI.toUpperCase().contains("RSA"))
+            if (algName.equalsIgnoreCase("DSA") && algURI.toUpperCase().contains("DSA") || algName.equalsIgnoreCase("RSA") && algURI.toUpperCase().contains("RSA")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			{
 			    return true;
 			}
-			else
-			{
-			    return false;
-			}
+			return false;
         }
     }
 

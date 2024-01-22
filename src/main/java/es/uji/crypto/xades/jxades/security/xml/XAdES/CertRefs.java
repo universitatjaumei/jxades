@@ -51,7 +51,7 @@ public class CertRefs extends XAdESStructure
             setAttributeNS(null, "Id", signatureIdPrefix + "-CertRefs"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        this.certs = new ArrayList<Cert>(certificates.size());
+        this.certs = new ArrayList<>(certificates.size());
 
         for (final X509Certificate certificate : certificates)
         {
@@ -73,7 +73,7 @@ public class CertRefs extends XAdESStructure
             final List<Element> elements = getChildElementsNS("Cert"); //$NON-NLS-1$
             if (elements != null && elements.size() > 0)
             {
-                this.certs = new ArrayList<Cert>(elements.size());
+                this.certs = new ArrayList<>(elements.size());
                 for (final Element element : elements)
                 {
                     this.certs.add(new Cert(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix));

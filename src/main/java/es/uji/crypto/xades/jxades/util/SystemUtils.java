@@ -33,12 +33,12 @@ import java.util.Date;
  */
 public class SystemUtils
 {
-    private static final String KEY_PREFIX = "com.cosmos";
-    public static final String KEY_APPLICATION_NAME = KEY_PREFIX + ".apps.name";
-    public static final String KEY_CLIENT_CONFIG_FOLDER = KEY_PREFIX + ".apps.client.config.folder";
-    public static final String KEY_KEYSTORE_FOLDER = KEY_PREFIX + ".key.store.folder";
-    private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
-    private static final char[] EMPTY_CHAR_ARRAY = new char[0];
+    private static final String KEY_PREFIX = "com.cosmos"; //$NON-NLS-1$
+    public static final String KEY_APPLICATION_NAME = KEY_PREFIX + ".apps.name"; //$NON-NLS-1$
+    public static final String KEY_CLIENT_CONFIG_FOLDER = KEY_PREFIX + ".apps.client.config.folder"; //$NON-NLS-1$
+    public static final String KEY_KEYSTORE_FOLDER = KEY_PREFIX + ".key.store.folder"; //$NON-NLS-1$
+    private static final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray(); //$NON-NLS-1$
+    private static final char[] EMPTY_CHAR_ARRAY = {};
 
     private static DateFormat dateFormat;
     private static DecimalFormat decimalFormat;
@@ -74,7 +74,7 @@ public class SystemUtils
         }
         catch (final ParseException ex)
         {
-            dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z");
+            dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss z"); //$NON-NLS-1$
             return dateFormat.parse(dateString);
         }
     }
@@ -83,7 +83,7 @@ public class SystemUtils
     {
         if (decimalFormat == null)
         {
-            decimalFormat = new DecimalFormat("#,##0.##");
+            decimalFormat = new DecimalFormat("#,##0.##"); //$NON-NLS-1$
         }
         return decimalFormat;
     }
@@ -95,7 +95,7 @@ public class SystemUtils
 		}
 
         final StringBuilder sb = new StringBuilder();
-        sb.append(getErrorMessage(ex)).append("; \n");
+        sb.append(getErrorMessage(ex)).append("; \n"); //$NON-NLS-1$
 
         Throwable cause = ex.getCause();
         while (cause != null)
@@ -103,7 +103,7 @@ public class SystemUtils
             final String message = getErrorMessage(cause);
             if (message != null)
             {
-                sb.append(message).append("; \n");
+                sb.append(message).append("; \n"); //$NON-NLS-1$
             }
             cause = cause.getCause();
         }
@@ -113,16 +113,14 @@ public class SystemUtils
 
     public static String getErrorMessage(final Throwable ex)
     {
-        if (ex != null)
-        {
-            String message = ex.getMessage();
-            if (message == null) {
-				message = ex.getClass().getName();
-			}
-            return message;
-        } else {
+        if (ex == null) {
 			return null;
 		}
+		String message = ex.getMessage();
+		if (message == null) {
+			message = ex.getClass().getName();
+		}
+		return message;
     }
 
     public static byte[] toByteArray(final InputStream inStream) throws IOException
@@ -140,10 +138,10 @@ public class SystemUtils
     public static void copy(InputStream inStream, final OutputStream outStream) throws IOException
     {
         if (inStream == null) {
-			throw new IllegalArgumentException("InputStream can not be NULL in copy method.");
+			throw new IllegalArgumentException("InputStream can not be NULL in copy method."); //$NON-NLS-1$
 		}
         if (outStream == null) {
-			throw new IllegalArgumentException("OutputStream can not be NULL in copy method.");
+			throw new IllegalArgumentException("OutputStream can not be NULL in copy method."); //$NON-NLS-1$
 		}
 
         byte[] buffer = new byte[1024];
@@ -185,17 +183,17 @@ public class SystemUtils
 
     public static String getOSName()
     {
-        return System.getProperty("os.name");
+        return System.getProperty("os.name"); //$NON-NLS-1$
     }
 
     public static String getIOTempDir()
     {
-        return System.getProperty("java.io.tmpdir");
+        return System.getProperty("java.io.tmpdir"); //$NON-NLS-1$
     }
 
     public static String getUserHome()
     {
-        return System.getProperty("user.home");
+        return System.getProperty("user.home"); //$NON-NLS-1$
     }
 
     public static String toHexString(final byte[] data)

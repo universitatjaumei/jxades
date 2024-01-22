@@ -31,15 +31,12 @@ public class ResourceHelper
         this(clazz, null);
     }
 
-    public ResourceHelper(final Class clazz, final String resourceFolderName)
-        throws IOException
-    {
+    public ResourceHelper(final Class<?> clazz, final String resourceFolderName) throws IOException {
         this.resourceFolderName = resourceFolderName;
         this.classFileName = clazz.getName().replace('.', '/') + ".class"; //$NON-NLS-1$
         final ClassLoader classLoader = clazz.getClassLoader();
         this.resourceURL = ClassLoader.getSystemResource(this.classFileName);
-        if(this.resourceURL == null)
-        {
+        if(this.resourceURL == null) {
             this.resourceURL = classLoader.getResource(this.classFileName);
         }
         if(this.resourceURL == null) {
@@ -47,16 +44,12 @@ public class ResourceHelper
 		}
     }
 
-    public URL getResourceURL()
-    {
+    public URL getResourceURL() {
         return this.resourceURL;
     }
 
-    public Enumeration<ResourceEntry> resourceEntries()
-        throws IOException
-    {
-        if(this.resourceEntries == null)
-        {
+    public Enumeration<ResourceEntry> resourceEntries() throws IOException {
+        if(this.resourceEntries == null) {
             final String protocol = this.resourceURL.getProtocol().toLowerCase();
             if("file".equals(protocol)) //$NON-NLS-1$
             {
@@ -67,16 +60,16 @@ public class ResourceHelper
                 if(this.resourceFolderName != null) {
 					baseFolder = new File(baseFolder, this.resourceFolderName);
 				}
-                final List<File> fileStore = new ArrayList<File>();
+                final List<File> fileStore = new ArrayList<>();
                 loadFiles(baseFolder, fileStore);
                 return new FileResourceEntries(fileStore);
             }
-			if("jar".equals(protocol)) //$NON-NLS-1$
-            {
+			if("jar".equals(protocol)) { //$NON-NLS-1$
                 final JarURLConnection jarConn = (JarURLConnection)this.resourceURL.openConnection();
                 final JarFile jarFile = jarConn.getJarFile();
                 this.resourceEntries = new JarResourceEntries(jarFile, this.resourceFolderName);
-            } else {
+            }
+			else {
 				this.resourceEntries = new EmptyResourceEntries();
 			}
         }
@@ -121,7 +114,7 @@ public class ResourceHelper
         public JarResourceEntries(final JarFile jarFile, final String resourceFolderName)
         {
             this.jarFile = jarFile;
-            final List<JarEntry> jarEntryList = new ArrayList<JarEntry>();
+            final List<JarEntry> jarEntryList = new ArrayList<>();
             final Enumeration<JarEntry> jarEntries = jarFile.entries();
             while(jarEntries.hasMoreElements())
             {

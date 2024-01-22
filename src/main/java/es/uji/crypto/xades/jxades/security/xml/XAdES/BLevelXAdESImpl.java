@@ -323,7 +323,7 @@ public class BLevelXAdESImpl extends BaseXAdESImpl implements XAdES_B_Level {
 	@SuppressWarnings("unchecked")
     protected void marshalQualifyingProperties(final QualifyingProperties qp,
     			                               final String signatureIdPrefix,
-    			                               final List referencesIdList) throws MarshalException {
+    			                               final List<Object> referencesIdList) throws MarshalException {
         SignedSignatureProperties ssp;
         SignedDataObjectProperties sdop;
 

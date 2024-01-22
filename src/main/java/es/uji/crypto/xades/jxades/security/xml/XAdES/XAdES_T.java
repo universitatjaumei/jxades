@@ -1,7 +1,5 @@
 package es.uji.crypto.xades.jxades.security.xml.XAdES;
 
-import java.util.List;
-
 /**
  *
  * <b>4.4.3 Electronic signature formats with validation data</b>
@@ -57,4 +55,5 @@ import java.util.List;
  * </pre>
  * @author miro */
 public interface XAdES_T extends XAdES_EPES, XadesWithSignatureTimeStamp {
+	// Vacio
 }

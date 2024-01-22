@@ -27,7 +27,7 @@ public class ValidateSchemaTest
             GeneralSecurityException, MarshalException, XMLSignatureException, TransformException,
             ParserConfigurationException, SAXException
     {
-        validaDocumentAgainsSchemaFile("XAdES01903v132-201601.xsd");
+        validaDocumentAgainsSchemaFile("XAdES01903v132-201601.xsd"); //$NON-NLS-1$
     }
 
     @Test
@@ -35,7 +35,7 @@ public class ValidateSchemaTest
             GeneralSecurityException, MarshalException, XMLSignatureException, TransformException,
             ParserConfigurationException, SAXException
     {
-        validaDocumentAgainsSchemaFile("XAdES01903v132-201601.xsd");
+        validaDocumentAgainsSchemaFile("XAdES01903v132-201601.xsd"); //$NON-NLS-1$
     }
 
     private void validaDocumentAgainsSchemaFile(final String schemaFile)
@@ -46,19 +46,19 @@ public class ValidateSchemaTest
         documentBuilderFactory.setValidating(true);
         //documentBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "all");
         documentBuilderFactory.setAttribute(
-                "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
-                "http://www.w3.org/2001/XMLSchema");
-        documentBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource",
-        		"http://www.w3.org/2001/datatypes.dtd");
+                "http://java.sun.com/xml/jaxp/properties/schemaLanguage", //$NON-NLS-1$
+                "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
+        documentBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", //$NON-NLS-1$
+        		"http://www.w3.org/2001/datatypes.dtd"); //$NON-NLS-1$
 
-        documentBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource",
-                new File("src/test/resources/" + schemaFile));
+        documentBuilderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", //$NON-NLS-1$
+                new File("src/test/resources/" + schemaFile)); //$NON-NLS-1$
 
         final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         documentBuilder.setEntityResolver(new RedirectEntityResolver());
         documentBuilder.setErrorHandler(new JUnitXMLErrorHandler());
 
-        documentBuilder.parse(new FileInputStream("src/test/resources/detached-jxades.xml"));
+        documentBuilder.parse(new FileInputStream("src/test/resources/detached-jxades.xml")); //$NON-NLS-1$
     }
 
     private static class RedirectEntityResolver implements EntityResolver {
@@ -70,16 +70,16 @@ public class ValidateSchemaTest
 		@Override
 		public InputSource resolveEntity(final String publicId, final String systemId) throws SAXException, IOException {
 
-			System.out.println("publicId: " + publicId);
-			System.out.println("systemId: " + systemId);
+			System.out.println("publicId: " + publicId); //$NON-NLS-1$
+			System.out.println("systemId: " + systemId); //$NON-NLS-1$
 
 			String resourceUrl = systemId;
-			if (resourceUrl.startsWith("file://") && this.previousUrlBase != null) {
-				resourceUrl = this.previousUrlBase + systemId.substring(systemId.lastIndexOf("/"));
+			if (resourceUrl.startsWith("file://") && this.previousUrlBase != null) { //$NON-NLS-1$
+				resourceUrl = this.previousUrlBase + systemId.substring(systemId.lastIndexOf("/")); //$NON-NLS-1$
 			}
 
-			System.out.println("URL actualizada: " + resourceUrl);
-			System.out.println("----------");
+			System.out.println("URL actualizada: " + resourceUrl); //$NON-NLS-1$
+			System.out.println("----------"); //$NON-NLS-1$
 
             final URL obj = new URL(resourceUrl);
             HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
@@ -90,14 +90,13 @@ public class ValidateSchemaTest
                 || status == HttpURLConnection.HTTP_MOVED_PERM
                 || status == HttpURLConnection.HTTP_SEE_OTHER)) {
 
-                final String newUrl = conn.getHeaderField("Location");
+                final String newUrl = conn.getHeaderField("Location"); //$NON-NLS-1$
                 conn = (HttpURLConnection) new URL(newUrl).openConnection();
             }
 
-            this.previousUrlBase = resourceUrl.substring(0, resourceUrl.lastIndexOf("/"));
+            this.previousUrlBase = resourceUrl.substring(0, resourceUrl.lastIndexOf("/")); //$NON-NLS-1$
 
             return new InputSource(conn.getInputStream());
-
         }
 
     }

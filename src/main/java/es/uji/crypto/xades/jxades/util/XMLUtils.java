@@ -31,20 +31,20 @@ import org.w3c.dom.ls.LSSerializer;
  */
 public final class XMLUtils {
 
-	public static final String SHA224 = "http://www.w3.org/2001/04/xmldsig-more#sha224";
-	public static final String SHA384 = "http://www.w3.org/2001/04/xmldsig-more#sha384";
+	public static final String SHA224 = "http://www.w3.org/2001/04/xmldsig-more#sha224"; //$NON-NLS-1$
+	public static final String SHA384 = "http://www.w3.org/2001/04/xmldsig-more#sha384"; //$NON-NLS-1$
 
 	/** The <a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha224">
      * RSA-SHA224</a> (PKCS #1) signature method algorithm URI. */
-    public static final String RSA_SHA224 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha224";
+    public static final String RSA_SHA224 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha224"; //$NON-NLS-1$
 
 	/** The <a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256">
      * RSA-SHA256</a> (PKCS #1) signature method algorithm URI. */
-    public static final String RSA_SHA256 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
+    public static final String RSA_SHA256 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"; //$NON-NLS-1$
 
     /** The <a href="http://www.w3.org/2001/04/xmldsig-more#rsa-sha384">
      * RSA-SHA384</a> (PKCS #1) signature method algorithm URI. */
-    public static final String RSA_SHA384 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384";
+    public static final String RSA_SHA384 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"; //$NON-NLS-1$
 
     private static Charset charset = StandardCharsets.UTF_8;
 
@@ -270,7 +270,7 @@ public final class XMLUtils {
 
         final DOMImplementationLS domImplLS = (DOMImplementationLS) document.getImplementation();
         final LSSerializer serializer = domImplLS.createLSSerializer();
-        serializer.getDomConfig().setParameter("namespaces", false);
+        serializer.getDomConfig().setParameter("namespaces", false); //$NON-NLS-1$
 
         final DOMOutputImpl output = new DOMOutputImpl();
         output.setCharacterStream(writer);
@@ -326,17 +326,18 @@ public final class XMLUtils {
      */
     public static Element createLastPathComponent(final Document doc, final String[] path)
     {
+        if (path == null || doc == null) {
+            throw new IllegalArgumentException("Document and path must not be null"); //$NON-NLS-1$
+        }
         final Element parent = (Element) doc.getFirstChild();
-        if (path == null || parent == null || doc == null)
-        {
-            throw new IllegalArgumentException("Document parent and path must not be null");
+        if (parent == null) {
+            throw new IllegalArgumentException("Document parent must not be null"); //$NON-NLS-1$
         }
 
         Element e = parent;
         for (final String element : path) {
             Element newEl = getChildElementByTagName(e, element);
-            if (newEl == null)
-            {
+            if (newEl == null) {
                 newEl = doc.createElement(element);
                 e.appendChild(newEl);
             }
@@ -345,12 +346,10 @@ public final class XMLUtils {
         return e;
     }
 
-    public static Element getChildElementByTagNameNS(final Element parent, final String tagName, final String nsName)
-    {
+    public static Element getChildElementByTagNameNS(final Element parent, final String tagName, final String nsName) {
         final NodeList nl = parent.getChildNodes();
         final int size = nl.getLength();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             final Node node = nl.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE && tagName.equals(node.getLocalName()))
 			{
@@ -459,27 +458,27 @@ public final class XMLUtils {
     public static void printChildElements(final Element parent, final PrintStream out, final boolean deep,
             final String prefix)
     {
-        out.print(prefix + "<" + parent.getNodeName());
+        out.print(prefix + "<" + parent.getNodeName()); //$NON-NLS-1$
         final NamedNodeMap attrs = parent.getAttributes();
         Node node;
         for (int i = 0; i < attrs.getLength(); i++)
         {
             node = attrs.item(i);
-            out.print(" " + node.getNodeName() + "=\"" + node.getNodeValue() + "\"");
+            out.print(" " + node.getNodeName() + "=\"" + node.getNodeValue() + "\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
-        out.println(">");
+        out.println(">"); //$NON-NLS-1$
 
         // String data = getElementTextValueDeprecated(parent);
         String data = parent.getNodeValue();
         if (data != null && data.trim().length() > 0)
         {
-            out.println(prefix + "\t" + data);
+            out.println(prefix + "\t" + data); //$NON-NLS-1$
         }
 
         data = getElementCDataValue(parent);
         if (data != null && data.trim().length() > 0)
         {
-            out.println(prefix + "\t<![CDATA[" + data + "]]>");
+            out.println(prefix + "\t<![CDATA[" + data + "]]>"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         final NodeList nodes = parent.getChildNodes();
@@ -490,7 +489,7 @@ public final class XMLUtils {
             {
                 if (deep)
                 {
-                    printChildElements((Element) node, out, deep, prefix + "\t");
+                    printChildElements((Element) node, out, deep, prefix + "\t"); //$NON-NLS-1$
                 }
                 else
                 {
@@ -499,7 +498,7 @@ public final class XMLUtils {
             }
         }
 
-        out.println(prefix + "</" + parent.getNodeName() + ">");
+        out.println(prefix + "</" + parent.getNodeName() + ">"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
 }

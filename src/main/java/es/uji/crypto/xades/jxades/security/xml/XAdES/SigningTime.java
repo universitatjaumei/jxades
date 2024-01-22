@@ -1,49 +1,46 @@
 package es.uji.crypto.xades.jxades.security.xml.XAdES;
 
-import es.uji.crypto.xades.jxades.util.SystemUtils;
-
 import java.text.ParseException;
 import java.util.Date;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import es.uji.crypto.xades.jxades.util.SystemUtils;
+
 /**
- * 
+ *
  * @author miro
  */
 public class SigningTime extends XAdESStructure
 {
-    public SigningTime(Document document, SignedSignatureProperties ssp, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public SigningTime(final Document document, final SignedSignatureProperties ssp, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         this(document, ssp, new Date(), xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
-    public SigningTime(Document document, SignedSignatureProperties ssp, Date signingTime, String xadesPrefix,
-            String xadesNamespace, String xmlSignaturePrefix)
+    public SigningTime(final Document document, final SignedSignatureProperties ssp, final Date signingTime, final String xadesPrefix,
+            final String xadesNamespace, final String xmlSignaturePrefix)
     {
-        super(document, ssp, "SigningTime", xadesPrefix, xadesNamespace, xmlSignaturePrefix);
+        super(document, ssp, "SigningTime", xadesPrefix, xadesNamespace, xmlSignaturePrefix); //$NON-NLS-1$
         getElement().setTextContent(SystemUtils.formatDate(signingTime));
     }
 
-    public SigningTime(Node node, String xadesPrefix, String xadesNamespace,
-            String xmlSignaturePrefix)
+    public SigningTime(final Node node, final String xadesPrefix, final String xadesNamespace,
+            final String xmlSignaturePrefix)
     {
         super(node, xadesPrefix, xadesNamespace, xmlSignaturePrefix);
     }
 
     public Date getSigningTime() throws ParseException
     {
-        String value = getTextContent();
-        
+        final String value = getTextContent();
+
         if (value != null)
         {
             return SystemUtils.parseDate(value);
         }
-        else
-        {
-            return null;
-        }
+		return null;
     }
 }

@@ -1,28 +1,25 @@
 package es.uji.crypto.xades.jxades.security.xml;
 
 /**
- * 
+ *
  * @author miro
  */
-public enum ValidateResult
-{
-    VALID("Valid"), INCOMPLETE("Incomplete validation"), INVALID("Invalid");
+public enum ValidateResult {
 
-    private ValidateResult(String resultName)
-    {
+    VALID("Valida"), INCOMPLETE("Validacion incompleta"), INVALID("Invalida"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+    ValidateResult(final String resultName) {
         this.resultName = resultName;
     }
 
-    public String getResultName()
-    {
+    public String getResultName() {
         return this.resultName;
     }
 
     @Override
-	public String toString()
-    {
+	public String toString() {
         return getResultName();
     }
 
-    private String resultName;
+    private final String resultName;
 }

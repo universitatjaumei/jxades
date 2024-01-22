@@ -12,7 +12,7 @@ import javax.xml.crypto.dsig.keyinfo.X509Data;
 import javax.xml.crypto.dsig.keyinfo.X509IssuerSerial;
 
 /**
- * 
+ *
  * @author miro
  */
 public class X509DataKeySelectorResult implements KeySelectorResult
@@ -22,36 +22,37 @@ public class X509DataKeySelectorResult implements KeySelectorResult
     private X509CRL x509CRL;
     private String subjectName;
     private byte[] subjectKeyId;
-    private List<XMLStructure> unrecognizedObjects;
+    private final List<XMLStructure> unrecognizedObjects;
 
-    public X509DataKeySelectorResult(X509Data data)
+    public X509DataKeySelectorResult(final X509Data data)
     {
-        List content = data.getContent();
-        this.unrecognizedObjects = new ArrayList<XMLStructure>(content.size());
-        for (Object obj : content)
+        final List content = data.getContent();
+        this.unrecognizedObjects = new ArrayList<>(content.size());
+        for (final Object obj : content)
         {
-            if (obj instanceof X509IssuerSerial)
-                this.x509IssuerSerial = (X509IssuerSerial) obj;
-            else if (obj instanceof X509Certificate)
-                this.x509Certificate = (X509Certificate) obj;
-            else if (obj instanceof X509CRL)
-                this.x509CRL = (X509CRL) obj;
-            else if (obj instanceof String)
-                this.subjectName = (String) obj;
-            else if (obj instanceof byte[])
-                this.subjectKeyId = (byte[]) obj;
-            else
-                this.unrecognizedObjects.add((XMLStructure) obj);
+            if (obj instanceof X509IssuerSerial) {
+				this.x509IssuerSerial = (X509IssuerSerial) obj;
+			} else if (obj instanceof X509Certificate) {
+				this.x509Certificate = (X509Certificate) obj;
+			} else if (obj instanceof X509CRL) {
+				this.x509CRL = (X509CRL) obj;
+			} else if (obj instanceof String) {
+				this.subjectName = (String) obj;
+			} else if (obj instanceof byte[]) {
+				this.subjectKeyId = (byte[]) obj;
+			} else {
+				this.unrecognizedObjects.add((XMLStructure) obj);
+			}
         }
     }
 
     @Override
 	public Key getKey()
     {
-        if (this.x509Certificate != null)
-            return this.x509Certificate.getPublicKey();
-        else
-            return null;
+        if (this.x509Certificate != null) {
+			return this.x509Certificate.getPublicKey();
+		}
+		return null;
     }
 
     public X509IssuerSerial getX509IssuerSerial()

@@ -34,8 +34,6 @@ form) is illustrated below.
  *
  * @author miro
  */
-public interface XAdES_EPES
-    extends XAdES_BES, XadesWithExplicitPolicy
-{
-
+public interface XAdES_EPES extends XAdES_BES, XadesWithExplicitPolicy {
+	// Vacio
 }

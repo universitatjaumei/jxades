@@ -48,6 +48,6 @@ definition for this element.
  *
  * @author miro
  */
-public interface CounterSignature
-{
+public interface CounterSignature {
+	// Vacio
 }

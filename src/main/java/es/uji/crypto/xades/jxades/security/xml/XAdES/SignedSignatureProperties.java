@@ -113,7 +113,7 @@ public class SignedSignatureProperties extends XAdESStructure
 
     protected SignerDetails getSignerDetails()
     {
-        final Element element = getChildElementNS("SignerDetails");
+        final Element element = getChildElementNS("SignerDetails"); //$NON-NLS-1$
         if (element != null) {
 			return new SignerDetails(element, this.xadesPrefix, this.xadesNamespace, this.xmlSignaturePrefix);
 		}
